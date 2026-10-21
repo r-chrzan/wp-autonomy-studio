@@ -1,20 +1,19 @@
 import { connection } from "next/server";
-import { createRequestScope } from "@/src/server/container";
+import { withRequestScope } from "@/src/server/container";
+import { getLogger } from "@/src/server/logger";
 
 /** Liveness + database check. Proves the DI container and ORM are wired. */
-export async function GET() {
+export async function GET(): Promise<Response> {
   await connection();
 
   try {
-    const scope = await createRequestScope();
-    const db = await scope.cradle.orm.checkConnection();
-    await scope.dispose();
+    const db = await withRequestScope((scope) => scope.cradle.orm.checkConnection());
     return Response.json(
       { status: db.ok ? "ok" : "degraded", db: db.ok ? "up" : "down" },
       { status: db.ok ? 200 : 503 },
     );
   } catch (error) {
-    console.error("[health] database check failed", error);
+    getLogger().error({ err: error }, "health check failed");
     return Response.json({ status: "degraded", db: "down" }, { status: 503 });
   }
 }

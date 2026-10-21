@@ -1,19 +1,15 @@
 import Link from "next/link";
 import { Button } from "@wpas/ui/admin/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@wpas/ui/admin/card";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@wpas/ui/admin/card";
 
 export default function AdminDashboardPage() {
   return (
     <main className="mx-auto max-w-3xl p-6">
       <Card>
         <CardHeader>
-          <CardTitle>Dashboard</CardTitle>
+          <CardTitle>
+            <h1>Dashboard</h1>
+          </CardTitle>
           <CardDescription>Backend pages are styled with shadcn/ui.</CardDescription>
         </CardHeader>
         <CardContent className="flex gap-2">

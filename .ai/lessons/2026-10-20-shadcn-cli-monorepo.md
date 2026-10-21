@@ -2,7 +2,7 @@
 
 - **Context:** adding `button` and `card` with `npx shadcn@4.22.1 add` from `packages/ui`.
 - **Finding:**
-  1. The CLI refuses to run unless *every* alias in `components.json` (including `hooks`)
+  1. The CLI refuses to run unless _every_ alias in `components.json` (including `hooks`)
      resolves through the package `exports` map or tsconfig paths.
   2. With `utils: "@wpas/ui/lib/utils"` it wrote `import { cn } from "cn"` into the generated
      components **and installed the unrelated npm package `cn`** as a dependency.

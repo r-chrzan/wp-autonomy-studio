@@ -1,0 +1,12 @@
+{
+  "printWidth": 100,
+  "plugins": ["prettier-plugin-tailwindcss"],
+  "tailwindFunctions": ["cn", "cva"],
+  "tailwindStylesheet": "./packages/app/app/(admin)/admin/admin.css",
+  "overrides": [
+    {
+      "files": ["packages/app/app/(site)/**", "packages/ui/src/site/**"],
+      "options": { "tailwindStylesheet": "./packages/app/app/(site)/site.css" }
+    }
+  ]
+}

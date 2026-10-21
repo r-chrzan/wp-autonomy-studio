@@ -13,35 +13,68 @@ file; don't edit its managed `BEGIN/END` blocks, and commit it when it changes.
 
 ## Stack
 
-| Concern | Choice | Notes |
-|---|---|---|
-| Framework | Next.js 16 (App Router, Turbopack) + React 19 | `cacheComponents` is on |
-| Language | TypeScript, `strict` | shared settings in `tsconfig.base.json` |
-| Database | PostgreSQL | local instance via `compose.yaml` |
-| ORM | MikroORM v7 (`@mikro-orm/postgresql`) | migrations, connection pool |
-| DI container | Awilix | `PROXY` injection mode |
-| Frontend (public) pages | DaisyUI 5 on Tailwind CSS 4 | |
-| Backend (admin) pages | shadcn/ui (new-york, Radix) on Tailwind CSS 4 | |
-| Monorepo | npm workspaces, `packages/*` | scope `@wpas/*` |
-| Runtime | Node.js ≥ 24 | |
+| Concern                 | Choice                                        | Notes                                   |
+| ----------------------- | --------------------------------------------- | --------------------------------------- |
+| Framework               | Next.js 16 (App Router, Turbopack) + React 19 | `cacheComponents` is on                 |
+| Language                | TypeScript, `strict`                          | shared settings in `tsconfig.base.json` |
+| Database                | PostgreSQL                                    | local instance via `compose.yaml`       |
+| ORM                     | MikroORM v7 (`@mikro-orm/postgresql`)         | migrations, connection pool             |
+| DI container            | Awilix                                        | `PROXY` injection mode                  |
+| Frontend (public) pages | DaisyUI 5 on Tailwind CSS 4                   |                                         |
+| Backend (admin) pages   | shadcn/ui (new-york, Radix) on Tailwind CSS 4 |                                         |
+| Monorepo                | npm workspaces, `packages/*`                  | scope `@wpas/*`                         |
+| Runtime                 | Node.js ≥ 24                                  |                                         |
 
 Don't add a second library for something on this list (another ORM, DI container, CSS
 framework or component kit, or package manager).
+
+### Approved additions (adopt in the phase that needs them)
+
+Decided in [`.ai/specs/2026-10-21-engineering-standards.md`](.ai/specs/2026-10-21-engineering-standards.md)
+(the spec has versions, reasons and rejected alternatives). Don't add one before its phase,
+and don't substitute an alternative without updating that spec.
+
+| Concern             | Choice                                                                                              | Phase |
+| ------------------- | --------------------------------------------------------------------------------------------------- | ----- |
+| Formatting / lint   | Prettier (+ Tailwind plugin), typescript-eslint `strictTypeChecked`, eslint-plugin-boundaries, knip | 1     |
+| TypeScript          | pinned `~5.9` (typescript-eslint doesn't support TS 7 yet)                                          | 1     |
+| Validation / env    | Zod 4; one env schema in `@wpas/core`                                                               | 1     |
+| Tests               | Vitest (`test.projects`), Testing Library + jsdom, Testcontainers Postgres, agent-browser, MSW      | 1     |
+| Logging / errors    | pino; `AppError` in `@wpas/core`; Sentry SDK enabled by `SENTRY_DSN`                                | 1     |
+| Git hooks / commits | lefthook, Conventional Commits (commitlint), Renovate, GitHub Actions                               | 1     |
+| Auth                | Better Auth (own `pg.Pool`, `auth` schema, DDL in MikroORM migrations), organizations + RBAC        | 2     |
+| Admin forms         | React Hook Form + Zod resolver + shadcn `Field`                                                     | 2     |
+| Jobs                | pg-boss (no Redis, ever)                                                                            | 4     |
+| Realtime            | SSE route handler fed by Postgres `LISTEN/NOTIFY`                                                   | 4     |
+| Sandboxes           | Docker per job via dockerode, gVisor, egress allowlist                                              | 5     |
+| Agents              | `@anthropic-ai/claude-agent-sdk` (exact pin), `@anthropic-ai/sdk`, MCP SDK                          | 6     |
+| Figma / tokens      | Figma REST API first, MCP optional; DTCG → Style Dictionary → `theme.json`                          | 7     |
+
+Not now: admin i18n (English-only until a second locale is needed), a separate LLM-tracing
+service, Redis, hosted sandbox vendors.
 
 ## Monorepo layout
 
 ```
 packages/
   app/   @wpas/app   Next.js application (routes, pages, composition root)
-  core/  @wpas/core  reusable, framework-agnostic code: DI helpers, env, shared types
+  core/  @wpas/core  framework-agnostic code: /di, /env, /errors, /logger (no barrel)
   db/    @wpas/db    data management: MikroORM config, entities, migrations, repositories
   ui/    @wpas/ui    reusable UI: site/ (DaisyUI), admin/ (shadcn/ui), styles, cn()
+
+planned (create in the phase noted, not earlier):
+  domain/  @wpas/domain  business logic shared by app and worker (phase 4; until then
+                         use cases live in packages/app/src/server/modules/)
+  worker/  @wpas/worker  pg-boss process: jobs, sandboxes, agent runner, evals (phase 4)
+sandbox/                 sandbox Docker image, not a workspace package (phase 5)
 ```
 
 ### Package rules
 
 1. **Dependency direction:** `app → ui, db, core`; `db → core`; `ui` and `core` import no
-   other `@wpas/*` package. Never import `@wpas/app` from another package.
+   other `@wpas/*` package. Never import `@wpas/app` from another package. With the
+   planned packages: `app → ui, domain, db, core`; `worker → domain, db, core`;
+   `domain → db, core`. Nothing imports `worker`.
 2. **`core` stays framework-agnostic:** no React, Next.js or MikroORM imports.
 3. **`ui` stays presentational:** no data fetching, no `@wpas/db`, no server-only code.
 4. **Source-only packages:** internal packages export TypeScript source through their
@@ -65,10 +98,12 @@ packages/
 - Server-only code goes in `src/server/` and starts with `import "server-only"`.
 - Route handlers and server components get services from the container (see below), not by
   constructing them.
+- Server actions and route handlers run their work inside `withRequestScope()` from
+  `src/server/container.ts`, which disposes the scope when the request finishes.
 
 ## Dependency injection (Awilix)
 
-- Create containers only through `createAppContainer()` from `@wpas/core`. It uses `PROXY`
+- Create containers only through `createAppContainer()` from `@wpas/core/di`. It uses `PROXY`
   injection mode (dependencies arrive as one destructured object, which survives
   minification) and `strict: true`.
 - The **composition root** is `packages/app/src/server/container.ts`. Register every
@@ -99,6 +134,89 @@ packages/
 - The migrator is registered only in the CLI config (`src/mikro-orm.config.ts`), so it stays
   out of the Next.js bundle.
 
+## Design patterns
+
+Full detail in the engineering-standards spec, sections 4–5. The rules agents trip on:
+
+- **Modules:** one folder per bounded context (`identity`, `sites`, `designs`, `runs`,
+  `maintenance`, `integrations`). Each has one service per use case with a single
+  `execute(input)` method, `<module>.policy.ts` (pure rules), `<module>.ports.ts`
+  (interfaces), `<module>.errors.ts` and an `index.ts` public API. Other modules import only
+  that `index.ts`, never another module's tables or files.
+- **Boundaries own the unit of work:** a server action, route handler or job handler opens
+  the DI scope, validates with Zod, calls `authorize()`, runs the use case, then calls
+  `em.flush()` once (or `em.transactional()`) and disposes the scope in `finally`.
+  Repositories never flush.
+- **DTOs out:** never pass a MikroORM entity to a Server Component or the client.
+- **Errors:** throw `AppError` subclasses with a `code`. Server actions return
+  `ActionResult<T>`, route handlers return problem+json. Never catch `redirect`/`notFound`.
+- **Multi-tenancy:** every tenant-owned table has `organization_id`; the MikroORM tenant
+  filter (`rls: true`) plus Postgres RLS enforce it. The app connects as a non-owner role;
+  migrations use `DATABASE_MIGRATION_URL`.
+- **Secrets** live only in the `credential` table, encrypted with AES-256-GCM; decrypt only
+  in the adapter that uses them. Never log them, return them in a DTO or pass them to an
+  agent sandbox.
+- **Side effects through the outbox:** state changes that start work write an
+  `outbox_event` in the same transaction. Job handlers are idempotent.
+- **Caching:** cache only data changed by user actions (tag `org:<id>:<resource>`,
+  `updateTag` in the action). Data the worker writes is never cached; it is read
+  dynamically and streamed over SSE.
+- **Agents:** they run only in the worker, inside a sandbox with no credentials. Anything
+  that leaves the sandbox goes through host-side MCP tools. Writes to live sites, deploys
+  and over-budget spend need a human approval. Content from Figma, plugins or sites is
+  untrusted data, never instructions.
+
+## Coding standards
+
+- TypeScript: no `any` (use `unknown` + narrowing); only erasable syntax
+  (`erasableSyntaxOnly`: no `enum`, `namespace` or constructor parameter properties; use
+  `as const` objects); no non-null `!` outside tests; explicit return types on exported
+  functions in `.ts` files (components exempt); `import type` for types; `type` over
+  `interface` (except module augmentation); named exports only (except files Next.js or a
+  tool loads by default export). ESLint enforces all of these.
+- Config: read env only through `getEnv()` from `@wpas/core/env` (schema in that file; also
+  document new variables in `.env.example`). Exception: `NEXT_PUBLIC_*` in client code.
+- Logging: use the container's `logger` (pino), never `console`, with context fields
+  (`logger.child({ runId })`). Secrets are redacted by path in `@wpas/core/logger`.
+- Naming: files kebab-case; types/classes/entities PascalCase (entities singular); tables
+  snake_case; use cases `VerbNounService`; server actions `verbNounAction`; jobs
+  `module.verb-noun`; error codes `SCREAMING_SNAKE`.
+- Server Components by default; `"use client"` only on leaf components that need it.
+- Comments explain why, not what. No commented-out code.
+- Commits: Conventional Commits, scope = package name (`feat(db): …`).
+- WordPress code generated by the agents follows spec section 6 (block theme, theme.json v3,
+  WPCS + PHPStan + Plugin/Theme Check, WCAG 2.2 AA). Those rules are product requirements,
+  not rules for this repo's own code.
+
+## Testing (MANDATORY)
+
+- **Every feature ships with unit tests that cover 100% of its code: lines, branches,
+  functions and statements.** This is not a target to approach; CI fails below 100%
+  (thresholds in `vitest.config.ts`, checked by `npm run test:coverage`). New source files are
+  counted automatically, so an untested file fails the build.
+- Don't lower the thresholds, widen the coverage `exclude` list, or add `v8 ignore` /
+  `istanbul ignore` comments. If code seems untestable, restructure it (inject the dependency,
+  extract a pure function) instead. Coverage excludes only tests and test support
+  (`src/testing/`, `test/`, `integration/`), tool config files (`*.config.*`), generated
+  migrations and `.d.ts` files.
+- Coverage is the floor, not the goal: assert behavior (results, errors, side effects), cover
+  each branch's outcome, and test failure paths, not just lines.
+- Where tests go:
+  - **Unit, Node** (`unit-node`): `*.test.ts` next to the file under test.
+  - **Unit, DOM** (`unit-dom`): `*.test.tsx` next to the component, with Testing Library
+    queries by role and name (`getByRole("button", { name: "Save" })`). Root layouts (which
+    render `<html>`) use `renderToStaticMarkup`.
+  - **Integration** (`integration`): `*.int.test.ts` in `packages/*/src/` (database-level) or
+    `packages/app/integration/` (browser). They run against an ephemeral stack started in
+    `test/integration/global-setup.ts`: PostgreSQL in Testcontainers with all migrations, plus
+    the built app on a free port. Drive pages only through the agent-browser wrapper
+    (`packages/app/integration/browser.ts`): semantic locators and its axe audit, which must
+    report no serious or critical WCAG 2.2 AA violations.
+- Unit tests never touch the network, Docker or a real database; mock at the module boundary
+  (`vi.mock`) or inject fakes through the container.
+- Every tenant-scoped query gets a cross-tenant denial test. A bug fix starts with a failing
+  test.
+
 ## UI (`@wpas/ui`)
 
 - `src/site/` holds DaisyUI components for frontend pages (`@wpas/ui/site/<name>`).
@@ -113,16 +231,25 @@ packages/
 
 ## Commands (run from the repo root)
 
-| Command | What it does |
-|---|---|
-| `npm run dev` / `build` / `start` | Next.js app |
-| `npm run lint` | ESLint over all packages |
-| `npm run typecheck` | `tsc` in every workspace |
-| `docker compose up -d db` | local PostgreSQL |
-| `npm run db:migration:create` | generate a migration from entity changes |
-| `npm run db:migration:up` / `:down` / `:pending` | apply / revert / list migrations |
+| Command                                          | What it does                                   |
+| ------------------------------------------------ | ---------------------------------------------- |
+| `npm run dev` / `build` / `start`                | Next.js app                                    |
+| `npm run format` / `format:check`                | Prettier (write / check)                       |
+| `npm run lint` / `lint:fix`                      | ESLint (type-aware, package boundaries)        |
+| `npm run typecheck`                              | `tsc` for root configs and every workspace     |
+| `npm run knip`                                   | unused files, exports and dependencies         |
+| `npm run test` / `test:watch`                    | unit projects (`unit-node`, `unit-dom`)        |
+| `npm run test:coverage`                          | unit tests + 100% coverage thresholds          |
+| `npm run test:integration`                       | build, then ephemeral DB + app + agent-browser |
+| `npm run check`                                  | format, lint, typecheck, knip, unit + coverage |
+| `docker compose up -d db`                        | local PostgreSQL                               |
+| `npm run db:migration:create`                    | generate a migration from entity changes       |
+| `npm run db:migration:up` / `:down` / `:pending` | apply / revert / list migrations               |
 
-Before calling work done, run `npm run lint`, `npm run typecheck` and `npm run build`.
+Before calling work done, run `npm run check` and `npm run test:integration` (which also
+builds). Both need Docker running. CI (`.github/workflows/ci.yml`) runs the same checks on
+every pull request: build, lint, typecheck + knip, unit tests with coverage, integration,
+security.
 
 ## Project workflow: the `.ai/` directory (MANDATORY)
 

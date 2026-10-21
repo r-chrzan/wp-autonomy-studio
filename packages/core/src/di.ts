@@ -1,12 +1,6 @@
 import { createContainer, InjectionMode, type AwilixContainer } from "awilix";
 
-export {
-  asClass,
-  asFunction,
-  asValue,
-  type AwilixContainer,
-  type Resolver,
-} from "awilix";
+export { asClass, asFunction, asValue, type AwilixContainer, type Resolver } from "awilix";
 
 /**
  * Creates an Awilix container with the project defaults.

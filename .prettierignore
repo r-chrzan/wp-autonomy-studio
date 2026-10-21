@@ -1,0 +1,9 @@
+# Generated or managed by tools
+package-lock.json
+packages/app/AGENTS.md
+packages/app/next-env.d.ts
+packages/db/src/migrations/
+**/.next/
+coverage/
+test-results/
+.ai/runs/

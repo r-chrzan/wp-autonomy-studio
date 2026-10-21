@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 export default function SiteLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="en">
-      <body className="min-h-screen bg-base-100 text-base-content antialiased">{children}</body>
+      <body className="bg-base-100 text-base-content min-h-screen antialiased">{children}</body>
     </html>
   );
 }

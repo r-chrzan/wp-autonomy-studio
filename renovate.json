@@ -1,0 +1,52 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": ["config:recommended", ":semanticCommits", ":semanticCommitScope(deps)"],
+  "schedule": ["before 6am on monday"],
+  "timezone": "Europe/Warsaw",
+  "lockFileMaintenance": {
+    "enabled": true
+  },
+  "packageRules": [
+    {
+      "description": "Next.js, React and the Next ESLint config move together",
+      "matchPackageNames": [
+        "next",
+        "eslint-config-next",
+        "react",
+        "react-dom",
+        "@types/react",
+        "@types/react-dom"
+      ],
+      "groupName": "next and react"
+    },
+    {
+      "matchPackageNames": ["@mikro-orm/{/,}**"],
+      "groupName": "mikro-orm"
+    },
+    {
+      "matchPackageNames": ["typescript-eslint", "@typescript-eslint/{/,}**"],
+      "groupName": "typescript-eslint"
+    },
+    {
+      "matchPackageNames": ["vitest", "@vitest/{/,}**"],
+      "groupName": "vitest"
+    },
+    {
+      "description": "TypeScript 6+/7 waits for typescript-eslint support (see AGENTS.md)",
+      "matchPackageNames": ["typescript"],
+      "allowedVersions": "<6"
+    },
+    {
+      "description": "Agent SDK is 0.x and pinned exactly; upgrades need the eval suite (spec 5.2)",
+      "matchPackageNames": ["@anthropic-ai/claude-agent-sdk"],
+      "automerge": false,
+      "rangeStrategy": "pin"
+    },
+    {
+      "matchDepTypes": ["devDependencies"],
+      "matchUpdateTypes": ["patch", "minor"],
+      "automerge": true,
+      "matchPackageNames": ["!typescript", "!@anthropic-ai/claude-agent-sdk"]
+    }
+  ]
+}

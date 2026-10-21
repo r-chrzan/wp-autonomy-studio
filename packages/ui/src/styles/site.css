@@ -4,7 +4,9 @@
  * Never import this together with admin.css: both define --color-primary etc.
  */
 @plugin "daisyui" {
-  themes: light --default, dark --prefersdark;
+  themes:
+    light --default,
+    dark --prefersdark;
 }
 
 @source "../site";
