@@ -9,11 +9,11 @@ Example: `2026-10-20-site-import-flow.md`
 
 ## Lifecycle
 
-| Location | Meaning |
-|---|---|
-| `.ai/specs/` | Active / not yet implemented |
-| `.ai/specs/implemented/` | Fully implemented and verified. Move here with `git mv`. |
-| `.ai/specs/archive/` | Abandoned, superseded, or obsolete. Add a one-line reason at the top. |
+| Location                 | Meaning                                                               |
+| ------------------------ | --------------------------------------------------------------------- |
+| `.ai/specs/`             | Active / not yet implemented                                          |
+| `.ai/specs/implemented/` | Fully implemented and verified. Move here with `git mv`.              |
+| `.ai/specs/archive/`     | Abandoned, superseded, or obsolete. Add a one-line reason at the top. |
 
 Filenames never change when a spec moves.
 
@@ -26,9 +26,14 @@ Filenames never change when a spec moves.
 - **Created:** YYYY-MM-DD
 
 ## Problem
+
 ## Goals / Non-goals
+
 ## Requirements
+
 ## Design
+
 ## Acceptance criteria
+
 ## Open questions
 ```

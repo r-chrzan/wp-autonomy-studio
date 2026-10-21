@@ -11,12 +11,14 @@ fixed stack and package boundaries that coding agents can follow without re-deci
 ## Goals / Non-goals
 
 **Goals**
+
 - npm workspaces monorepo with `packages/app`, `packages/core`, `packages/db`, `packages/ui`.
 - Stack wired end to end: Next.js 16 + React 19 + TypeScript, PostgreSQL + MikroORM v7
   (migrations, connection pool), Awilix DI, DaisyUI (frontend pages), shadcn/ui (backend pages).
 - `AGENTS.md` records the stack and architecture rules; `README.md` documents the architecture.
 
 **Non-goals**
+
 - Domain entities, auth, real admin features. Only the skeleton and one wiring proof
   (`/api/health`).
 
@@ -56,13 +58,13 @@ packages/
 
 ## Progress
 
-| Phase | Result |
-|---|---|
-| 1. Workspace + package split (`app`, `core`, `db`, `ui`), imports, scripts | done |
-| 2. Stack wiring: MikroORM, Awilix, DaisyUI / shadcn route groups, `/api/health` | done |
-| 3. Docs: `AGENTS.md`, `README.md`, `CLAUDE.md` | done |
-| 4. Live verification against PostgreSQL (`compose.yaml`) and migrations | done |
-| 5. Final whole-project verification from a clean install | done |
+| Phase                                                                           | Result |
+| ------------------------------------------------------------------------------- | ------ |
+| 1. Workspace + package split (`app`, `core`, `db`, `ui`), imports, scripts      | done   |
+| 2. Stack wiring: MikroORM, Awilix, DaisyUI / shadcn route groups, `/api/health` | done   |
+| 3. Docs: `AGENTS.md`, `README.md`, `CLAUDE.md`                                  | done   |
+| 4. Live verification against PostgreSQL (`compose.yaml`) and migrations         | done   |
+| 5. Final whole-project verification from a clean install                        | done   |
 
 All acceptance criteria verified on 2026-10-20. Phase 5 re-ran everything from a clean
 `npm ci`: lint, typecheck, build, migrations, production and dev startup.

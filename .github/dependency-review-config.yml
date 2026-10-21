@@ -1,0 +1,7 @@
+# Fails PRs that add dependencies with known vulnerabilities (high and above).
+fail-on-severity: high
+allow-ghsas:
+  # braces <=3.0.3 stack exhaustion (no patched release). Reached only via
+  # awilix -> fast-glob for `loadModules`, which this repo never calls (AGENTS.md DI rules),
+  # and via dev-only lint tooling. Re-check when a fixed braces/micromatch ships.
+  - GHSA-vfj7-8cjw-p6xm

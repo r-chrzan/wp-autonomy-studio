@@ -1,12 +1,6 @@
 import Link from "next/link";
 import { Button } from "@wpas/ui/admin/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@wpas/ui/admin/card";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@wpas/ui/admin/card";
 
 export default function AdminDashboardPage() {
   return (

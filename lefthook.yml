@@ -1,0 +1,17 @@
+# Git hooks. Installed by `npm install` (the `prepare` script runs `lefthook install`).
+pre-commit:
+  parallel: true
+  jobs:
+    - name: prettier
+      glob: "*"
+      run: npx prettier --write --ignore-unknown {staged_files}
+      stage_fixed: true
+    - name: eslint
+      glob: "*.{ts,tsx,js,mjs}"
+      run: npx eslint --fix --no-warn-ignored {staged_files}
+      stage_fixed: true
+
+commit-msg:
+  jobs:
+    - name: commitlint
+      run: npx commitlint --edit {1}

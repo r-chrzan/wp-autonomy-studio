@@ -1,6 +1,6 @@
 # WP Autonomy Studio
 
-A Next.js application in an npm-workspaces monorepo, backed by PostgreSQL.
+A Next.js application in an npm-workspaces monorepo, backed by PostgreSQL. This application automates the development process for WordPress-based websites through the use of autonomous agents. It streamlines the implementation of unique themes—derived from designs created in Figma or similar design tools—as well as code generation, ongoing maintenance, and the development of custom functionalities. The platform is built upon WordPress best practices while allowing for the integration of your own custom solutions, existing plugins, or themes.
 
 ## Getting started
 
@@ -24,15 +24,30 @@ npm run dev                       # http://localhost:3000
 
 Run from the repo root.
 
-| Command                             | Purpose                                  |
-| ----------------------------------- | ---------------------------------------- |
-| `npm run dev`                       | Next.js dev server (Turbopack)           |
-| `npm run build` / `npm run start`   | production build / server                |
-| `npm run lint`                      | ESLint across all packages               |
-| `npm run typecheck`                 | TypeScript check in every workspace      |
-| `npm run db:migration:create`       | generate a migration from entity changes |
-| `npm run db:migration:up` / `:down` | apply / revert migrations                |
-| `npm run db:migration:pending`      | list pending migrations                  |
+| Command                             | Purpose                                                |
+| ----------------------------------- | ------------------------------------------------------ |
+| `npm run dev`                       | Next.js dev server (Turbopack)                         |
+| `npm run build` / `npm run start`   | production build / server                              |
+| `npm run format` / `format:check`   | Prettier                                               |
+| `npm run lint`                      | ESLint (type-aware rules, package boundaries)          |
+| `npm run typecheck`                 | TypeScript check in every workspace                    |
+| `npm run knip`                      | unused files, exports and dependencies                 |
+| `npm run test`                      | unit tests (Vitest)                                    |
+| `npm run test:integration`          | integration tests against PostgreSQL in Testcontainers |
+| `npm run test:e2e`                  | Playwright + axe against the production build          |
+| `npm run check`                     | everything CI's static job runs, plus unit tests       |
+| `npm run db:migration:create`       | generate a migration from entity changes               |
+| `npm run db:migration:up` / `:down` | apply / revert migrations                              |
+| `npm run db:migration:pending`      | list pending migrations                                |
+
+Testing needs Docker (Testcontainers starts its own PostgreSQL). E2E needs the local database
+(`docker compose up -d db`, `npm run db:migration:up`), a build (`npm run build`) and
+Chromium (`npx playwright install chromium` in `packages/app`); it serves the build on port
+3100 so it never collides with `npm run dev`.
+
+Commits follow [Conventional Commits](https://www.conventionalcommits.org/) with the package
+as scope (`feat(db): …`). `npm install` installs lefthook git hooks that format and lint
+staged files and check the commit message.
 
 ## Architecture
 
@@ -50,7 +65,7 @@ Run from the repo root.
 wp-autonomy-studio/
 ├── packages/
 │   ├── app/    @wpas/app   Next.js app: routes, pages, API, DI composition root
-│   ├── core/   @wpas/core  framework-agnostic building blocks (DI helpers, env, types)
+│   ├── core/   @wpas/core  framework-agnostic building blocks (DI, env, errors, logger)
 │   ├── db/     @wpas/db    MikroORM config, entities, migrations, ORM lifecycle
 │   └── ui/     @wpas/ui    shared components and themes (DaisyUI + shadcn/ui)
 ├── compose.yaml            local PostgreSQL
@@ -96,7 +111,7 @@ Components follow the same split: `packages/ui/src/site/` (DaisyUI) and
 
 ### Dependency injection
 
-Awilix containers are created with `createAppContainer()` from `@wpas/core`, which uses:
+Awilix containers are created with `createAppContainer()` from `@wpas/core/di`, which uses:
 
 - **`PROXY` injection mode.** Dependencies are passed as one object
   (`constructor({ orm, em })`). This keeps working after minification, which breaks
@@ -130,11 +145,41 @@ auto-loading.
 
 ### Configuration
 
-| Variable            | Required | Default | Used by    |
-| ------------------- | -------- | ------- | ---------- |
-| `DATABASE_URL`      | yes      | –       | `@wpas/db` |
-| `DATABASE_POOL_MIN` | no       | `0`     | `@wpas/db` |
-| `DATABASE_POOL_MAX` | no       | `10`    | `@wpas/db` |
+| Variable                 | Required | Default | Used by                                  |
+| ------------------------ | -------- | ------- | ---------------------------------------- |
+| `DATABASE_URL`           | yes      | –       | `@wpas/db`                               |
+| `DATABASE_POOL_MIN`      | no       | `0`     | `@wpas/db`                               |
+| `DATABASE_POOL_MAX`      | no       | `10`    | `@wpas/db`                               |
+| `LOG_LEVEL`              | no       | `info`  | app logger                               |
+| `SENTRY_DSN`             | no       | –       | server error reporting (off when empty)  |
+| `NEXT_PUBLIC_SENTRY_DSN` | no       | –       | browser error reporting (off when empty) |
+
+All variables are validated when the server starts (`packages/app/instrumentation.ts`) against
+the Zod schema in `packages/core/src/env.ts`. If any is invalid, the server logs every bad
+variable and answers every request with an error until the environment is fixed.
+
+### Target architecture (roadmap)
+
+The approved design is in
+[`.ai/specs/2026-10-21-engineering-standards.md`](.ai/specs/2026-10-21-engineering-standards.md).
+In short:
+
+- **Control plane:** this Next.js app (users, organizations, sites, designs, runs,
+  approvals).
+- **Execution plane:** a separate worker process (`@wpas/worker`). It takes jobs from
+  Postgres (pg-boss) and runs each agent session (Claude Agent SDK) in a disposable,
+  hardened Docker sandbox with WordPress, WP-CLI, Composer, Node and Playwright. The sandbox
+  holds no credentials. GitHub and live-site operations go through host-side tools, and
+  risky ones need a human approval.
+- **PostgreSQL is the only stateful service:** app data with row-level security per
+  organization, the job queue, auth (Better Auth) and run event streams (SSE to the admin).
+- **Generated WordPress code:** block themes with `theme.json` built from Figma design
+  tokens, gated by WPCS, PHPStan, Plugin/Theme Check, accessibility (WCAG 2.2 AA) and
+  per-section visual diffs against the Figma frames.
+
+Rollout phases: 1 tooling, 2 identity & tenancy, 3 sites & credentials, 4 runs & jobs,
+5 sandbox, 6 agents, 7 theme build, 8 maintenance. Each phase gets its own spec in
+`.ai/specs/`.
 
 ## Working with AI agents
 
