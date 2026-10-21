@@ -7,7 +7,9 @@ export default function AdminDashboardPage() {
     <main className="mx-auto max-w-3xl p-6">
       <Card>
         <CardHeader>
-          <CardTitle>Dashboard</CardTitle>
+          <CardTitle>
+            <h1>Dashboard</h1>
+          </CardTitle>
           <CardDescription>Backend pages are styled with shadcn/ui.</CardDescription>
         </CardHeader>
         <CardContent className="flex gap-2">

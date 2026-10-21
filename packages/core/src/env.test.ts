@@ -1,4 +1,4 @@
-import { describe, expect, it } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 import { EnvError, parseEnv } from "./env";
 
 const valid = { DATABASE_URL: "postgresql://u:p@localhost:5432/db" };
@@ -40,5 +40,20 @@ describe("parseEnv", () => {
 
   it("rejects a non-PostgreSQL database URL", () => {
     expect(() => parseEnv({ DATABASE_URL: "mysql://u:p@localhost/db" })).toThrow(/DATABASE_URL/);
+  });
+});
+
+describe("getEnv", () => {
+  it("parses process.env once and caches the result", async () => {
+    vi.resetModules();
+    vi.stubEnv("DATABASE_URL", "postgresql://u:p@localhost:5432/first");
+    const { getEnv } = await import("./env");
+
+    const first = getEnv();
+    vi.stubEnv("DATABASE_URL", "postgresql://u:p@localhost:5432/second");
+
+    expect(getEnv()).toBe(first);
+    expect(first.DATABASE_URL).toContain("/first");
+    vi.unstubAllEnvs();
   });
 });

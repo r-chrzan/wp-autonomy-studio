@@ -38,11 +38,16 @@ export type CreateLoggerOptions = {
  * and derive per-request/job loggers with `logger.child({ requestId, orgId, ... })`.
  */
 export function createLogger(options: CreateLoggerOptions): Logger {
-  const config: LoggerOptions = {
+  const config = loggerOptions(options);
+  return options.destination ? pino(config, options.destination) : pino(config);
+}
+
+/** The pino options `createLogger` uses. Exported for tests. */
+export function loggerOptions(options: Omit<CreateLoggerOptions, "destination">): LoggerOptions {
+  return {
     level: options.level ?? "info",
     base: { service: options.service },
     redact: { paths: [...redactPaths], censor: "[redacted]" },
     ...(options.pretty ? { transport: { target: "pino-pretty" } } : {}),
   };
-  return options.destination ? pino(config, options.destination) : pino(config);
 }

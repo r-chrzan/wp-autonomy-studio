@@ -24,26 +24,31 @@ npm run dev                       # http://localhost:3000
 
 Run from the repo root.
 
-| Command                             | Purpose                                                |
-| ----------------------------------- | ------------------------------------------------------ |
-| `npm run dev`                       | Next.js dev server (Turbopack)                         |
-| `npm run build` / `npm run start`   | production build / server                              |
-| `npm run format` / `format:check`   | Prettier                                               |
-| `npm run lint`                      | ESLint (type-aware rules, package boundaries)          |
-| `npm run typecheck`                 | TypeScript check in every workspace                    |
-| `npm run knip`                      | unused files, exports and dependencies                 |
-| `npm run test`                      | unit tests (Vitest)                                    |
-| `npm run test:integration`          | integration tests against PostgreSQL in Testcontainers |
-| `npm run test:e2e`                  | Playwright + axe against the production build          |
-| `npm run check`                     | everything CI's static job runs, plus unit tests       |
-| `npm run db:migration:create`       | generate a migration from entity changes               |
-| `npm run db:migration:up` / `:down` | apply / revert migrations                              |
-| `npm run db:migration:pending`      | list pending migrations                                |
+| Command                             | Purpose                                              |
+| ----------------------------------- | ---------------------------------------------------- |
+| `npm run dev`                       | Next.js dev server (Turbopack)                       |
+| `npm run build` / `npm run start`   | production build / server                            |
+| `npm run format` / `format:check`   | Prettier                                             |
+| `npm run lint`                      | ESLint (type-aware rules, package boundaries)        |
+| `npm run typecheck`                 | TypeScript check in every workspace                  |
+| `npm run knip`                      | unused files, exports and dependencies               |
+| `npm run test`                      | unit tests (Vitest, Node + jsdom)                    |
+| `npm run test:coverage`             | unit tests with the 100% coverage thresholds         |
+| `npm run test:integration`          | build, then tests against an ephemeral DB + app      |
+| `npm run check`                     | format, lint, typecheck, knip, unit tests + coverage |
+| `npm run db:migration:create`       | generate a migration from entity changes             |
+| `npm run db:migration:up` / `:down` | apply / revert migrations                            |
+| `npm run db:migration:pending`      | list pending migrations                              |
 
-Testing needs Docker (Testcontainers starts its own PostgreSQL). E2E needs the local database
-(`docker compose up -d db`, `npm run db:migration:up`), a build (`npm run build`) and
-Chromium (`npx playwright install chromium` in `packages/app`); it serves the build on port
-3100 so it never collides with `npm run dev`.
+Unit tests must cover 100% of the code (lines, branches, functions, statements); CI fails
+otherwise. Integration tests need Docker and a browser for
+[agent-browser](https://agent-browser.dev) (`npx agent-browser install`, once). Each run
+starts PostgreSQL in Testcontainers, applies the migrations, starts the production build on a
+free port against it, drives the pages with agent-browser (including an axe accessibility
+audit) and tears everything down. It never touches your local database or `npm run dev`.
+
+Every pull request runs these checks in GitHub Actions: build, lint, typecheck + knip, unit
+tests with coverage, integration tests, and security scans.
 
 Commits follow [Conventional Commits](https://www.conventionalcommits.org/) with the package
 as scope (`feat(db): …`). `npm install` installs lefthook git hooks that format and lint

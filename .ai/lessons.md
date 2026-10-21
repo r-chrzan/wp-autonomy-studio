@@ -32,6 +32,9 @@ Detail file format (`.ai/lessons/YYYY-MM-DD-slug.md`):
 
 <!-- Newest first. -->
 
+- 2026-10-21 — **`next build` type-checks test files** — the app tsconfig includes `**/*.ts(x)`, so test-only type augmentations (jest-dom matchers, Vitest `ProvidedContext`) must live in `test/types.d.ts`, which every package tsconfig includes; augmentations inside setup files break the build.
+- 2026-10-21 — **agent-browser: locate by role, not `text=`** — `click "text=Open admin"` found nothing on a link that `find role link click --name "Open admin" --exact` clicks fine; the wrapper in `packages/app/integration/browser.ts` exposes role-based helpers only. Failed commands exit 1 but still print the JSON error on stdout.
+- 2026-10-21 — **React 19 static markup adds `<head>`** — `renderToStaticMarkup(<html>…)` emits `<html><head></head><body>…`; assert on `<body>` content, not exact document markup.
 - 2026-10-21 — **`lefthook run pre-commit --all-files` stages files** — jobs with `stage_fixed: true` `git add` everything they touch, even outside a commit; to test hooks, run them without `--all-files` on a scratch change, or reset the index afterwards (`git reset -q`) when nothing was staged before.
 - 2026-10-21 — **Keep TypeScript erasable** — Node's type stripping (and anything that runs `.ts` without a compiler) rejects constructor parameter properties, enums and namespaces; `erasableSyntaxOnly` is on in `tsconfig.base.json`, so assign fields in the constructor body instead.
 - 2026-10-21 — **Unfixable advisory: braces GHSA-vfj7-8cjw-p6xm** — reached via awilix → fast-glob (only used by `loadModules`, which we never call) and lint tooling; no patched release exists, so CI audits `--audit-level=critical` and dependency-review allowlists that one GHSA in `.github/dependency-review-config.yml`. Remove the allowlist entry once a fix ships.

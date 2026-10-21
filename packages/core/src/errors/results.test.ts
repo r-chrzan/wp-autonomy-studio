@@ -32,3 +32,13 @@ describe("toProblem", () => {
     });
   });
 });
+
+describe("toProblem with field errors", () => {
+  it("includes field errors and hides internal messages", () => {
+    expect(toProblem(new ValidationError("Invalid", { name: ["Too long"] }))).toMatchObject({
+      status: 400,
+      errors: { name: ["Too long"] },
+    });
+    expect(toProblem(new Error("secret")).title).not.toContain("secret");
+  });
+});

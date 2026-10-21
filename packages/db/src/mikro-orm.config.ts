@@ -1,14 +1,6 @@
 // MikroORM CLI config (migrations). Not imported by the app, so the migrator
-// stays out of the Next.js bundle. Run through the `@wpas/db` npm scripts,
-// which set the working directory to this package.
-import { Migrator } from "@mikro-orm/migrations";
+// stays out of the Next.js bundle. Run through the `@wpas/db` npm scripts.
 import { createOrmConfig } from "./config";
+import { withMigrator } from "./migrator";
 
-export default createOrmConfig({
-  extensions: [Migrator],
-  migrations: {
-    path: "./src/migrations",
-    pathTs: "./src/migrations",
-    snapshot: true,
-  },
-});
+export default createOrmConfig(withMigrator());

@@ -18,8 +18,20 @@ env:
   NEXT_TELEMETRY_DISABLED: "1"
 
 jobs:
-  static:
-    name: Format, lint, typecheck, knip
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - run: npm ci
+      - run: npm run build
+
+  lint:
+    name: Lint
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
@@ -30,11 +42,22 @@ jobs:
       - run: npm ci
       - run: npm run format:check
       - run: npm run lint
+
+  typecheck:
+    name: Typecheck and unused code
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - run: npm ci
       - run: npm run typecheck
       - run: npm run knip
 
   unit:
-    name: Unit tests
+    name: Unit tests (100% coverage)
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
@@ -43,10 +66,17 @@ jobs:
           node-version-file: .nvmrc
           cache: npm
       - run: npm ci
-      - run: npm run test:coverage -- --project unit
+      # Fails when any of lines/branches/functions/statements drops below 100%.
+      - run: npm run test:coverage
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: coverage
+          path: coverage/
+          retention-days: 7
 
   integration:
-    name: Integration tests (Testcontainers)
+    name: Integration tests (Testcontainers + agent-browser)
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
@@ -55,40 +85,10 @@ jobs:
           node-version-file: .nvmrc
           cache: npm
       - run: npm ci
+      # Chrome for Testing plus the Linux libraries it needs.
+      - run: npx agent-browser install --with-deps
+      # Builds the app, then starts PostgreSQL (Testcontainers) and the built app per run.
       - run: npm run test:integration
-
-  build-e2e:
-    name: Build and E2E
-    runs-on: ubuntu-latest
-    services:
-      postgres:
-        image: postgres:17-alpine
-        env:
-          POSTGRES_USER: wpas
-          POSTGRES_PASSWORD: wpas
-          POSTGRES_DB: wpas
-        ports: ["5432:5432"]
-        options: >-
-          --health-cmd "pg_isready -U wpas -d wpas"
-          --health-interval 2s --health-timeout 3s --health-retries 15
-    steps:
-      - uses: actions/checkout@v7
-      - uses: actions/setup-node@v7
-        with:
-          node-version-file: .nvmrc
-          cache: npm
-      - run: npm ci
-      - run: npm run db:migration:up
-      - run: npm run build
-      - run: npx playwright install --with-deps chromium
-        working-directory: packages/app
-      - run: npm run test:e2e
-      - uses: actions/upload-artifact@v7
-        if: failure()
-        with:
-          name: playwright-report
-          path: packages/app/playwright-report/
-          retention-days: 7
 
   security:
     name: Security checks

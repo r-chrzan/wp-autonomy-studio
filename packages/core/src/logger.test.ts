@@ -1,6 +1,6 @@
 import { Writable } from "node:stream";
 import { describe, expect, it } from "vitest";
-import { createLogger } from "./logger";
+import { createLogger, loggerOptions } from "./logger";
 
 function capture(): { stream: Writable; lines: () => Record<string, unknown>[] } {
   const chunks: string[] = [];
@@ -45,5 +45,24 @@ describe("createLogger", () => {
       site: { apiKey: "[redacted]" },
       headers: { authorization: "[redacted]" },
     });
+  });
+});
+
+describe("loggerOptions", () => {
+  it("defaults the level to info", () => {
+    expect(loggerOptions({ level: undefined, service: "test" }).level).toBe("info");
+  });
+
+  it("uses pino-pretty only when asked", () => {
+    expect(loggerOptions({ level: "info", service: "test", pretty: true }).transport).toEqual({
+      target: "pino-pretty",
+    });
+    expect(loggerOptions({ level: "info", service: "test" }).transport).toBeUndefined();
+  });
+
+  it("writes to stdout when no destination is given", () => {
+    const logger = createLogger({ level: "silent", service: "test" });
+
+    expect(logger.level).toBe("silent");
   });
 });

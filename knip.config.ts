@@ -3,11 +3,16 @@ import type { KnipConfig } from "knip";
 /** Unused files, exports and dependencies. Plugins (Next, Vitest, ESLint, ...) add entries. */
 const config: KnipConfig = {
   workspaces: {
+    ".": {
+      entry: ["test/**/*.ts"],
+    },
     "packages/app": {
-      entry: ["e2e/**/*.ts"],
+      entry: ["integration/**/*.ts"],
+      // CLI run by path from integration/browser.ts, not imported.
+      ignoreDependencies: ["agent-browser"],
     },
     "packages/db": {
-      entry: ["src/mikro-orm.config.ts", "test/*.ts"],
+      entry: ["src/mikro-orm.config.ts"],
     },
     "packages/ui": {
       // Every component is a public entry (`@wpas/ui/admin/*`), used or not.

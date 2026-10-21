@@ -55,3 +55,10 @@ describe("toAppError", () => {
     expect(error.cause).toBe(cause);
   });
 });
+
+describe("ForbiddenError", () => {
+  it("uses a default message unless one is given", () => {
+    expect(new ForbiddenError().message).toMatch(/permission/);
+    expect(new ForbiddenError("Org admins only").message).toBe("Org admins only");
+  });
+});
