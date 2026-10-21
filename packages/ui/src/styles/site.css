@@ -1,0 +1,10 @@
+/*
+ * Frontend (public) pages theme: DaisyUI.
+ * Imported by packages/app/app/(site)/site.css after `@import "tailwindcss"`.
+ * Never import this together with admin.css: both define --color-primary etc.
+ */
+@plugin "daisyui" {
+  themes: light --default, dark --prefersdark;
+}
+
+@source "../site";

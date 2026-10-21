@@ -1,0 +1,29 @@
+{
+  "name": "wp-autonomy-studio",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "workspaces": [
+    "packages/*"
+  ],
+  "engines": {
+    "node": ">=24"
+  },
+  "scripts": {
+    "dev": "npm run dev -w @wpas/app",
+    "build": "npm run build -w @wpas/app",
+    "start": "npm run start -w @wpas/app",
+    "lint": "eslint",
+    "typecheck": "npm run typecheck --workspaces --if-present",
+    "db:migration:create": "npm run migration:create -w @wpas/db --",
+    "db:migration:up": "npm run migration:up -w @wpas/db",
+    "db:migration:down": "npm run migration:down -w @wpas/db",
+    "db:migration:pending": "npm run migration:pending -w @wpas/db"
+  },
+  "devDependencies": {
+    "@types/node": "^24",
+    "eslint": "^9",
+    "eslint-config-next": "16.4.2",
+    "typescript": "^5"
+  }
+}

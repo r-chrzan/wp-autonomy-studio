@@ -1,0 +1,4 @@
+@import "tailwindcss";
+@import "@wpas/ui/styles/admin.css";
+
+@source "./";

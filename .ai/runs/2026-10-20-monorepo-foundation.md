@@ -1,7 +1,7 @@
 # Run: Monorepo foundation
 
 - **Date:** 2026-10-20
-- **Spec:** .ai/specs/2026-10-20-monorepo-foundation.md
+- **Spec:** .ai/specs/implemented/2026-10-20-monorepo-foundation.md
 - **Outcome:** partial (all checks pass; live-database path not verified because Docker wasn't running)
 
 ## Goal
@@ -118,3 +118,36 @@ See the four 2026-10-20 entries in `.ai/lessons.md`.
 - Next phase: first domain entities and the initial migration (needs a new spec).
 - Still open: the `braces` audit advisory, and npm install-script approvals for
   esbuild / unrs-resolver.
+
+---
+
+## Session 3 (2026-10-20): final whole-project verification
+
+**Outcome:** success. The migration is complete.
+
+### Steps and results
+1. Plan check: phases 1–4 done, so this session is final verification (phase 5).
+2. Clean install: removed `node_modules`, `.next`, `tsconfig.tsbuildinfo` and
+   `next-env.d.ts`, then ran `npm ci`. Exit 0: 486 packages added, and all four `@wpas/*`
+   workspaces linked. The first attempt never ran because zsh stopped on the unmatched
+   glob `packages/*/node_modules`.
+3. `npm run lint`: exit 0. `npm run typecheck`: exit 0 in app, core, db and ui.
+   `npm run build`: exit 0. Routes `/` and `/admin` are static, `/api/health` is dynamic.
+4. Tests: none. No package defines a `test` script and there are no test files.
+5. Database: `docker compose up -d --wait db` reported healthy. CLI `debug`: TypeScript via
+   tsx, connection successful. `db:migration:up` succeeded. `db:migration:pending`: none.
+   `db:migration:create`: "no changes required" (no entities yet).
+6. Production startup (`npm run start`, :3123): `/` 200, `/admin` 200, and each page's
+   stylesheet 200. `/api/health` returned 200 `{"status":"ok","db":"up"}`. No errors in the
+   log; exit 143 is my SIGTERM.
+7. Dev startup (`npm run dev`, :3124):
+   - The first attempt failed with "Another next dev server is already running"
+     (:3000, PID 20867). That was the user's own dev server, not started by this run, so I
+     left it alone.
+   - After it stopped, I retried: `/` 200, `/admin` 200, `/api/health` 200.
+
+### Remaining (outside the migration)
+- First domain entities and the initial migration, which need a new spec.
+- Add a test runner and first tests (none exist yet).
+- `npm audit`: 6 high-severity advisories in transitive dependencies (`braces`).
+- npm install-script approvals for esbuild and unrs-resolver. tsx works without them.

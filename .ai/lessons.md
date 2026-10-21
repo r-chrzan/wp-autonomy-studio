@@ -32,6 +32,9 @@ Detail file format (`.ai/lessons/YYYY-MM-DD-slug.md`):
 
 <!-- Newest first. -->
 
+- 2026-10-20 — **One `next dev` per project dir** — Next 16 refuses a second dev server for `packages/app` ("Another next dev server is already running"), even on another port; check for the user's running server first and never kill it, retry after it stops or verify against it.
+- 2026-10-20 — **zsh aborts the whole command on an unmatched glob** — `rm -rf packages/*/node_modules` with no matches skipped everything after it; use `find … -exec` or explicit paths in cleanup commands.
+
 - 2026-10-20 — **MikroORM v7 `init()` does not connect** — `checkConnection()` reports "Connection not established" until `orm.connect()` is called; `getOrm()` connects right after `init()`, so keep that when touching ORM bootstrap.
 - 2026-10-20 — **Stop Next servers by port, not by name** — `pkill -f "next start"` misses the process (its title is `next-server`); use `kill $(lsof -iTCP:<port> -sTCP:LISTEN -t)` and confirm the port is free before testing.
 

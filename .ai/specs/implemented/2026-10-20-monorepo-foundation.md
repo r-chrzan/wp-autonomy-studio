@@ -62,8 +62,11 @@ packages/
 | 2. Stack wiring: MikroORM, Awilix, DaisyUI / shadcn route groups, `/api/health` | done |
 | 3. Docs: `AGENTS.md`, `README.md`, `CLAUDE.md` | done |
 | 4. Live verification against PostgreSQL (`compose.yaml`) and migrations | done |
+| 5. Final whole-project verification from a clean install | done |
 
-All acceptance criteria verified on 2026-10-20. See
+All acceptance criteria verified on 2026-10-20. Phase 5 re-ran everything from a clean
+`npm ci`: lint, typecheck, build, migrations, production and dev startup.
+The project has no automated tests yet. See
 `.ai/runs/2026-10-20-monorepo-foundation.md`.
 
 ## Next phase (new spec)
