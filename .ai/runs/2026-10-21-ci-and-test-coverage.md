@@ -73,3 +73,14 @@ Removed: `packages/app/e2e/`, `packages/app/playwright.config.ts`, `packages/db/
 ## Lessons recorded
 
 - `next build` type-checks tests; agent-browser role locators; React 19 static `<head>`.
+
+## Update: pushed and ran on GitHub
+
+- Committed `ed2f04e` (commitlint rejected the first subject for sentence case), pushed branch
+  `phase-1-tooling-hardening`, opened PR #1 (gh had to be re-authenticated as the repo owner).
+- First CI run: build, lint, typecheck, unit (100% coverage), integration (Testcontainers +
+  agent-browser) all passed on ubuntu-latest. Security failed only at dependency review, and
+  CodeQL failed, both because the private repo on GitHub Free has no Advanced Security.
+- Fix `2e65766`: both run only when the repository is public; CodeQL gets `actions: read`.
+- Branch protection and rulesets return 403 ("Upgrade to GitHub Pro or make this repository
+  public"), so required checks can't be configured on the current plan. User decision.
