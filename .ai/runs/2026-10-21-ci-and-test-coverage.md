@@ -84,3 +84,12 @@ Removed: `packages/app/e2e/`, `packages/app/playwright.config.ts`, `packages/db/
 - Fix `2e65766`: both run only when the repository is public; CodeQL gets `actions: read`.
 - Branch protection and rulesets return 403 ("Upgrade to GitHub Pro or make this repository
   public"), so required checks can't be configured on the current plan. User decision.
+
+## Update 2026-10-31: repository public, stage closed
+
+- User asked to make the repository public and finish the stage. Before switching: gitleaks over
+  all branches and history (8 commits): no leaks; no `.env`/key files ever committed.
+- Visibility switched to public, so CodeQL and dependency review run (the
+  `!github.event.repository.private` guard now passes) and branch protection is available.
+- Plan: green run on PR #1 with all checks, then protect `main` (required checks, PR required),
+  squash-merge PR #1, sync local `main`.
