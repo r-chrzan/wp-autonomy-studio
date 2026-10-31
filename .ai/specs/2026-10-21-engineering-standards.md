@@ -784,6 +784,7 @@ phase that needs them, not ahead of time.
 | Phase | Spec                                                  | Status            |
 | ----- | ----------------------------------------------------- | ----------------- |
 | 1     | `implemented/2026-10-21-phase-1-tooling-hardening.md` | done (2026-10-21) |
+| 1+    | `implemented/2026-10-21-ci-and-test-coverage.md`      | done (2026-10-21) |
 | 2–8   | not written yet                                       | —                 |
 
 ## Acceptance criteria (for this spec)
