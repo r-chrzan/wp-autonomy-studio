@@ -43,3 +43,8 @@ next-env.d.ts
 
 # env files: keep the template
 !.env.example
+
+# agent pipeline QA state (generated per run)
+.ai/qa/artifacts_*/
+.ai/qa/test-env.json
+.ai/qa/test-env.env
