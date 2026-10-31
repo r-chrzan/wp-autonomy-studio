@@ -10,6 +10,7 @@
     "node": ">=24"
   },
   "scripts": {
+    "setup": "node scripts/setup.ts",
     "dev": "npm run dev -w @wpas/app",
     "build": "npm run build -w @wpas/app",
     "start": "npm run start -w @wpas/app",

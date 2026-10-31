@@ -32,6 +32,8 @@ Detail file format (`.ai/lessons/YYYY-MM-DD-slug.md`):
 
 <!-- Newest first. -->
 
+- 2026-10-31 — **commitlint scopes are a fixed list** — `scope-enum` allows only `app, core, db, domain, ui, worker, sandbox, ai, ci, deps, repo`; use `ai` for `.ai/` docs (specs, runs) and `repo` for root tooling such as `scripts/`, never `specs` or `runs`.
+- 2026-10-31 — **`spawnSync` with `stdio: "inherit"` returns `stdout: null`** — Node's types say `string` under `encoding: "utf8"`, so `?? ""` trips `no-unnecessary-condition`; type the result as `{ status: number | null; stdout: string | null }` instead of dropping the fallback.
 - 2026-10-21 — **GitHub Advanced Security checks need a public repo and the dependency graph** — on GitHub Free, private repos can't run dependency-review or CodeQL and can't protect branches (403); the workflow guards those steps with `!github.event.repository.private`. Making the repo public isn't enough on its own: dependency review also needs the dependency graph, which `gh api -X PUT repos/<owner>/<repo>/vulnerability-alerts` (Dependabot alerts) turns on.
 - 2026-10-21 — **`next build` type-checks test files** — the app tsconfig includes `**/*.ts(x)`, so test-only type augmentations (jest-dom matchers, Vitest `ProvidedContext`) must live in `test/types.d.ts`, which every package tsconfig includes; augmentations inside setup files break the build.
 - 2026-10-21 — **agent-browser: locate by role, not `text=`** — `click "text=Open admin"` found nothing on a link that `find role link click --name "Open admin" --exact` clicks fine; the wrapper in `packages/app/integration/browser.ts` exposes role-based helpers only. Failed commands exit 1 but still print the JSON error on stdout.

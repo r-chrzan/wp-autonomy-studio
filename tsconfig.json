@@ -1,7 +1,9 @@
 {
   "extends": "./tsconfig.base.json",
   "compilerOptions": {
-    "types": ["node"]
+    "types": ["node"],
+    // scripts/ runs under Node type stripping, which needs explicit `.ts` import specifiers.
+    "allowImportingTsExtensions": true
   },
-  "include": ["*.ts", "*.mts", "test/**/*.ts"]
+  "include": ["*.ts", "*.mts", "test/**/*.ts", "scripts/**/*.ts"]
 }

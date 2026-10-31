@@ -27,7 +27,11 @@ export default defineConfig({
         extends: true,
         test: {
           name: "unit-node",
-          include: ["packages/*/{src,app}/**/*.test.ts", "packages/app/*.test.ts"],
+          include: [
+            "packages/*/{src,app}/**/*.test.ts",
+            "packages/app/*.test.ts",
+            "scripts/**/*.test.ts",
+          ],
           exclude: ["**/*.int.test.ts", "**/node_modules/**"],
           environment: "node",
         },
@@ -60,6 +64,7 @@ export default defineConfig({
         "packages/*/src/**/*.{ts,tsx}",
         "packages/app/app/**/*.{ts,tsx}",
         "packages/app/*.ts",
+        "scripts/**/*.ts",
       ],
       exclude: [
         "**/*.test.{ts,tsx}",
