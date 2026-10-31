@@ -7,3 +7,6 @@ packages/db/src/migrations/
 coverage/
 test-results/
 .ai/runs/
+
+# Vendored agent skills
+.agents/
