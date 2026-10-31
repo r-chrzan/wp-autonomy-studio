@@ -3,7 +3,7 @@
 - **Date:** 2026-10-31
 - **Spec:** .ai/specs/2026-10-31-npm-run-setup-installer.md (on spec PR #6)
 - **Issue:** #5
-- **Outcome:** in progress
+- **Outcome:** success
 
 Source doc: .ai/specs/2026-10-31-npm-run-setup-installer.md
 
@@ -51,21 +51,35 @@ and update the README with the one-command path while keeping the manual steps.
 Autonomous defaults Q1–Q4 from the spec (no dev-server start, no `--force`, macOS/Linux,
 no split).
 
+## Verification
+
+- Manual, in this worktree, with the main checkout's database running:
+  - Run 1 installed dependencies and created both env files. The database and migrations were
+    skipped: `DATABASE_URL` was reachable, and the real MikroORM CLI printed "No pending
+    migrations". Exit 0.
+  - Run 2 skipped all 5 steps. Exit 0. Both env files had identical checksums.
+  - A customised `.env` was byte-identical after a rerun.
+- `npm run format:check`, `lint`, `typecheck`, `knip`: all pass.
+- `npm run test:coverage`: 88 tests pass, 100% coverage on every metric.
+- `npm run test:integration`: 5 tests pass.
+- Not exercised for real: starting the database with Docker from scratch. Stopping the user's
+  running database was out of scope. The unit tests cover it.
+
 ## Progress
 
 > Convention: `- [ ]` pending, `- [x]` done. Append ` — <commit sha>` when a step lands. Do not rename step titles.
 
 ### Phase 1: Tooling wiring
 
-- [ ] 1.1 Wire scripts/ into tsconfig and Vitest
+- [x] 1.1 Wire scripts/ into tsconfig and Vitest — 7b4bb98
 
 ### Phase 2: Installer
 
-- [ ] 2.1 setup-steps.ts with tests
-- [ ] 2.2 setup.ts entry with tests
-- [ ] 2.3 package.json script and AGENTS.md exception
+- [x] 2.1 setup-steps.ts with tests — 16790a4
+- [x] 2.2 setup.ts entry with tests — 8497f7b
+- [x] 2.3 package.json script and AGENTS.md exception — 86ddbd0
 
 ### Phase 3: Docs and verification
 
-- [ ] 3.1 README update
-- [ ] 3.2 Manual run and full validation gate
+- [x] 3.1 README update — 5038d7a
+- [x] 3.2 Manual run and full validation gate
