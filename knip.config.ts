@@ -29,6 +29,8 @@ const config: KnipConfig = {
       ignoreDependencies: ["pino-pretty"],
     },
   },
+  // Vendored agent skills, not this app's code.
+  ignore: [".agents/**"],
   ignoreExportsUsedInFile: true,
 };
 
