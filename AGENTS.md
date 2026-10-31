@@ -178,6 +178,8 @@ Full detail in the engineering-standards spec, sections 4–5. The rules agents 
   document new variables in `.env.example`). Exception: `NEXT_PUBLIC_*` in client code.
 - Logging: use the container's `logger` (pino), never `console`, with context fields
   (`logger.child({ runId })`). Secrets are redacted by path in `@wpas/core/logger`.
+  Exception: repo tooling in `scripts/` (such as `npm run setup`) runs before dependencies are
+  installed, so it uses Node built-ins only and prints with `console`.
 - Naming: files kebab-case; types/classes/entities PascalCase (entities singular); tables
   snake_case; use cases `VerbNounService`; server actions `verbNounAction`; jobs
   `module.verb-noun`; error codes `SCREAMING_SNAKE`.
@@ -233,6 +235,7 @@ Full detail in the engineering-standards spec, sections 4–5. The rules agents 
 
 | Command                                          | What it does                                   |
 | ------------------------------------------------ | ---------------------------------------------- |
+| `npm run setup`                                  | idempotent local setup (deps, env, DB, migr.)  |
 | `npm run dev` / `build` / `start`                | Next.js app                                    |
 | `npm run format` / `format:check`                | Prettier (write / check)                       |
 | `npm run lint` / `lint:fix`                      | ESLint (type-aware, package boundaries)        |
