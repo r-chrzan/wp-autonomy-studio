@@ -7,10 +7,26 @@ A Next.js application in an npm-workspaces monorepo, backed by PostgreSQL. This 
 Requirements: Node.js 24+, npm 11+, Docker (for the local database).
 
 ```bash
+npm run setup                     # install, env files, database, migrations
+npm run dev                       # http://localhost:3000
+```
+
+`npm run setup` runs the manual steps below in order. Before each step it checks whether the step
+is already done, and skips it if so. You can rerun it at any time, e.g. after pulling new
+migrations or dependencies. It never overwrites an existing `.env` or `packages/app/.env.local`.
+It doesn't start a second database if one is already reachable at `DATABASE_URL`, e.g. in another
+checkout or git worktree. If a step fails, the script stops there with a message; fix the cause
+and run it again.
+
+### Manual setup
+
+The same steps by hand:
+
+```bash
 npm install
 cp .env.example .env              # used by the db CLI; the app reads env from packages/app/.env*
 cp .env.example packages/app/.env.local
-docker compose up -d db           # PostgreSQL on localhost:5432
+docker compose up -d --wait db    # PostgreSQL on localhost:5432, waits until it is healthy
 npm run db:migration:up
 npm run dev                       # http://localhost:3000
 ```
@@ -26,6 +42,7 @@ Run from the repo root.
 
 | Command                             | Purpose                                              |
 | ----------------------------------- | ---------------------------------------------------- |
+| `npm run setup`                     | idempotent local setup (see Getting started)         |
 | `npm run dev`                       | Next.js dev server (Turbopack)                       |
 | `npm run build` / `npm run start`   | production build / server                            |
 | `npm run format` / `format:check`   | Prettier                                             |
