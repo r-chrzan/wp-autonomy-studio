@@ -48,7 +48,7 @@ other case on first load.
    judged), numbered steps with an exact clickable URL on each, prepared
    test data, the expected result, an AI status line, and the Pass/Fail/Skip
    buttons (the tester's own verdict, independent of the AI status line —
-   so the runbook shows the human went through *every* case, including the
+   so the runbook shows the human went through _every_ case, including the
    ones AI already ran).
 
    AI status line, one of:
@@ -57,8 +57,9 @@ other case on first load.
    - Final, ran and failed: `AI: FAIL — <one line>. Please double-check.`
    - Final, genuinely human-only (keyboard-only input, visual judgment, an
      external credential the session doesn't have): `AI: not run this
-     session — needs a human.` Still gets a full step-by-step; never
+session — needs a human.` Still gets a full step-by-step; never
      dropped from the runbook.
+
 3. **Bugs found during testing** — one block per file from
    `references/bug-report-template.md`, repro-ready. Empty at the early
    publish (`Session in progress — bugs will appear here.`); populated only
@@ -79,114 +80,261 @@ everything in `{{ }}` is filled in from `test-plan.md` and step 2's brief.
 ```html
 <!doctype html>
 <html lang="en">
-<head>
-<meta charset="utf-8">
-<title>QA Runbook — {{ target title }}</title>
-<style>
-  :root { --bg:#fff; --fg:#1a1a1a; --muted:#666; --border:#e2e2e2; --card:#fafafa;
-          --grey:#9e9e9e; --green:#2e7d32; --red:#c62828; --amber:#e08e00; }
-  @media (prefers-color-scheme: dark) {
-    :root { --bg:#15181c; --fg:#e8e8e8; --muted:#9aa0a6; --border:#2a2f36; --card:#1c2026; }
-  }
-  * { box-sizing: border-box; }
-  body { margin:0; padding:16px 16px 96px; background:var(--bg); color:var(--fg);
-         font:15px/1.5 -apple-system,Segoe UI,Roboto,sans-serif; }
-  h1,h2 { margin:0 0 8px; }
-  .bar { position:sticky; top:0; background:var(--bg); border-bottom:1px solid var(--border);
-         padding:12px 0; margin-bottom:16px; z-index:10; }
-  .progress { height:8px; background:var(--border); border-radius:4px; overflow:hidden; }
-  .progress > div { height:100%; background:var(--green); transition:width .2s; }
-  .counts { font-size:13px; color:var(--muted); margin-top:6px; display:flex; gap:12px; flex-wrap:wrap; }
-  .card { border:1px solid var(--border); background:var(--card); border-radius:8px; padding:14px; margin:12px 0; }
-  .status-bar { height:6px; border-radius:3px; margin-bottom:10px; background:var(--grey); }
-  .status-bar.pass { background:var(--green); }
-  .status-bar.fail { background:var(--red); }
-  .status-bar.skip { background:var(--amber); }
-  .ai-status { font-size:13px; color:var(--muted); margin:6px 0; }
-  .verdict-btns button { padding:6px 14px; margin-right:6px; border:1px solid var(--border);
-          border-radius:6px; background:var(--bg); color:var(--fg); cursor:pointer; }
-  .verdict-btns button.active-pass { background:var(--green); color:#fff; }
-  .verdict-btns button.active-fail { background:var(--red); color:#fff; }
-  .verdict-btns button.active-skip { background:var(--amber); color:#fff; }
-  .reset { background:none; border:none; color:var(--muted); text-decoration:underline; cursor:pointer; }
-</style>
-</head>
-<body>
-  <div class="bar">
-    <h1>{{ target title }}</h1>
-    <div class="progress"><div id="progress-fill" style="width:0%"></div></div>
-    <div class="counts">
-      <span id="count-summary">0 / {{ case count }} judged</span>
-      <span>Est. retest: {{ human-only minutes }} min human-only + {{ double-check minutes }} min double-check</span>
-      <button class="reset" onclick="if(confirm('Reset all your verdicts?')) resetAll()">reset my verdicts</button>
-    </div>
-  </div>
-
-  <section>
-    <h2>What this change does</h2>
-    <p>{{ plain-language brief from step 2 }}</p>
-  </section>
-
-  <section>
-    <h2>Test cases to cover</h2>
-    <!-- one .card per case from test-plan.md, most-critical first -->
-    <div class="card" data-tc="{{ case id, e.g. TC-XXX-001 }}">
-      <div class="status-bar"></div>
-      <strong>{{ case id }} — {{ title }}</strong> <span style="color:var(--muted)">({{ priority }})</span>
-      <p>Role: {{ role }} · Login: {{ email }} / {{ password }}</p>
-      <ol>{{ numbered steps, each with an exact clickable URL }}</ol>
-      <p><strong>Test data:</strong> {{ prepared IDs/links/JSON }}</p>
-      <p><strong>Expected:</strong> {{ expected result }}</p>
-      <p class="ai-status">{{ AI status line — one of the states above }}</p>
-      <div class="verdict-btns">
-        <button onclick="setVerdict('{{ case id }}','pass')">Pass</button>
-        <button onclick="setVerdict('{{ case id }}','fail')">Fail</button>
-        <button onclick="setVerdict('{{ case id }}','skip')">Skip</button>
+  <head>
+    <meta charset="utf-8" />
+    <title>QA Runbook — {{ target title }}</title>
+    <style>
+      :root {
+        --bg: #fff;
+        --fg: #1a1a1a;
+        --muted: #666;
+        --border: #e2e2e2;
+        --card: #fafafa;
+        --grey: #9e9e9e;
+        --green: #2e7d32;
+        --red: #c62828;
+        --amber: #e08e00;
+      }
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --bg: #15181c;
+          --fg: #e8e8e8;
+          --muted: #9aa0a6;
+          --border: #2a2f36;
+          --card: #1c2026;
+        }
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        padding: 16px 16px 96px;
+        background: var(--bg);
+        color: var(--fg);
+        font:
+          15px/1.5 -apple-system,
+          Segoe UI,
+          Roboto,
+          sans-serif;
+      }
+      h1,
+      h2 {
+        margin: 0 0 8px;
+      }
+      .bar {
+        position: sticky;
+        top: 0;
+        background: var(--bg);
+        border-bottom: 1px solid var(--border);
+        padding: 12px 0;
+        margin-bottom: 16px;
+        z-index: 10;
+      }
+      .progress {
+        height: 8px;
+        background: var(--border);
+        border-radius: 4px;
+        overflow: hidden;
+      }
+      .progress > div {
+        height: 100%;
+        background: var(--green);
+        transition: width 0.2s;
+      }
+      .counts {
+        font-size: 13px;
+        color: var(--muted);
+        margin-top: 6px;
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+      }
+      .card {
+        border: 1px solid var(--border);
+        background: var(--card);
+        border-radius: 8px;
+        padding: 14px;
+        margin: 12px 0;
+      }
+      .status-bar {
+        height: 6px;
+        border-radius: 3px;
+        margin-bottom: 10px;
+        background: var(--grey);
+      }
+      .status-bar.pass {
+        background: var(--green);
+      }
+      .status-bar.fail {
+        background: var(--red);
+      }
+      .status-bar.skip {
+        background: var(--amber);
+      }
+      .ai-status {
+        font-size: 13px;
+        color: var(--muted);
+        margin: 6px 0;
+      }
+      .verdict-btns button {
+        padding: 6px 14px;
+        margin-right: 6px;
+        border: 1px solid var(--border);
+        border-radius: 6px;
+        background: var(--bg);
+        color: var(--fg);
+        cursor: pointer;
+      }
+      .verdict-btns button.active-pass {
+        background: var(--green);
+        color: #fff;
+      }
+      .verdict-btns button.active-fail {
+        background: var(--red);
+        color: #fff;
+      }
+      .verdict-btns button.active-skip {
+        background: var(--amber);
+        color: #fff;
+      }
+      .reset {
+        background: none;
+        border: none;
+        color: var(--muted);
+        text-decoration: underline;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="bar">
+      <h1>{{ target title }}</h1>
+      <div class="progress"><div id="progress-fill" style="width:0%"></div></div>
+      <div class="counts">
+        <span id="count-summary">0 / {{ case count }} judged</span>
+        <span
+          >Est. retest: {{ human-only minutes }} min human-only + {{ double-check minutes }} min
+          double-check</span
+        >
+        <button class="reset" onclick="if(confirm('Reset all your verdicts?')) resetAll()">
+          reset my verdicts
+        </button>
       </div>
     </div>
-  </section>
 
-  <section>
-    <h2>Bugs found during testing</h2>
-    <div id="bugs">{{ "Session in progress — bugs will appear here." at early publish; one repro-ready block per bugs/*.md at the final update }}</div>
-  </section>
+    <section>
+      <h2>What this change does</h2>
+      <p>{{ plain-language brief from step 2 }}</p>
+    </section>
 
-<script>
-(function(){
-  var KEY_PREFIX = 'qa-buddy:{{ stable run identity, e.g. pr-1234 or branch-slug }}:';
-  var ids = Array.prototype.map.call(document.querySelectorAll('[data-tc]'), function(el){ return el.getAttribute('data-tc'); });
-  function safe(fn, fallback) { try { return fn(); } catch (e) { return fallback; } }
-  window.setVerdict = function(id, verdict) {
-    safe(function(){ localStorage.setItem(KEY_PREFIX + id, verdict); });
-    render();
-  };
-  window.resetAll = function() {
-    ids.forEach(function(id){ safe(function(){ localStorage.removeItem(KEY_PREFIX + id); }); });
-    render();
-  };
-  function render() {
-    var judged = 0, pass = 0, fail = 0, skip = 0;
-    ids.forEach(function(id){
-      var v = safe(function(){ return localStorage.getItem(KEY_PREFIX + id); }, null);
-      var card = document.querySelector('[data-tc="' + CSS.escape(id) + '"]');
-      if (!card) return;
-      card.querySelector('.status-bar').className = 'status-bar' + (v ? ' ' + v : '');
-      var btns = card.querySelectorAll('.verdict-btns button');
-      btns.forEach(function(b){ b.className = ''; });
-      if (v) {
-        judged++;
-        if (v === 'pass') { pass++; btns[0].className = 'active-pass'; }
-        if (v === 'fail') { fail++; btns[1].className = 'active-fail'; }
-        if (v === 'skip') { skip++; btns[2].className = 'active-skip'; }
-      }
-    });
-    document.getElementById('progress-fill').style.width = (ids.length ? (100 * judged / ids.length) : 0) + '%';
-    document.getElementById('count-summary').textContent = judged + ' / ' + ids.length + ' judged — ' + pass + ' pass, ' + fail + ' fail, ' + skip + ' skipped';
-  }
-  render();
-})();
-</script>
-</body>
+    <section>
+      <h2>Test cases to cover</h2>
+      <!-- one .card per case from test-plan.md, most-critical first -->
+      <div class="card" data-tc="{{ case id, e.g. TC-XXX-001 }}">
+        <div class="status-bar"></div>
+        <strong>{{ case id }} — {{ title }}</strong>
+        <span style="color:var(--muted)">({{ priority }})</span>
+        <p>Role: {{ role }} · Login: {{ email }} / {{ password }}</p>
+        <ol>
+          {{ numbered steps, each with an exact clickable URL }}
+        </ol>
+        <p><strong>Test data:</strong> {{ prepared IDs/links/JSON }}</p>
+        <p><strong>Expected:</strong> {{ expected result }}</p>
+        <p class="ai-status">{{ AI status line — one of the states above }}</p>
+        <div class="verdict-btns">
+          <button onclick="setVerdict('{{ case id }}','pass')">Pass</button>
+          <button onclick="setVerdict('{{ case id }}','fail')">Fail</button>
+          <button onclick="setVerdict('{{ case id }}','skip')">Skip</button>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Bugs found during testing</h2>
+      <div id="bugs">
+        {{ "Session in progress — bugs will appear here." at early publish; one repro-ready block
+        per bugs/*.md at the final update }}
+      </div>
+    </section>
+
+    <script>
+      (function () {
+        var KEY_PREFIX = "qa-buddy:{{ stable run identity, e.g. pr-1234 or branch-slug }}:";
+        var ids = Array.prototype.map.call(document.querySelectorAll("[data-tc]"), function (el) {
+          return el.getAttribute("data-tc");
+        });
+        function safe(fn, fallback) {
+          try {
+            return fn();
+          } catch (e) {
+            return fallback;
+          }
+        }
+        window.setVerdict = function (id, verdict) {
+          safe(function () {
+            localStorage.setItem(KEY_PREFIX + id, verdict);
+          });
+          render();
+        };
+        window.resetAll = function () {
+          ids.forEach(function (id) {
+            safe(function () {
+              localStorage.removeItem(KEY_PREFIX + id);
+            });
+          });
+          render();
+        };
+        function render() {
+          var judged = 0,
+            pass = 0,
+            fail = 0,
+            skip = 0;
+          ids.forEach(function (id) {
+            var v = safe(function () {
+              return localStorage.getItem(KEY_PREFIX + id);
+            }, null);
+            var card = document.querySelector('[data-tc="' + CSS.escape(id) + '"]');
+            if (!card) return;
+            card.querySelector(".status-bar").className = "status-bar" + (v ? " " + v : "");
+            var btns = card.querySelectorAll(".verdict-btns button");
+            btns.forEach(function (b) {
+              b.className = "";
+            });
+            if (v) {
+              judged++;
+              if (v === "pass") {
+                pass++;
+                btns[0].className = "active-pass";
+              }
+              if (v === "fail") {
+                fail++;
+                btns[1].className = "active-fail";
+              }
+              if (v === "skip") {
+                skip++;
+                btns[2].className = "active-skip";
+              }
+            }
+          });
+          document.getElementById("progress-fill").style.width =
+            (ids.length ? (100 * judged) / ids.length : 0) + "%";
+          document.getElementById("count-summary").textContent =
+            judged +
+            " / " +
+            ids.length +
+            " judged — " +
+            pass +
+            " pass, " +
+            fail +
+            " fail, " +
+            skip +
+            " skipped";
+        }
+        render();
+      })();
+    </script>
+  </body>
 </html>
 ```
 

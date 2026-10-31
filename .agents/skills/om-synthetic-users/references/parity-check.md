@@ -25,7 +25,7 @@ Automatically, whenever **held-out** notes tagged `[INTERVIEW]` exist for the sa
 ```markdown
 # Calibration — {product}
 
-| Date | Run | Panel | Held-out notes | Overlap | Real-only themes | Panel-only themes |
-|---|---|---|---|---|---|---|
-| … | … | 3 | 2 notes (which) | 7 of 10 | {list} | {list} |
+| Date | Run | Panel | Held-out notes  | Overlap | Real-only themes | Panel-only themes |
+| ---- | --- | ----- | --------------- | ------- | ---------------- | ----------------- |
+| …    | …   | 3     | 2 notes (which) | 7 of 10 | {list}           | {list}            |
 ```

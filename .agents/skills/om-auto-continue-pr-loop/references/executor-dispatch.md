@@ -32,16 +32,19 @@ Branch: {branch} (already checked out; origin tracking set up)
 Run folder: {absolute run folder path}
 
 Step to implement:
+
 - Step id: {X.Y}
 - Title: {step title from Tasks table}
 - Full description: {paste the Step's bullets from PLAN.md Implementation Plan}
 
 Spec anchors:
+
 - PLAN.md: {plan path}
 - Source spec (if any): {spec path}
 - External References adopted: {list from PLAN.md Overview}
 
 Rules:
+
 - One Step = exactly one code commit. Nothing more, nothing less. No docs-flip commit.
 - Run a quick scratch sanity check (typecheck + new test). Do NOT record it anywhere — the checkpoint pass verifies.
 - Do NOT write a `step-{X.Y}-checks.md`. Do NOT create a `step-{X.Y}-artifacts/` folder. Verification is checkpoint-based.
@@ -52,6 +55,7 @@ Rules:
 - Do NOT rewrite or reorder prior history. Do NOT split into multiple code commits. If this Step truly needs splitting, stop and return early with a report asking the main session to split the Step in PLAN.md first.
 
 Return format (concise report, < 300 words):
+
 - Step id
 - Code commit SHA
 - Files touched

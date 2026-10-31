@@ -36,19 +36,37 @@ Output shape:
 
 ```json
 {
-  "scanned":  [{"lockfile": "pubspec.lock", "ecosystem": "Pub", "packages": 87}],
-  "skipped":  [{"lockfile": "ios/Podfile.lock", "reason": "CocoaPods has no advisory feed in OSV"}],
+  "scanned": [{ "lockfile": "pubspec.lock", "ecosystem": "Pub", "packages": 87 }],
+  "skipped": [
+    { "lockfile": "ios/Podfile.lock", "reason": "CocoaPods has no advisory feed in OSV" }
+  ],
   "invalid_entries": 0,
   "incomplete": [],
-  "errors":   [],
-  "findings": [{
-    "ecosystem": "npm", "package": "lodash", "version": "4.17.15",
-    "lockfiles": ["package-lock.json"], "direct": true,
-    "advisories": [{"id": "GHSA-…", "aliases": ["CVE-…"], "summary": "…",
-                    "severity": "high", "cvss": 7.4, "fixed": ["4.17.19", "4.17.21"],
-                    "url": "https://osv.dev/vulnerability/GHSA-…", "withdrawn": false}],
-    "target": "4.17.21", "target_clears_all": "4.17.21", "at_threshold": 2
-  }]
+  "errors": [],
+  "findings": [
+    {
+      "ecosystem": "npm",
+      "package": "lodash",
+      "version": "4.17.15",
+      "lockfiles": ["package-lock.json"],
+      "direct": true,
+      "advisories": [
+        {
+          "id": "GHSA-…",
+          "aliases": ["CVE-…"],
+          "summary": "…",
+          "severity": "high",
+          "cvss": 7.4,
+          "fixed": ["4.17.19", "4.17.21"],
+          "url": "https://osv.dev/vulnerability/GHSA-…",
+          "withdrawn": false
+        }
+      ],
+      "target": "4.17.21",
+      "target_clears_all": "4.17.21",
+      "at_threshold": 2
+    }
+  ]
 }
 ```
 

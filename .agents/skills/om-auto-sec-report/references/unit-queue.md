@@ -18,13 +18,13 @@ esac
 SINCE_DEFAULT=$(date -u -d '7 days ago' +%Y-%m-%d 2>/dev/null || date -u -v-7d +%Y-%m-%d)
 ```
 
-| Mode | Queue | Default slug |
-|---|---|---|
-| `default` | merged PRs since `SINCE_DEFAULT` | `last-7d-<DATE>` |
-| `date` | merged PRs since the date | `since-<date>` |
-| `floor` | merged PRs with number ≥ floor; the lower date bound is the floor PR's `createdAt` (**get-pr**) | `from-pr-<n>` |
-| `branch` | one unit, `branch:<name>` | `branch-<name with / → ->` |
-| `spec` | one unit, `spec:<path>` | `spec-<basename without .md>` |
+| Mode      | Queue                                                                                           | Default slug                  |
+| --------- | ----------------------------------------------------------------------------------------------- | ----------------------------- |
+| `default` | merged PRs since `SINCE_DEFAULT`                                                                | `last-7d-<DATE>`              |
+| `date`    | merged PRs since the date                                                                       | `since-<date>`                |
+| `floor`   | merged PRs with number ≥ floor; the lower date bound is the floor PR's `createdAt` (**get-pr**) | `from-pr-<n>`                 |
+| `branch`  | one unit, `branch:<name>`                                                                       | `branch-<name with / → ->`    |
+| `spec`    | one unit, `spec:<path>`                                                                         | `spec-<basename without .md>` |
 
 ## List merged PRs (date, floor, default)
 

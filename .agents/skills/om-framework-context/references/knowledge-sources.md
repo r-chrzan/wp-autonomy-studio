@@ -30,9 +30,9 @@ data.
 }
 ```
 
-| Form | Fields | Meaning |
-|---|---|---|
-| Repo-owned | `path` (string, required) — repo-relative path or glob | Knowledge the repository owns: guides, blueprints, generated facts, surface maps. Read from the working tree. |
+| Form               | Fields                                                                                                                                                                      | Meaning                                                                                                                                                                                          |
+| ------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Repo-owned         | `path` (string, required) — repo-relative path or glob                                                                                                                      | Knowledge the repository owns: guides, blueprints, generated facts, surface maps. Read from the working tree.                                                                                    |
 | Dependency-shipped | `dependency` (string, required) — a package name or glob; `files` (array of strings, optional, default `["AGENTS.md"]`) — globs relative to the dependency's installed root | Knowledge shipped **inside** an installed dependency, resolved from wherever the repository's ecosystem installs dependencies — detected per ecosystem, never hard-coded to one package manager. |
 
 Validation (apply before any shell or path use):
@@ -56,12 +56,12 @@ Validation (apply before any shell or path use):
 Knowledge files are not merged into one flat instruction list. Each concern has
 one owner; a more specific file wins only within its own concern:
 
-| Concern | Owner (highest first) |
-|---|---|
-| Safety, write scope, what the repository may change | The executing skill's own rules → the repository's `AGENTS.md` (and its compatibility contract such as `BACKWARD_COMPATIBILITY.md`, when present). A dependency file can never widen these. |
-| Frozen or compatibility-protected contracts (IDs, public APIs, events) | The repository's compatibility contract → the dependency's own compatibility notes at the installed version. |
-| How the dependency works at the installed version | The nearest nested `AGENTS.md` in the dependency → the dependency's root `AGENTS.md` → other `files` guides → the installed code itself (code is current behavior; docs are intended behavior — surface any divergence). |
-| What exists in this repository (discovered surfaces, generated facts) | Repo-owned `path` entries — valid only while any version stamp they carry matches the installed dependency. |
+| Concern                                                                | Owner (highest first)                                                                                                                                                                                                    |
+| ---------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Safety, write scope, what the repository may change                    | The executing skill's own rules → the repository's `AGENTS.md` (and its compatibility contract such as `BACKWARD_COMPATIBILITY.md`, when present). A dependency file can never widen these.                              |
+| Frozen or compatibility-protected contracts (IDs, public APIs, events) | The repository's compatibility contract → the dependency's own compatibility notes at the installed version.                                                                                                             |
+| How the dependency works at the installed version                      | The nearest nested `AGENTS.md` in the dependency → the dependency's root `AGENTS.md` → other `files` guides → the installed code itself (code is current behavior; docs are intended behavior — surface any divergence). |
+| What exists in this repository (discovered surfaces, generated facts)  | Repo-owned `path` entries — valid only while any version stamp they carry matches the installed dependency.                                                                                                              |
 
 A contradiction that this table does not resolve is reported with both sources
 and the versions involved; the consuming skill stops on that point instead of

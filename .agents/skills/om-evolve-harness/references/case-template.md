@@ -14,13 +14,25 @@ Use the next contiguous ID in the catalog's existing scheme (same prefix, same w
   "risk": "low|medium|high",
   "prompt": "Standalone user request with observable scope",
   "tags": ["kebab-case"],
-  "owner": { "kind": "root|guide|skill|facts|hook", "path": "app/relative/path", "ruleIds": ["<rule id>"] },
+  "owner": {
+    "kind": "root|guide|skill|facts|hook",
+    "path": "app/relative/path",
+    "ruleIds": ["<rule id>"]
+  },
   "expectedRouter": { "required": ["route-id"], "allowedExtra": [] },
   "requiredSkills": ["<skill-name>"],
   "context": { "required": ["AGENTS.md", "owner/path"], "forbidden": [".env*", ".git/**"] },
   "requiredDecisions": ["semantic-decision-id"],
   "forbiddenPatterns": ["unsafe-regex"],
-  "validators": ["catalog.schema", "owner.reference", "skills.reference", "router.contract", "context.budget", "context.forbidden", "patterns.forbidden"],
+  "validators": [
+    "catalog.schema",
+    "owner.reference",
+    "skills.reference",
+    "router.contract",
+    "context.budget",
+    "context.forbidden",
+    "patterns.forbidden"
+  ],
   "maxContextFiles": "<calibrated, see below>",
   "maxInitialContextBytes": "<calibrated, see below>",
   "maxTotalContextBytes": "<calibrated, see below>",
@@ -30,7 +42,7 @@ Use the next contiguous ID in the catalog's existing scheme (same prefix, same w
 
 ## Budget calibration
 
-Copy the shape from an adjacent case, never its budgets. Calibrate them from this case's own measured footprint in a scaffolded controller: sum the on-disk size of `context.required` plus every `context.allowedExtra` path, counting a path toward the *initial* budgets unless it matches `harness.onDemandContext` (on-demand reference directories, installed-skill directories, dependency-knowledge snapshots). Round up to leave real slack — a budget equal to the declared set fails a correct run on one incidental read — then confirm against a clean passing live trace rather than a neighbouring case's envelope.
+Copy the shape from an adjacent case, never its budgets. Calibrate them from this case's own measured footprint in a scaffolded controller: sum the on-disk size of `context.required` plus every `context.allowedExtra` path, counting a path toward the _initial_ budgets unless it matches `harness.onDemandContext` (on-demand reference directories, installed-skill directories, dependency-knowledge snapshots). Round up to leave real slack — a budget equal to the declared set fails a correct run on one incidental read — then confirm against a clean passing live trace rather than a neighbouring case's envelope.
 
 When the deterministic gate (`validateCase` / `validateAll`) measures this and rejects a case whose required or declared context cannot fit its own budgets, the case is unpassable or self-contradictory, not merely tight — fix the case, not the gate.
 

@@ -5,7 +5,7 @@ description: Grounded gap analysis of requirements against the platform an app b
 
 # Gap Analysis
 
-Multi-document engagement scoping against a platform codebase. Turns a *folder* of client materials (transcripts, spec docs, requirement dumps) into an evidence-backed Epic/Story tree where every story carries a grounded verdict and an atomic-commit effort, then derives a client-facing summary and a prioritized backlog. The trust model is structural, not prose: subagents investigate, but every verdict is re-run by a deterministic gate against a validated, just-freshened local checkout of the platform — a subagent's claim is never written to the tree unverified. The method is generic; everything about a specific platform (repository, integration branch, companion repository, license tiers, capability catalog) is data, resolved from config and the platform's own knowledge. This skill verifies coverage; it does not author requirements or specs — `om-app-spec-writing` and `om-spec-writing` do that.
+Multi-document engagement scoping against a platform codebase. Turns a _folder_ of client materials (transcripts, spec docs, requirement dumps) into an evidence-backed Epic/Story tree where every story carries a grounded verdict and an atomic-commit effort, then derives a client-facing summary and a prioritized backlog. The trust model is structural, not prose: subagents investigate, but every verdict is re-run by a deterministic gate against a validated, just-freshened local checkout of the platform — a subagent's claim is never written to the tree unverified. The method is generic; everything about a specific platform (repository, integration branch, companion repository, license tiers, capability catalog) is data, resolved from config and the platform's own knowledge. This skill verifies coverage; it does not author requirements or specs — `om-app-spec-writing` and `om-spec-writing` do that.
 
 ## Arguments
 
@@ -47,13 +47,13 @@ For one question, answer it directly with the same evidence discipline, without 
 
 The engine's power is that its rules bind outside the model loop. All five live in this skill's `bin/` and are invoked from the repository root (expected exit codes per gate: `fixtures/README.md`):
 
-| Gate | Layer | Binds |
-|---|---|---|
-| `bin/gap-checklist-gate` | intake | no Phase 2 on a happy-path-only tree |
-| `bin/gap-orientation-preflight` | checkout | no grounding against a fork, wrong branch, or stale checkout |
-| `bin/gap-validate-finding` | verdict | every verdict re-run locally; strawman queries rejected; the verdict symbol must agree with the block's per-criterion coverage rows (all/none/mixed → ✅/❌/🟡, every covered path existence-checked); tier derived from hit paths |
-| `bin/gap-pipeline-crosscheck` | citation | no missed or phantom pipeline citations |
-| `bin/gap-depth-check` | reporting | no significant cited PR buried outside the client-facing summary |
+| Gate                            | Layer     | Binds                                                                                                                                                                                                                              |
+| ------------------------------- | --------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `bin/gap-checklist-gate`        | intake    | no Phase 2 on a happy-path-only tree                                                                                                                                                                                               |
+| `bin/gap-orientation-preflight` | checkout  | no grounding against a fork, wrong branch, or stale checkout                                                                                                                                                                       |
+| `bin/gap-validate-finding`      | verdict   | every verdict re-run locally; strawman queries rejected; the verdict symbol must agree with the block's per-criterion coverage rows (all/none/mixed → ✅/❌/🟡, every covered path existence-checked); tier derived from hit paths |
+| `bin/gap-pipeline-crosscheck`   | citation  | no missed or phantom pipeline citations                                                                                                                                                                                            |
+| `bin/gap-depth-check`           | reporting | no significant cited PR buried outside the client-facing summary                                                                                                                                                                   |
 
 Never write a subagent's block into the MD without its gate PASS; never let any gate's output alter a Verdict/Evidence/Effort value except `gap-validate-finding`, which is the only verdict authority.
 

@@ -33,7 +33,7 @@ The run **always** leaves a PR the user can watch, even when it never finishes:
 
 ## Verification comments on the PR
 
-Verification proofs land on the PR, not only in the plan. Keep the validation outcome and material limits in the PR body; the end-of-run comment links its evidence; when a verification (validation gate, integration or UI check) runs mid-flight and is worth surfacing before the summary, post it as its own idempotent comment with the marker `` 🤖 `om-auto-create-pr` — verification `` (re-run updates it in place). Attach screenshots via **attach-image-evidence** whenever UI was touched.
+Verification proofs land on the PR, not only in the plan. Keep the validation outcome and material limits in the PR body; the end-of-run comment links its evidence; when a verification (validation gate, integration or UI check) runs mid-flight and is worth surfacing before the summary, post it as its own idempotent comment with the marker ``🤖 `om-auto-create-pr` — verification`` (re-run updates it in place). Attach screenshots via **attach-image-evidence** whenever UI was touched.
 
 ## PR body
 
@@ -79,13 +79,13 @@ render_pr_title() {
 
 Call `render_pr_title` with five quoted arguments: conventional-commit type, primary area, one-line summary, raw tracker issue id (or empty), and caller-supplied title (or empty). Capture its output for **create-pr**. Substitution happens once, so placeholder-like text inside a summary stays literal; wrapper cleanup applies only to template placeholders.
 
-| Placeholder | Value |
-|---|---|
-| `{prefix}` | Conventional-commit type (`feat`, `fix`, `refactor`, …). |
-| `{area}` | Primary affected area. |
-| `{summary}` | One-line behavioral summary. |
-| `{issue}` | The subject issue as its tracker writes it: `#123` for a numeric id, the key itself (`ENG-123`) otherwise. Empty without an issue. |
-| `{issueRef}` | ` (#{issueId})` in an issue-driven run, else empty — the legacy suffix the default uses. |
+| Placeholder   | Value                                                                                                                               |
+| ------------- | ----------------------------------------------------------------------------------------------------------------------------------- |
+| `{prefix}`    | Conventional-commit type (`feat`, `fix`, `refactor`, …).                                                                            |
+| `{area}`      | Primary affected area.                                                                                                              |
+| `{summary}`   | One-line behavioral summary.                                                                                                        |
+| `{issue}`     | The subject issue as its tracker writes it: `#123` for a numeric id, the key itself (`ENG-123`) otherwise. Empty without an issue.  |
+| `{issueRef}`  | ` (#{issueId})` in an issue-driven run, else empty — the legacy suffix the default uses.                                            |
 | `{ticketKey}` | First match of the `ticketKeyPattern` ERE in the head branch name (case-sensitive). Empty when the key is unset or nothing matches. |
 
 An empty `{issue}` or `{ticketKey}` is removed together with a `[]` or `()` pair wrapped directly around it and one following space. A caller-supplied title always wins. Keep the conventional-commit type as the first word after any leading reference: `om-auto-update-changelog` reads it from there.
@@ -100,14 +100,15 @@ Apply labels from the config's taxonomy after opening the PR, always through the
 - Never add both `needs-qa` and `skip-qa`.
 - Add additive category labels when they clearly apply: `bug`, `feature`, `refactor`, `security`, `dependencies`, `documentation`. Every PR carries at least one: the changelog and generated release notes group a PR by its category and print its title, so the title must read as a release-note line (a conventional title stating the user-visible effect). Pick the category from what the PR changes for users, starting from its conventional-commit type; add `security` next to `bug` or `dependencies` when the change closes a vulnerability:
 
-  | Change | Category |
-  |---|---|
-  | fixes a vulnerability, an auth or data-scoping flaw, or a vulnerable dependency | `security` |
-  | `feat` — new capability or public API | `feature` |
-  | `fix` — incorrect behavior corrected | `bug` |
-  | `refactor`, `perf`, `test`, `ci`, `build`, `chore` with no user-visible behavior change | `refactor` |
-  | `deps` / `chore(deps)` — dependency bumps | `dependencies` |
-  | `docs` only | `documentation` |
+  | Change                                                                                  | Category        |
+  | --------------------------------------------------------------------------------------- | --------------- |
+  | fixes a vulnerability, an auth or data-scoping flaw, or a vulnerable dependency         | `security`      |
+  | `feat` — new capability or public API                                                   | `feature`       |
+  | `fix` — incorrect behavior corrected                                                    | `bug`           |
+  | `refactor`, `perf`, `test`, `ci`, `build`, `chore` with no user-visible behavior change | `refactor`      |
+  | `deps` / `chore(deps)` — dependency bumps                                               | `dependencies`  |
+  | `docs` only                                                                             | `documentation` |
+
 - Apply exactly one priority label. Infer it from the brief and the diff: outage, data loss, or a security incident → `priority-extreme`; security hardening or a release-blocking regression → `priority-high`; ordinary bug or feature → `priority-medium`; cosmetic, docs, dependency bumps, or cleanup → `priority-low`.
 - Apply exactly one risk label. Infer it from the diff: changes to auth, session handling, data scoping, money, DB migrations, or shared contract surfaces, or broad cross-cutting edits → `risk-high`; an ordinary single-area change with tests → `risk-medium`; docs, dependency bumps, test-only, or isolated cleanup → `risk-low`.
 - After applying the label set, post **one** consolidated rationale comment covering every applied label — never one comment per label (that spams the PR timeline and multiplies tracker API calls). Labels are still applied individually through the `apply_label` guard; only the commentary consolidates. The comment carries the standard idempotent marker, so a re-run updates it in place.

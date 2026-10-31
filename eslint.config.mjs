@@ -181,5 +181,7 @@ export default defineConfig([
     "**/test-results/**",
     "**/next-env.d.ts",
     "packages/db/src/migrations/**",
+    // Vendored agent skills, not this app's code
+    ".agents/**",
   ]),
 ]);

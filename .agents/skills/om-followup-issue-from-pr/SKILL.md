@@ -8,7 +8,7 @@ description: Turn a PR into tracked follow-up work — paste a PR or PR-comment 
 Companion to the code-review process. The user pastes a link to a **PR** or a **specific PR comment**. This skill turns the PR into tracked follow-up work in up to two ways, and **both can apply to the same PR**:
 
 - **Comment mode** — the linked comment (or a comment chosen from a plain PR link) contains an actionable request (usually written by the reviewer). The skill turns that request into a tracker issue, assigned to the right person.
-- **Design-doc mode** — the PR adds or contains a design/proposal document in the repo's docs area (a design PR). The skill checks whether a tracking issue for *implementing that document* already exists and, if not, opens one following the `Implement: …` tracking-issue convention.
+- **Design-doc mode** — the PR adds or contains a design/proposal document in the repo's docs area (a design PR). The skill checks whether a tracking issue for _implementing that document_ already exists and, if not, opens one following the `Implement: …` tracking-issue convention.
 
 When a plain PR link is pasted, always run the design-doc check (step 3) in addition to the comment handling. When a specific comment link is pasted, comment mode is the primary intent, but still surface any new design doc in the PR so the user can opt into a tracking issue.
 

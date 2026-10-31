@@ -30,7 +30,7 @@ Issue: #<number> (link: <full issue URL>)
 
 ## CI-result comment (step 13)
 
-Update the existing `` 🤖 `om-auto-review-pr` — CI result `` comment via
+Update the existing ``🤖 `om-auto-review-pr` — CI result`` comment via
 **update-comment**. Report the new result and consequence in 40–100 words;
 link the checks and review rather than repeating them. A wait-budget exit still
 includes every local `validation.commands` result, pending check names/links,

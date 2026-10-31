@@ -19,8 +19,8 @@ Lead with the resolved scope and totals: scanned, labeled, enriched, prepped,
 not-ready, skipped. Then one row per issue; no boolean-field dump or repeated prose totals.
 
 ```markdown
-| Issue | Result | Readiness | Next action |
-|---|---|---|---|
+| Issue          | Result                              | Readiness                                                                      | Next action                                                          |
+| -------------- | ----------------------------------- | ------------------------------------------------------------------------------ | -------------------------------------------------------------------- |
 | {linked issue} | {concrete delta or skipped and why} | {ready / not-ready with missing ticket-level items / not checked when skipped} | {remaining action; missing spec and comment outcome when applicable} |
 ```
 

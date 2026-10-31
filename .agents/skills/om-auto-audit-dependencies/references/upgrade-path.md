@@ -24,11 +24,11 @@ future implementer makes (step 4). It reads manifests; it never edits them.
 
 Compare the installed and target versions:
 
-| Jump | Meaning for the issue |
-|---|---|
-| patch / same minor | drop-in; low risk |
-| minor (`0.x` counts the minor as major) | usually compatible; check the changelog |
-| major | 💥 breaking — the issue must say so and link the package changelog or migration guide when the registry page names one |
+| Jump                                    | Meaning for the issue                                                                                                  |
+| --------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- |
+| patch / same minor                      | drop-in; low risk                                                                                                      |
+| minor (`0.x` counts the minor as major) | usually compatible; check the changelog                                                                                |
+| major                                   | 💥 breaking — the issue must say so and link the package changelog or migration guide when the registry page names one |
 
 When the target is a major jump but some advisories have a fix inside the
 current major line (from each advisory's `fixed` list), list that interim

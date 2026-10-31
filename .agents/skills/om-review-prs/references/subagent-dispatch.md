@@ -17,6 +17,7 @@ Load this file only for `om-review-prs --subagents`: it extends step 0 and repla
    ```
 
    Do not inspect this value when `--parallel N` overrides it. Invalid consumed config stops the flagged run before dispatch; absent/null values use `1`. There is no config switch that enables subagents.
+
 3. Load `references/subagent-isolation.md`. Resolve repository identity through the tracker operation **repo-info**, then use the configured coordination directory or create the documented stable local default. Verify its atomic lease and pinned worker context without asking for routine setup or scheduling confirmation. A checkout-local lock or a tracker claim is not a substitute. Preserve an explicitly configured directory; invalid or unavailable configured storage is a concrete blocker, not permission to silently choose another location.
 4. Cap active reviewers at the smaller of the requested limit and available worker capacity, reserving the coordinator's slot. If capacity is unknown, start with one; if slots are temporarily occupied, wait rather than reviewing inline. Count the whole per-PR workflow, including any bounded CI follow-up, against the limit. Reviewers do not spawn additional reviewers. Establish the test-resource policy from `references/subagent-isolation.md`: use concurrency one for shared resources while holding the sweep lease, or prove per-worker isolation before using a higher limit. Worktree separation alone does not isolate those resources.
 

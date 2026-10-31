@@ -47,7 +47,7 @@ Keep ids (`D01`, `R01`, `N01`, `A01`, `Q01`) stable. Preserve existing rows and 
 - What makes it different: {only sourced comparisons, or an explicit hypothesis linked to an A id}
 
 | reference | what it does well | where it falls short for our users | checked on | link |
-|---|---|---|---|---|
+| --------- | ----------------- | ---------------------------------- | ---------- | ---- |
 
 {Only populate a benchmark when it informs the decision and was checked. Otherwise state why it is deferred.}
 
@@ -67,7 +67,7 @@ Keep ids (`D01`, `R01`, `N01`, `A01`, `Q01`) stable. Preserve existing rows and 
 ## Domain glossary
 
 | Term | Meaning | Owned by | Visible to |
-|---|---|---|---|
+| ---- | ------- | -------- | ---------- |
 
 {Include ambiguous terms needed to understand the current scope. Do not turn the glossary into a duplicate specification.}
 
@@ -80,27 +80,27 @@ Keep ids (`D01`, `R01`, `N01`, `A01`, `Q01`) stable. Preserve existing rows and 
 
 ## Business rules
 
-| Id | Rule | Applies to | Source | Status | Review by | Required path to change | Owner | Supersedes |
-|---|---|---|---|---|---|---|---|---|
-| R01 | {one rule} | … | `[tag]` {source or linked decision} | active / proposal | {date or explicit trigger; unknown if unset} | {who approves a superseding row} | {name or pending} | {id or none} |
+| Id  | Rule       | Applies to | Source                              | Status            | Review by                                    | Required path to change          | Owner             | Supersedes   |
+| --- | ---------- | ---------- | ----------------------------------- | ----------------- | -------------------------------------------- | -------------------------------- | ----------------- | ------------ |
+| R01 | {one rule} | …          | `[tag]` {source or linked decision} | active / proposal | {date or explicit trigger; unknown if unset} | {who approves a superseding row} | {name or pending} | {id or none} |
 
 ## Non-goals
 
-| Id | We are not building | Why | Owner | Status | Review by | Required path to change | Source | Supersedes |
-|---|---|---|---|---|---|---|---|---|
-| N01 | … | … | {name or pending} | active / proposal | {date or trigger; unknown if unset} | {who approves a superseding row} | `[tag]` {source} | {id or none} |
+| Id  | We are not building | Why | Owner             | Status            | Review by                           | Required path to change          | Source           | Supersedes   |
+| --- | ------------------- | --- | ----------------- | ----------------- | ----------------------------------- | -------------------------------- | ---------------- | ------------ |
+| N01 | …                   | …   | {name or pending} | active / proposal | {date or trigger; unknown if unset} | {who approves a superseding row} | `[tag]` {source} | {id or none} |
 
 ## Decisions
 
-| Id | Date | Decision | Why | Owner | Status | Review by | Required path to change | Source | Supersedes |
-|---|---|---|---|---|---|---|---|---|---|
-| D01 | … | {choice or adoption of a rule id} | {reason; include a relevant alternative actually considered when the approach was open; identify an accepted agent recommendation when applicable} | {name or pending} | active / proposal | {date or trigger; unknown if unset} | {who approves a superseding row} | `[tag]` {source} | {id or none} |
+| Id  | Date | Decision                          | Why                                                                                                                                                | Owner             | Status            | Review by                           | Required path to change          | Source           | Supersedes   |
+| --- | ---- | --------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------- | ----------------- | ----------------------------------- | -------------------------------- | ---------------- | ------------ |
+| D01 | …    | {choice or adoption of a rule id} | {reason; include a relevant alternative actually considered when the approach was open; identify an accepted agent recommendation when applicable} | {name or pending} | active / proposal | {date or trigger; unknown if unset} | {who approves a superseding row} | `[tag]` {source} | {id or none} |
 
 ## Riskiest assumptions
 
-| Id | Assumption | Importance | Evidence today | If false | Smallest test | Owner | By when | Result |
-|---|---|---|---|---|---|---|---|---|
-| A01 | … `[ASSUMPTION]` {origin or no material} | high / medium / low | {what is observed, with references; separate beliefs} | {what decision changes} | {learning question, action, observable result and limits; choose the form to answer the question} | … | {date, review point or unknown} | untested / accepted untested (D{nn}) / held / refuted |
+| Id  | Assumption                               | Importance          | Evidence today                                        | If false                | Smallest test                                                                                     | Owner | By when                         | Result                                                |
+| --- | ---------------------------------------- | ------------------- | ----------------------------------------------------- | ----------------------- | ------------------------------------------------------------------------------------------------- | ----- | ------------------------------- | ----------------------------------------------------- |
+| A01 | … `[ASSUMPTION]` {origin or no material} | high / medium / low | {what is observed, with references; separate beliefs} | {what decision changes} | {learning question, action, observable result and limits; choose the form to answer the question} | …     | {date, review point or unknown} | untested / accepted untested (D{nn}) / held / refuted |
 
 {Treat a recorded acceptance as permission to take the risk, not as evidence that the assumption held.}
 
@@ -114,9 +114,9 @@ Keep ids (`D01`, `R01`, `N01`, `A01`, `Q01`) stable. Preserve existing rows and 
 
 ## Open questions
 
-| Id | Question | Blocking | Who can answer | Status |
-|---|---|---|---|---|
-| Q01 | … | {yes/no and the specific decision or work blocked} | {role} | open |
+| Id  | Question | Blocking                                           | Who can answer | Status |
+| --- | -------- | -------------------------------------------------- | -------------- | ------ |
+| Q01 | …        | {yes/no and the specific decision or work blocked} | {role}         | open   |
 
 {Keep closed ids and their resolution concise. Optional later questions do not block unrelated current work.}
 

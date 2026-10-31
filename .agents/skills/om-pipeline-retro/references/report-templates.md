@@ -13,16 +13,16 @@ no recorded cause.
 
 {Coverage: examined count/window, marker coverage, truncation, and material data limits.}
 
-| Outcome | Runs | Share | Median time to merge | p90 |
-|---|---|---|---|---|
-| Clean single pass | {count} | {share} | {median} | {p90} |
-| Hard recovery | {count} | {share} | {median} | {p90} |
-| Loop checkpoints (by design) | {count} | {share} | {median} | {p90} |
-| Second pass, cause not stated | {count} | {share} | {median} | {p90} |
+| Outcome                       | Runs    | Share   | Median time to merge | p90   |
+| ----------------------------- | ------- | ------- | -------------------- | ----- |
+| Clean single pass             | {count} | {share} | {median}             | {p90} |
+| Hard recovery                 | {count} | {share} | {median}             | {p90} |
+| Loop checkpoints (by design)  | {count} | {share} | {median}             | {p90} |
+| Second pass, cause not stated | {count} | {share} | {median}             | {p90} |
 
-| Recorded cause | Runs | Hours beyond baseline | Evidence |
-|---|---|---|---|
-| {cause} | {count} | {hours} | {PR links and the concrete event recorded.} |
+| Recorded cause | Runs    | Hours beyond baseline | Evidence                                    |
+| -------------- | ------- | --------------------- | ------------------------------------------- |
+| {cause}        | {count} | {hours}               | {PR links and the concrete event recorded.} |
 
 🔁 {Recommended next investigation or change based on the ranked cause.}
 I can pass this to `om-prepare-issue` if you want to file it.
@@ -50,13 +50,13 @@ Omit a group with no entries.
 <details>
 <summary>Evidence by PR and change size</summary>
 
-| PR | Recorded cause or missing explanation | Hours |
-|---|---|---|
+| PR                          | Recorded cause or missing explanation                     | Hours   |
+| --------------------------- | --------------------------------------------------------- | ------- |
 | [#{number}: {title}]({url}) | {Observed event, or second pass with no recorded reason.} | {hours} |
 
-| Added lines | Runs | Hard recovery | Share |
-|---|---|---|---|
-| {bucket} | {runs} | {recovered} | {share} |
+| Added lines | Runs   | Hard recovery | Share   |
+| ----------- | ------ | ------------- | ------- |
+| {bucket}    | {runs} | {recovered}   | {share} |
 
 </details>
 ```

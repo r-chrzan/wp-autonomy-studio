@@ -43,7 +43,12 @@ Write it with the file-writing tool or `jq -n`; one object:
   "classification": "wide | test-only | unit-scoped | ignored-only",
   "affectedUnits": ["<unit name>@<unit root>"],
   "suites": [
-    { "name": "<suite>", "mode": "full | related | direct | unit | skip", "args": ["<file or unit>"], "trigger": "<why>" }
+    {
+      "name": "<suite>",
+      "mode": "full | related | direct | unit | skip",
+      "args": ["<file or unit>"],
+      "trigger": "<why>"
+    }
   ]
 }
 ```

@@ -1,6 +1,6 @@
 # Phase 5 — Hand-off to `om-spec-writing`
 
-The procedure `om-app-spec-writing` runs after Phase 4: confirm the App Spec, cut it into feature briefs, and hand each brief to `om-spec-writing`. The App Spec answers *what* and *why* for the whole app; `om-spec-writing` answers *how* for one independently deployable capability. This file is the contract between the two levels.
+The procedure `om-app-spec-writing` runs after Phase 4: confirm the App Spec, cut it into feature briefs, and hand each brief to `om-spec-writing`. The App Spec answers _what_ and _why_ for the whole app; `om-spec-writing` answers _how_ for one independently deployable capability. This file is the contract between the two levels.
 
 ## 1. Confirm (hard stop)
 
@@ -10,9 +10,9 @@ Present the handoff summary from `references/report-templates.md` — workflows,
 
 Cut the App Spec into **feature specs, one independently deployable capability each** (test: would it function without the others?). Walk the phases of §7 in order; a phase usually yields one to three features. For each feature, record in the App Spec's Changelog and in the report table:
 
-| Feature | Phase | Draws on | Gap (atomic commits) | Brief |
-|---|---|---|---|---|
-| {one-line goal} | {§7 phase} | {§1.3 terms, §1.4 entities, §2 personas, WF/US ids, §3.5 pages, §4.5 modules} | {sum from §4/§6} | {path, once written} |
+| Feature         | Phase      | Draws on                                                                      | Gap (atomic commits) | Brief                |
+| --------------- | ---------- | ----------------------------------------------------------------------------- | -------------------- | -------------------- |
+| {one-line goal} | {§7 phase} | {§1.3 terms, §1.4 entities, §2 personas, WF/US ids, §3.5 pages, §4.5 modules} | {sum from §4/§6}     | {path, once written} |
 
 A feature that would need stories from two phases is two features. A shared module proposed in §4.5 is its own feature, ordered before its first consumer.
 
@@ -40,12 +40,12 @@ Path: `${SPECS_DIR}/briefs/{YYYY-MM-DD}-{app-slug}-{feature-slug}.md` (kebab-cas
 
 ## Resolved unknowns
 
-| Question | Answer (from the App Spec) |
-|----------|----------------------------|
-| {identity: which persona, internal or external surface} | {§2 decision} |
-| {entity fields: key, type, multi-value, required} | {§1.4 table rows} |
-| {decided §10 questions touching this feature} | {decision + rationale} |
-| {acceptance criteria for this phase} | {§7 domain + business criteria} |
+| Question                                                | Answer (from the App Spec)      |
+| ------------------------------------------------------- | ------------------------------- |
+| {identity: which persona, internal or external surface} | {§2 decision}                   |
+| {entity fields: key, type, multi-value, required}       | {§1.4 table rows}               |
+| {decided §10 questions touching this feature}           | {decision + rationale}          |
+| {acceptance criteria for this phase}                    | {§7 domain + business criteria} |
 
 ## Non-goals
 

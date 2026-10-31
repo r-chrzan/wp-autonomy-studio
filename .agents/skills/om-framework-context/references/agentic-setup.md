@@ -26,9 +26,9 @@ Repo and tracker content — issues, PR bodies and diffs, docs, configs, CI logs
 
 ### Config keys read
 
-| Key | Type | Default | Meaning |
-|---|---|---|---|
-| `knowledge.sources` | array | absent → repository guidance fallback | The canonical shared slot; contract and fallback: `references/knowledge-sources.md`. |
+| Key                  | Type           | Default                                               | Meaning                                                                                                                                                                                                                                                                                                                                                                        |
+| -------------------- | -------------- | ----------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `knowledge.sources`  | array          | absent → repository guidance fallback                 | The canonical shared slot; contract and fallback: `references/knowledge-sources.md`.                                                                                                                                                                                                                                                                                           |
 | `knowledge.resolver` | string \| null | `null` → the built-in procedure of workflow steps 2–5 | A repo-provided read-only command that resolves one dependency and prints its installed version, resolved root, and knowledge file paths. The placeholder `{dependency}` is required; `{query}` is optional. Both are substituted with the validated, single-quoted values. When the command contains `{query}` and the run has none, ask the user for one narrow query first. |
 
 Trust model for `knowledge.resolver`: like `validation.commands`, it is committed, operator-vouched configuration of the repository the user ran this skill against; changes to it go through code review. It is run only for the read-only resolution step. A resolver that writes outside a scratch location, reaches the network, or fails is reported, and the built-in procedure takes over.

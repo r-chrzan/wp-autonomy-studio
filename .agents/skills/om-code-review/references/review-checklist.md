@@ -233,14 +233,14 @@ A contract surface is anything an external consumer may depend on. Removing or r
 
 The changelog and generated release notes group a PR by its category label and print its title, so a missing or wrong category misfiles the change for readers. Expected category, from what the PR changes for users (conventional-commit type as the starting point):
 
-| Change | Category |
-|---|---|
-| fixes a vulnerability, an auth or data-scoping flaw, or a vulnerable dependency | `security` |
-| `feat` — new capability or public API | `feature` |
-| `fix` — incorrect behavior corrected | `bug` |
-| `refactor`, `perf`, `test`, `ci`, `build`, `chore` with no user-visible behavior change | `refactor` |
-| `deps` / `chore(deps)` — dependency bumps | `dependencies` |
-| `docs` only | `documentation` |
+| Change                                                                                  | Category        |
+| --------------------------------------------------------------------------------------- | --------------- |
+| fixes a vulnerability, an auth or data-scoping flaw, or a vulnerable dependency         | `security`      |
+| `feat` — new capability or public API                                                   | `feature`       |
+| `fix` — incorrect behavior corrected                                                    | `bug`           |
+| `refactor`, `perf`, `test`, `ci`, `build`, `chore` with no user-visible behavior change | `refactor`      |
+| `deps` / `chore(deps)` — dependency bumps                                               | `dependencies`  |
+| `docs` only                                                                             | `documentation` |
 
 - [ ] Does the PR carry exactly the category its change calls for — plus `security` next to `bug` or `dependencies` when it closes a vulnerability? A caller with label permission (`om-auto-review-pr`) fixes it itself and records it, with no finding; otherwise report the expected label. (minor)
 - [ ] Does the title read as a release-note line — a conventional title stating the user-visible effect (`fix(checkout): keep the total after a discount edit`)? Suggest a title; renaming is the author's call. (nit)
@@ -249,42 +249,42 @@ The changelog and generated release notes group a PR by its category label and p
 
 Flag any of these on sight:
 
-| Anti-pattern | Severity | Fix |
-|---|---|---|
-| Public contract surface removed/renamed without a deprecation bridge | blocker | Keep the old surface working, add the new one, deprecate with a removal target |
-| Change contradicts a product non-goal, business rule, or decision in `product-brief.md` without a superseding entry | blocker | Add a superseding row (old id, owner, why) approved by the entry's owner, or drop the change; never silently drift |
-| Missing owning-scope filter on a query over scoped data | blocker | Add the scope filter; add a test proving isolation |
-| Permission check only in the UI | blocker | Enforce server-side; the UI merely reflects it |
-| Untrusted input concatenated into a query, command, or path | blocker | Parameterize; canonicalize paths against a base directory |
-| Secret committed, logged, or echoed to the client | blocker | Remove, rotate the secret, load from a secret store |
-| Check-then-act race on money, inventory, or uniqueness | blocker | Atomic operation, lock, or unique constraint |
-| Fail-open error handling around a security decision | blocker | Fail closed; deny on error |
-| Migration with destructive or unrelated schema churn | blocker | Regenerate scoped to the intended entities only |
-| Bug fix without a regression test | major | Add a test that reproduces the original bug |
-| Weakened or deleted assertions to get the suite green | major | Restore the assertion; fix the code instead |
-| Query or network call inside a loop | major | Batch, prefetch, or join |
-| Unbounded list query on data that grows | major | Paginate or cap with an explicit limit |
-| Outbound call without a timeout | major | Set an explicit timeout and handle its expiry |
-| Empty catch block | major | Handle, log with context, rethrow, or document the ignore |
-| Non-idempotent consumer under at-least-once delivery | major | Make it idempotent (dedup key, upsert, version check) |
-| Lockfile or dependency drift unrelated to the change | major | Revert the drift or split it into its own change |
-| Hand-edited generated file | major | Regenerate from the source of truth |
-| Hard-coded user-facing string in a localized codebase | minor | Route through the localization mechanism |
-| Hard-coded style values where the design system defines tokens | minor | Use the documented tokens or variables |
-| Dead or commented-out code shipped | minor | Delete it; version control remembers |
-| Stale comment contradicting the code | minor | Update or remove the comment |
-| One-letter variable name outside a loop index | nit | Use a descriptive name |
-| Comment narrating self-explanatory code | nit | Remove the comment |
-| Docstring added to unchanged code | nit | Remove it from this diff |
+| Anti-pattern                                                                                                        | Severity | Fix                                                                                                                |
+| ------------------------------------------------------------------------------------------------------------------- | -------- | ------------------------------------------------------------------------------------------------------------------ |
+| Public contract surface removed/renamed without a deprecation bridge                                                | blocker  | Keep the old surface working, add the new one, deprecate with a removal target                                     |
+| Change contradicts a product non-goal, business rule, or decision in `product-brief.md` without a superseding entry | blocker  | Add a superseding row (old id, owner, why) approved by the entry's owner, or drop the change; never silently drift |
+| Missing owning-scope filter on a query over scoped data                                                             | blocker  | Add the scope filter; add a test proving isolation                                                                 |
+| Permission check only in the UI                                                                                     | blocker  | Enforce server-side; the UI merely reflects it                                                                     |
+| Untrusted input concatenated into a query, command, or path                                                         | blocker  | Parameterize; canonicalize paths against a base directory                                                          |
+| Secret committed, logged, or echoed to the client                                                                   | blocker  | Remove, rotate the secret, load from a secret store                                                                |
+| Check-then-act race on money, inventory, or uniqueness                                                              | blocker  | Atomic operation, lock, or unique constraint                                                                       |
+| Fail-open error handling around a security decision                                                                 | blocker  | Fail closed; deny on error                                                                                         |
+| Migration with destructive or unrelated schema churn                                                                | blocker  | Regenerate scoped to the intended entities only                                                                    |
+| Bug fix without a regression test                                                                                   | major    | Add a test that reproduces the original bug                                                                        |
+| Weakened or deleted assertions to get the suite green                                                               | major    | Restore the assertion; fix the code instead                                                                        |
+| Query or network call inside a loop                                                                                 | major    | Batch, prefetch, or join                                                                                           |
+| Unbounded list query on data that grows                                                                             | major    | Paginate or cap with an explicit limit                                                                             |
+| Outbound call without a timeout                                                                                     | major    | Set an explicit timeout and handle its expiry                                                                      |
+| Empty catch block                                                                                                   | major    | Handle, log with context, rethrow, or document the ignore                                                          |
+| Non-idempotent consumer under at-least-once delivery                                                                | major    | Make it idempotent (dedup key, upsert, version check)                                                              |
+| Lockfile or dependency drift unrelated to the change                                                                | major    | Revert the drift or split it into its own change                                                                   |
+| Hand-edited generated file                                                                                          | major    | Regenerate from the source of truth                                                                                |
+| Hard-coded user-facing string in a localized codebase                                                               | minor    | Route through the localization mechanism                                                                           |
+| Hard-coded style values where the design system defines tokens                                                      | minor    | Use the documented tokens or variables                                                                             |
+| Dead or commented-out code shipped                                                                                  | minor    | Delete it; version control remembers                                                                               |
+| Stale comment contradicting the code                                                                                | minor    | Update or remove the comment                                                                                       |
+| One-letter variable name outside a loop index                                                                       | nit      | Use a descriptive name                                                                                             |
+| Comment narrating self-explanatory code                                                                             | nit      | Remove the comment                                                                                                 |
+| Docstring added to unchanged code                                                                                   | nit      | Remove it from this diff                                                                                           |
 
 ## Severity Scale
 
-| Severity | Meaning | Examples |
-|----------|---------|----------|
-| **blocker** | Merging this causes or invites real damage: security holes, data loss or corruption, cross-scope data leaks, silently broken public contracts, failing validation gates | Missing permission check; SQL built by concatenation; dropped column consumers still read; secret in a log line |
-| **major** | A defect or debt that must be resolved before merge unless the maintainer explicitly accepts and documents the risk | Correctness bug on a realistic path; bug fix without a regression test; unbounded query; check-then-act race; weakened assertions |
-| **minor** | Should be fixed, but does not block the merge on its own | Convention violation; readability problem; stale comment; missing log context |
-| **nit** | Optional polish; the author decides | Naming taste; comment phrasing; boolean-argument readability |
+| Severity    | Meaning                                                                                                                                                                 | Examples                                                                                                                          |
+| ----------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------- |
+| **blocker** | Merging this causes or invites real damage: security holes, data loss or corruption, cross-scope data leaks, silently broken public contracts, failing validation gates | Missing permission check; SQL built by concatenation; dropped column consumers still read; secret in a log line                   |
+| **major**   | A defect or debt that must be resolved before merge unless the maintainer explicitly accepts and documents the risk                                                     | Correctness bug on a realistic path; bug fix without a regression test; unbounded query; check-then-act race; weakened assertions |
+| **minor**   | Should be fixed, but does not block the merge on its own                                                                                                                | Convention violation; readability problem; stale comment; missing log context                                                     |
+| **nit**     | Optional polish; the author decides                                                                                                                                     | Naming taste; comment phrasing; boolean-argument readability                                                                      |
 
 ## Verdict Rule
 

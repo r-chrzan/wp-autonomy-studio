@@ -20,4 +20,4 @@ Guidance:
 
 - One coherent concern per file. If a file starts covering two unrelated steps, split it.
 - In split mode, the content here is copied word-for-word from the original body — do not re-word instructions.
-- Keep the opening sentence honest about *when* it loads, so the body's pointer and this header agree.
+- Keep the opening sentence honest about _when_ it loads, so the body's pointer and this header agree.

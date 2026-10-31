@@ -49,11 +49,11 @@ API-only product. Use the form the repo's knowledge uses.
 
 Priority sets **how soon** an area is tested; risk sets **how hard**.
 
-| Report priority | From `priority-*` labels (unset = medium) | Typical content |
-|---|---|---|
-| P0 | `priority-high`, `priority-extreme` | access control and sessions, data-scope isolation (tenant/organization/account), money flows, data migrations, encryption, event/webhook/queue reliability, anything that can leak data or double-charge |
-| P1 | `priority-medium` | user-facing create/read/update/delete flows, configurable fields, attachments, lists and table rendering, shared UI |
-| P2 | `priority-low` | docs, tooling, tests, CI, developer experience — the broad-smoke bucket |
+| Report priority | From `priority-*` labels (unset = medium) | Typical content                                                                                                                                                                                          |
+| --------------- | ----------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| P0              | `priority-high`, `priority-extreme`       | access control and sessions, data-scope isolation (tenant/organization/account), money flows, data migrations, encryption, event/webhook/queue reliability, anything that can leak data or double-charge |
+| P1              | `priority-medium`                         | user-facing create/read/update/delete flows, configurable fields, attachments, lists and table rendering, shared UI                                                                                      |
+| P2              | `priority-low`                            | docs, tooling, tests, CI, developer experience — the broad-smoke bucket                                                                                                                                  |
 
 - An area's priority is the highest priority among its PRs. When a PR has no
   `priority-*` label, derive it from the themes above.

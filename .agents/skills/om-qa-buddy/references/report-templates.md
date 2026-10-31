@@ -27,17 +27,20 @@ verified as an end user — zero explanation of how the fix works internally,
 zero file/function/component names.]
 
 ## What was tested and results
-| # | Scenario | Result |
-|---|---|---|
-| 1 | Short one-line scenario title | ✅ Pass |
-| 2 | Another scenario | ❌ Failed |
+
+| #   | Scenario                      | Result    |
+| --- | ----------------------------- | --------- |
+| 1   | Short one-line scenario title | ✅ Pass   |
+| 2   | Another scenario              | ❌ Failed |
 
 ## Bugs
+
 <!-- ALWAYS present, even when empty: "No bugs found. Nothing blocking, nothing to report separately." -->
 <!-- Blocking bug (in scope, breaks the feature under test): describe directly here, reflected as ❌ Failed above. -->
 <!-- Non-blocking / out-of-scope bug: one line pointing at its bugs/*.md file for the user to file separately. -->
 
 ## Environment
+
 {branch/commit}, `{baseUrl}`, role `{role}`, browser `{provider}`.
 ```
 

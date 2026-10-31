@@ -22,7 +22,7 @@ sources and carry each surviving item as an `INHERITED` finding through steps 9�
 and say so in the report — inline feedback is then out of reach, not silently assumed absent.
 
 **Filter, in this order.** Drop comments this collection's own skills wrote (any
-`` 🤖 `<skill-name>` — `` marker, both the backticked and the legacy bare form) — re-reading your own
+``🤖 `<skill-name>` —`` marker, both the backticked and the legacy bare form) — re-reading your own
 prior findings just loops. Drop pure conversation with no actionable ask (approvals, thanks,
 status notes, answered questions). Then verify each remaining ask against the **current head** in
 the worktree at its `file:line`: an ask the code already satisfies is resolved feedback and is
@@ -32,7 +32,7 @@ credited to the earlier reviewer.
 
 **Severity.** Map the reviewer's own wording onto the `om-code-review` scale — "must" / "required" /
 "blocker" → blocker, "should" → major, "nit" / "minor" / "optional" / "consider" → nit or minor. When
-the wording does not settle it, judge the ask by its content, and when *that* is still ambiguous
+the wording does not settle it, judge the ask by its content, and when _that_ is still ambiguous
 default to **major**: over-fixing a reviewer's ask costs one commit, dropping it costs another review
 round and the reviewer's trust.
 

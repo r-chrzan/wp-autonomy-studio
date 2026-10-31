@@ -15,7 +15,7 @@ suite, never a silently smaller one.
 
 **Execution policy:** print the test plan (what runs and why), then run it
 immediately — no confirmation prompt. This skill is interactive only in that it
-asks when it cannot determine *any* test command; it never edits source, tests,
+asks when it cannot determine _any_ test command; it never edits source, tests,
 or config, never commits, and performs no tracker operations.
 
 ## Arguments
@@ -64,7 +64,7 @@ or config, never commits, and performs no tracker operations.
 
 4. **Map changes to affected units and classify.** Load the test map (`smartTest.map`, default `.ai/test-map.json`); absent → derive units and their internal dependencies from the repo's workspace manifest, or treat the repo as one unit. Then, in order: drop `ignore`d files; any `wide` match (or any changed file outside every unit) → **full run of every suite**; only test files changed → run exactly those; otherwise the affected units are the changed units plus, transitively, their dependents (unless a layer rule says the change cannot reach them). Map format and manifest derivation: `references/test-map.md`; classification order, layer rules, and the decision tree: `references/selection.md`.
 
-5. **Build the plan, print it, save the cache.** Per suite pick the narrowest *safe* mode — `direct` (explicit test files) → `related` (the runner resolves tests from changed sources) → `unit` (per-unit command) → `full` — or `skip` when a layer rule proves the suite unaffected. A mode whose template or inputs are missing or fail validation falls back to `full` for that suite. Print one line per suite with its mode and the trigger (changed unit, dependency, wide file, layer). Write the cache (`references/cache.md`). `--plan-only` stops here.
+5. **Build the plan, print it, save the cache.** Per suite pick the narrowest _safe_ mode — `direct` (explicit test files) → `related` (the runner resolves tests from changed sources) → `unit` (per-unit command) → `full` — or `skip` when a layer rule proves the suite unaffected. A mode whose template or inputs are missing or fail validation falls back to `full` for that suite. Print one line per suite with its mode and the trigger (changed unit, dependency, wide file, layer). Write the cache (`references/cache.md`). `--plan-only` stops here.
 
 6. **Prepare the environment for suites that need a running app** (`needsApp: true`). Attach to the shared test-env descriptor written by the `om-prepare-test-env` skill (`<paths.qa>/test-env.json`, default `.ai/qa/test-env.json`) after validating it (owning PID alive, readiness probe answers, fresh within its TTL); stale or missing → invoke `om-prepare-test-env`, then attach. That skill not installed → mark those suites `not run` with the reason and continue; never build or start the app on a guessed command or port. Credential references follow the descriptor contract — never read the credentials file into context. Leave the environment running afterwards.
 

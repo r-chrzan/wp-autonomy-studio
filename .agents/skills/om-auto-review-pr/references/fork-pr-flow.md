@@ -109,13 +109,13 @@ render_pr_title() {
 
 Call `render_pr_title` with five quoted arguments: conventional-commit type, primary area, one-line summary, raw tracker issue id (or empty), and caller-supplied title (or empty). Capture its output for **create-pr**. Substitution happens once, so placeholder-like text inside a summary stays literal; wrapper cleanup applies only to template placeholders.
 
-| Placeholder | Value |
-|---|---|
-| `{prefix}` | Conventional-commit type (`feat`, `fix`, `refactor`, …). |
-| `{area}` | Primary affected area. |
-| `{summary}` | One-line behavioral summary. |
-| `{issue}` | The subject issue as its tracker writes it: `#123` for a numeric id, the key itself (`ENG-123`) otherwise. Empty without an issue. |
-| `{issueRef}` | ` (#{issueId})` in an issue-driven run, else empty — the legacy suffix the default uses. |
+| Placeholder   | Value                                                                                                                               |
+| ------------- | ----------------------------------------------------------------------------------------------------------------------------------- |
+| `{prefix}`    | Conventional-commit type (`feat`, `fix`, `refactor`, …).                                                                            |
+| `{area}`      | Primary affected area.                                                                                                              |
+| `{summary}`   | One-line behavioral summary.                                                                                                        |
+| `{issue}`     | The subject issue as its tracker writes it: `#123` for a numeric id, the key itself (`ENG-123`) otherwise. Empty without an issue.  |
+| `{issueRef}`  | ` (#{issueId})` in an issue-driven run, else empty — the legacy suffix the default uses.                                            |
 | `{ticketKey}` | First match of the `ticketKeyPattern` ERE in the head branch name (case-sensitive). Empty when the key is unset or nothing matches. |
 
 An empty `{issue}` or `{ticketKey}` is removed together with a `[]` or `()` pair wrapped directly around it and one following space. A caller-supplied title always wins. Keep the conventional-commit type as the first word after any leading reference: `om-auto-update-changelog` reads it from there.

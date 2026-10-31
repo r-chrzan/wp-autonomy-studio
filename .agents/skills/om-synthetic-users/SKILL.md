@@ -19,18 +19,18 @@ A persona is built only from material that carries a real evidence tier (`[INTER
 - `--flow "<name>"` (optional) — the flow to walk when the subject has several. Omitted → ask. A name that matches no Key flow heading is mapped to the closest one and the mapping is confirmed with the user before the panel is built. The report and transcript file names use a kebab-case slug of the flow name (`[a-z0-9-]+`).
 - `--stance validate|simulate|adversary` (optional) — how the personas behave (table below). Default follows the brief's mode: `existing` → `validate`, `client` → `simulate`, `own` → `adversary`; no brief → ask.
 - `--panel <n>` (optional) — personas per run, sampled fresh each run from the segments the material names. Default `3`; `5` when the data names more than three segments. Each persona is a separate subagent run, so panel × runs is the cost of the skill: with the defaults, six persona runs, typically twenty to thirty minutes on a narrative subject.
-- `--runs <n>` (optional) — how many independent runs. Default `2`; `3` when the decision is consequential; `1` is allowed for a quick exploration and the report then carries no findings, only *Seen once* items.
+- `--runs <n>` (optional) — how many independent runs. Default `2`; `3` when the decision is consequential; `1` is allowed for a quick exploration and the report then carries no findings, only _Seen once_ items.
 - `--hold-out <files>` (optional) — real interview notes to keep out of the persona material so the parity check compares against notes the panel has never seen. Default: when only one note exists for a flow it is used for the personas and the parity check is skipped for it, honestly.
 - `--open` (optional) — exploratory interviews with no flow and no assumption list: "what is going on here" — broad, ambiguity preserved, output is topics and their saturation rather than barriers. Default is guided by the flow and the brief's assumptions.
 - `--research <dir>` (optional) — where personas, transcripts, and walkthrough reports are written and where real interview notes are read. Default `${SPECS_DIR}/research`.
 
 ## Stances
 
-| Stance | The persona | Use when | What the output is |
-|---|---|---|---|
-| `validate` | walks the running product or prototype and reports friction against what the brief promises | an existing product or a built prototype exists | friction on real screens that repeated across runs, still `[SYNTHETIC]`, with the real-user check for each |
-| `simulate` | answers interviews and walks the flow as the material describes them, every answer tagged "to confirm" | a client's users are not yet reachable | an interview plan: which persona, which question, who to book |
-| `adversary` | looks for reasons not to buy, not to switch, not to trust; a run that agrees with the team is discarded as uninformative | our own idea, where confirmation is the risk | the objections that repeated and the brief assumption each one attacks |
+| Stance      | The persona                                                                                                              | Use when                                        | What the output is                                                                                         |
+| ----------- | ------------------------------------------------------------------------------------------------------------------------ | ----------------------------------------------- | ---------------------------------------------------------------------------------------------------------- |
+| `validate`  | walks the running product or prototype and reports friction against what the brief promises                              | an existing product or a built prototype exists | friction on real screens that repeated across runs, still `[SYNTHETIC]`, with the real-user check for each |
+| `simulate`  | answers interviews and walks the flow as the material describes them, every answer tagged "to confirm"                   | a client's users are not yet reachable          | an interview plan: which persona, which question, who to book                                              |
+| `adversary` | looks for reasons not to buy, not to switch, not to trust; a run that agrees with the team is discarded as uninformative | our own idea, where confirmation is the risk    | the objections that repeated and the brief assumption each one attacks                                     |
 
 ## Workflow
 
@@ -67,7 +67,7 @@ Hypotheses: <n> to confirm with real users
 Next: om-discover --refresh | om-spec-writing "<goal>" | none
 ```
 
-`<k>` counts barriers, missing cases, and contradictions that survived every run; `Hypotheses:` counts the rows of the *To confirm with real users* table, one per surviving finding, so the two numbers match unless a finding needs two checks.
+`<k>` counts barriers, missing cases, and contradictions that survived every run; `Hypotheses:` counts the rows of the _To confirm with real users_ table, one per surviving finding, so the two numbers match unless a finding needs two checks.
 
 Consumers parse `^Personas: (\S+)$`, `^Walkthrough: (\S+)$`, and `^Next: (none|om-[a-z-]+.*)$`.
 

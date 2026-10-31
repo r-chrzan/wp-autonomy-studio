@@ -30,14 +30,14 @@ Each finding must include severity (`critical`, `high`, `medium`, `low`), catego
 
 For each artifact failure that an eval should have prevented, select exactly one smallest owner:
 
-| Failure class | Owner |
-|---|---|
-| universal invariant or safety boundary | `root` (root agent instructions) |
-| task-family selection | `guide` or a router row |
-| branch procedure | `skill` (one skill reference) |
+| Failure class                                               | Owner                               |
+| ----------------------------------------------------------- | ----------------------------------- |
+| universal invariant or safety boundary                      | `root` (root agent instructions)    |
+| task-family selection                                       | `guide` or a router row             |
+| branch procedure                                            | `skill` (one skill reference)       |
 | project/framework fact — ID, route, page, command, exposure | `facts` (generated-facts extractor) |
-| tool read/write or containment behavior | `hook` |
-| missing reproducible scenario | `case` |
-| deterministic artifact property or behavior | `oracle` |
+| tool read/write or containment behavior                     | `hook`                              |
+| missing reproducible scenario                               | `case`                              |
+| deterministic artifact property or behavior                 | `oracle`                            |
 
 When the repo's harness names its owner kinds differently, map to the closest kind and say so. Explain why the existing owner/check did not catch the defect, propose the smallest change, and list the target, related-tag, mandatory-safety, and release cases to rerun. Do not prescribe a broad prompt rewrite when a fact extractor or fixed oracle can own the invariant. Turning a harness-owner finding into a new case is the `om-evolve-harness` skill's job.

@@ -22,21 +22,21 @@ install, which this skill never does.
 
 ## Sources per ecosystem
 
-| Lockfile | Ecosystem (OSV name) | Preferred source | Fallback |
-|---|---|---|---|
-| `pubspec.lock` | Pub | OSV scan — the Dart/Flutter toolchain has no audit command that reports severity or fixed versions | — |
-| `package-lock.json`, `npm-shrinkwrap.json` | npm | `npm audit --json --package-lock-only` | OSV scan |
-| `pnpm-lock.yaml` | npm | `pnpm audit --json` | OSV scan (best-effort parser) |
-| `yarn.lock` | npm | OSV scan | — |
-| `Cargo.lock` | crates.io | `cargo audit --json` when installed | OSV scan |
-| `poetry.lock`, `uv.lock`, `Pipfile.lock`, pinned `requirements*.txt` | PyPI | OSV scan | — |
-| `composer.lock` | Packagist | `composer audit --locked --format=json` | OSV scan |
-| `Gemfile.lock` | RubyGems | OSV scan | — |
-| `go.mod` | Go | OSV scan (module versions; reachability is out of scope) | — |
-| `gradle.lockfile` | Maven | OSV scan | — |
-| `packages.lock.json` | NuGet | OSV scan | — |
-| `Podfile.lock` | CocoaPods | **not scanned** — no advisory feed exists | — |
-| `Package.resolved`, `mix.lock`, `bun.lock` | — | the ecosystem's native tool when installed | **not scanned** with the reason |
+| Lockfile                                                             | Ecosystem (OSV name) | Preferred source                                                                                   | Fallback                        |
+| -------------------------------------------------------------------- | -------------------- | -------------------------------------------------------------------------------------------------- | ------------------------------- |
+| `pubspec.lock`                                                       | Pub                  | OSV scan — the Dart/Flutter toolchain has no audit command that reports severity or fixed versions | —                               |
+| `package-lock.json`, `npm-shrinkwrap.json`                           | npm                  | `npm audit --json --package-lock-only`                                                             | OSV scan                        |
+| `pnpm-lock.yaml`                                                     | npm                  | `pnpm audit --json`                                                                                | OSV scan (best-effort parser)   |
+| `yarn.lock`                                                          | npm                  | OSV scan                                                                                           | —                               |
+| `Cargo.lock`                                                         | crates.io            | `cargo audit --json` when installed                                                                | OSV scan                        |
+| `poetry.lock`, `uv.lock`, `Pipfile.lock`, pinned `requirements*.txt` | PyPI                 | OSV scan                                                                                           | —                               |
+| `composer.lock`                                                      | Packagist            | `composer audit --locked --format=json`                                                            | OSV scan                        |
+| `Gemfile.lock`                                                       | RubyGems             | OSV scan                                                                                           | —                               |
+| `go.mod`                                                             | Go                   | OSV scan (module versions; reachability is out of scope)                                           | —                               |
+| `gradle.lockfile`                                                    | Maven                | OSV scan                                                                                           | —                               |
+| `packages.lock.json`                                                 | NuGet                | OSV scan                                                                                           | —                               |
+| `Podfile.lock`                                                       | CocoaPods            | **not scanned** — no advisory feed exists                                                          | —                               |
+| `Package.resolved`, `mix.lock`, `bun.lock`                           | —                    | the ecosystem's native tool when installed                                                         | **not scanned** with the reason |
 
 "OSV scan" means `references/osv-scan.md`. When the standalone OSV scanner CLI is
 installed you may use it instead of the bundled script for the same lockfiles —

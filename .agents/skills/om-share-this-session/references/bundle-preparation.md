@@ -14,6 +14,7 @@ Loaded by `om-share-this-session` steps 1–2: prove the share scope and create 
   ```
 
   The helper starts the installed Codex app-server over stdio, requests `thread/read` with turns included, verifies the returned thread identity, bounds the response and output sizes, and writes a new owner-only JSON file. It does not resume, fork, mutate, or publish the thread. Treat any helper failure as unavailable native export and ask the user to provide one; never fall back to searching local history.
+
 - Other harnesses: accept only an export the harness itself provides (an export command, or a session-file path exposed in trusted active-request metadata). Do not crawl `~/.claude`, `~/.codex`, browser profiles, or unrelated history. Harness identity and thread ID must come from trusted active-request metadata, never from session/file content.
 - Accept only a parseable native JSON export. A hand-written transcript, summary, screenshot, or copy/paste of selected turns is not complete enough.
 - Confirm the export belongs to this active session using the harness session/thread id when available. Then compare the first recognizable user turn and the latest completed assistant turn with the active conversation. Record only pass/fail and counts; never quote raw turn content into the report.

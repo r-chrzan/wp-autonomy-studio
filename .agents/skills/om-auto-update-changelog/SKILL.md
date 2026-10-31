@@ -58,15 +58,15 @@ This skill drafts a `CHANGELOG.md` entry and delegates the PR mechanics to `om-a
 
    Map category → section + emoji:
 
-   | Category | Section heading | Line emoji |
-   |----------|----------------|------------|
-   | `feat` | `## ✨ Features` | `✨` |
-   | `security` | `## 🔒 Security` | `🔒` |
-   | `fix` | `## 🐛 Fixes` | `🐛` |
-   | `refactor`, `perf`, `style`, `chore` | `## 🛠️ Improvements` | `🛠️` |
-   | `test` | `## 🧪 Testing` | `🧪` |
-   | `docs` (including design-doc updates) | `## 📝 Specs & Documentation` | `📝` |
-   | `ci`, `build` | `## 🚀 CI/CD & Infrastructure` | `🚀` |
+   | Category                              | Section heading                | Line emoji |
+   | ------------------------------------- | ------------------------------ | ---------- |
+   | `feat`                                | `## ✨ Features`               | `✨`       |
+   | `security`                            | `## 🔒 Security`               | `🔒`       |
+   | `fix`                                 | `## 🐛 Fixes`                  | `🐛`       |
+   | `refactor`, `perf`, `style`, `chore`  | `## 🛠️ Improvements`           | `🛠️`       |
+   | `test`                                | `## 🧪 Testing`                | `🧪`       |
+   | `docs` (including design-doc updates) | `## 📝 Specs & Documentation`  | `📝`       |
+   | `ci`, `build`                         | `## 🚀 CI/CD & Infrastructure` | `🚀`       |
 
    For `fix` entries, replace the default `🐛` with a more specific emoji when the PR title clearly indicates one: `🔐` for auth/permissions, `💰` for pricing/orders, `🌍` for i18n/translations, `🖼️` for media, `🔄` for sync/refetch, `📦` for packaging, `🐳` for containers, `🔧` for core/infrastructure. Match the style already in `CHANGELOG.md`; when unsure, keep `🐛`.
 
@@ -80,13 +80,13 @@ This skill drafts a `CHANGELOG.md` entry and delegates the PR mechanics to `om-a
 5. **Build the line text.** One-liner format:
 
    ```markdown
-   - <lineEmoji> <normalizedSummary>. (#<prNumber>) *(@<primaryAuthor>)*
+   - <lineEmoji> <normalizedSummary>. (#<prNumber>) _(@<primaryAuthor>)_
    ```
 
    When `viaAuthor` is present:
 
    ```markdown
-   - <lineEmoji> <normalizedSummary> (supersedes #<oldPrNumber>). (#<prNumber>) *(@<primaryAuthor>, via @<viaAuthor>)*
+   - <lineEmoji> <normalizedSummary> (supersedes #<oldPrNumber>). (#<prNumber>) _(@<primaryAuthor>, via @<viaAuthor>)_
    ```
 
    When the credit resolves only to never-credited identities, drop the `*(@...)*` suffix entirely rather than crediting a bot or the merger.
@@ -99,13 +99,16 @@ This skill drafts a `CHANGELOG.md` entry and delegates the PR mechanics to `om-a
    # {version} ({date})
 
    ## Highlights
+
    <!-- TODO: Highlights — auto-update-changelog leaves this blank for the human author to fill in. -->
 
    ## ✨ Features
-   - ✨ ... (#1234) *(@author)*
+
+   - ✨ ... (#1234) _(@author)_
 
    ## 🐛 Fixes
-   - 🐛 ... (#1236) *(@author)*
+
+   - 🐛 ... (#1236) _(@author)_
 
    ## 👥 Contributors
 
@@ -115,12 +118,13 @@ This skill drafts a `CHANGELOG.md` entry and delegates the PR mechanics to `om-a
    ---
 
    # {previous-version} ({previous-date})
+
    ...
    ```
 
    Omit empty sections entirely. When the entire release has a single dominant theme, optionally add subsection headers (`### <Area>`) inside `## ✨ Features` or `## 🐛 Fixes` — but prefer flat lists unless there are 5+ PRs in the same area.
 
-7. **Build the Contributors block.** Deduplicated list of every handle that appears in `*(@...)*` lines — both `primaryAuthor` and `viaAuthor`. Order: primary authors first (by first appearance), then any `via` authors that did not already appear as a primary. One handle per line, leading `- @`. Skip every never-credited identity from `references/supersede-credit-rule.md` — bot accounts *and* AI coding agents, which commit under their own handles and are not contributors.
+7. **Build the Contributors block.** Deduplicated list of every handle that appears in `*(@...)*` lines — both `primaryAuthor` and `viaAuthor`. Order: primary authors first (by first appearance), then any `via` authors that did not already appear as a primary. One handle per line, leading `- @`. Skip every never-credited identity from `references/supersede-credit-rule.md` — bot accounts _and_ AI coding agents, which commit under their own handles and are not contributors.
 
 8. **Delegate to `om-auto-create-pr`.** Stage the `CHANGELOG.md` edit locally, but **do not** commit or push yourself. Instead, invoke `om-auto-create-pr` with:
 
@@ -165,7 +169,7 @@ Both report shapes (steps 9–10) live in `references/report-templates.md`; use 
 ## Notes
 
 - Runs well after `om-close-fixed-issues` — the two skills consume the same window of merged PRs but mutate different surfaces (issue tracker vs `CHANGELOG.md`).
-- The generated entry is intentionally a *draft*: a maintainer fills in Highlights and adjusts the narrative; `om-auto-create-pr` opens the PR in `review` so they see it before merge.
+- The generated entry is intentionally a _draft_: a maintainer fills in Highlights and adjusts the narrative; `om-auto-create-pr` opens the PR in `review` so they see it before merge.
 
 ## Security boundaries
 

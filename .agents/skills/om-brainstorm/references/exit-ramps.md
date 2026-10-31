@@ -4,14 +4,14 @@ The full routing table for `om-brainstorm`'s conclusion (workflow steps 4–5), 
 
 ## The table
 
-| # | Conclusion | `Next:` line | Other contract lines | Brief file |
-|---|-----------|--------------|----------------------|------------|
-| 1 | Question answered, or nothing worth building | `Next: none` | — | no |
-| 2 | Worth capturing, not now | `Next: om-prepare-issue "<one-line goal> — brief: <path>"` | `Brief: <path>` | yes |
-| 3 | Feature; blocking unknowns resolved in the conversation | `Next: om-auto-write-spec "<one-line goal> — brief: <path>"` | `Brief: <path>` | yes |
-| 4 | Feature; the user wants to answer the design questions themselves | `Next: om-spec-writing "<one-line goal> — brief: <path>"` | `Brief: <path>` | yes |
-| 5 | Small, well-understood change that needs no spec | `Next: om-auto-create-pr "<task> — brief: <path>"` | `Brief: <path>` | yes |
-| 6 | Already tracked — an existing open issue covers it | `Next: om-auto-fix-issue <issueId>` | `Issue: #<n> (link: <url>)` | no |
+| #   | Conclusion                                                        | `Next:` line                                                 | Other contract lines        | Brief file |
+| --- | ----------------------------------------------------------------- | ------------------------------------------------------------ | --------------------------- | ---------- |
+| 1   | Question answered, or nothing worth building                      | `Next: none`                                                 | —                           | no         |
+| 2   | Worth capturing, not now                                          | `Next: om-prepare-issue "<one-line goal> — brief: <path>"`   | `Brief: <path>`             | yes        |
+| 3   | Feature; blocking unknowns resolved in the conversation           | `Next: om-auto-write-spec "<one-line goal> — brief: <path>"` | `Brief: <path>`             | yes        |
+| 4   | Feature; the user wants to answer the design questions themselves | `Next: om-spec-writing "<one-line goal> — brief: <path>"`    | `Brief: <path>`             | yes        |
+| 5   | Small, well-understood change that needs no spec                  | `Next: om-auto-create-pr "<task> — brief: <path>"`           | `Brief: <path>`             | yes        |
+| 6   | Already tracked — an existing open issue covers it                | `Next: om-auto-fix-issue <issueId>`                          | `Issue: #<n> (link: <url>)` | no         |
 
 ## Picking the row
 

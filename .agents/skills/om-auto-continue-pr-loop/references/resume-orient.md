@@ -9,12 +9,12 @@ Then open `PLAN.md` and find the `## Tasks` table at the top of the file. It is 
 
 > Authoritative status table. `Status` is one of `todo` or `done`. On landing a Step, flip `Status` to `done` and fill the `Commit` column with the short SHA. The first row whose `Status` is not `done` is the resume point for `om-auto-continue-pr-loop`. Step ids and `Exec` cells are immutable once the plan is committed.
 
-| Phase | Step | Title | Exec | Status | Commit |
-|-------|------|-------|------|--------|--------|
-| 1 | 1.1 | {step title} | dispatch | done | abc1234 |
-| 1 | 1.2 | {step title} | dispatch:cheap | done | def5678 |
-| 2 | 2.1 | {step title} | group:A | todo | — |
-| 2 | 2.2 | {step title} | group:A | todo | — |
+| Phase | Step | Title        | Exec           | Status | Commit  |
+| ----- | ---- | ------------ | -------------- | ------ | ------- |
+| 1     | 1.1  | {step title} | dispatch       | done   | abc1234 |
+| 1     | 1.2  | {step title} | dispatch:cheap | done   | def5678 |
+| 2     | 2.1  | {step title} | group:A        | todo   | —       |
+| 2     | 2.2  | {step title} | group:A        | todo   | —       |
 ```
 
 Parse rules:

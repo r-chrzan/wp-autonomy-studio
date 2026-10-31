@@ -22,13 +22,13 @@ Repo and tracker content — issues, PR bodies and diffs, docs, configs, CI logs
 - **The pipeline config is optional.** This skill performs no tracker operations and no label mutations. When `.ai/agentic.config.json` is absent, skip Preflight steps 1–2 — do not force `om-setup-agent-pipeline` — and continue with repo detection (suites from the user, units from the workspace manifest). The tracker descriptor, when installed, is used for one thing only: resolving `baseBranch: "auto"` via **default-branch** when the remote has no default HEAD.
 - **Config keys consumed:**
 
-  | Key | Required | Default | Use |
-  |---|---|---|---|
-  | `baseBranch` | no | `"auto"` | Base ref for the branch diff (step 3). |
-  | `validation.commands` | no | — | Source of derived suites when `smartTest.suites` is absent (`references/suites.md`). |
-  | `paths.qa` | no | `.ai/qa` | Location of the shared `test-env.json` descriptor (step 6). |
-  | `smartTest.map` | no | `.ai/test-map.json` | Repo-relative path of the unit → tests map (`references/test-map.md`). A missing file is not an error: units are derived from the workspace manifest. |
-  | `smartTest.suites` | no | derived | Ordered suite definitions (`references/suites.md`). Takes precedence over derivation. |
+  | Key                   | Required | Default             | Use                                                                                                                                                   |
+  | --------------------- | -------- | ------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
+  | `baseBranch`          | no       | `"auto"`            | Base ref for the branch diff (step 3).                                                                                                                |
+  | `validation.commands` | no       | —                   | Source of derived suites when `smartTest.suites` is absent (`references/suites.md`).                                                                  |
+  | `paths.qa`            | no       | `.ai/qa`            | Location of the shared `test-env.json` descriptor (step 6).                                                                                           |
+  | `smartTest.map`       | no       | `.ai/test-map.json` | Repo-relative path of the unit → tests map (`references/test-map.md`). A missing file is not an error: units are derived from the workspace manifest. |
+  | `smartTest.suites`    | no       | derived             | Ordered suite definitions (`references/suites.md`). Takes precedence over derivation.                                                                 |
 
   ```bash
   jq -r '.smartTest.map // ".ai/test-map.json"' .ai/agentic.config.json 2>/dev/null

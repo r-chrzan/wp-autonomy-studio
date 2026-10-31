@@ -6,13 +6,13 @@ How `om-help` builds its skill list at run time from what is actually installed.
 
 Run from the repository root. Scan every root that exists; a missing root is normal. Only skills of the `om-` set are routed: a directory whose name does not start with `om-` is not read, listed, or recommended, in any root.
 
-| # | Root | Kind |
-|---|---|---|
-| 1 | `.ai/skills/` | repo-local — overlays of installed skills, or repo-only skills |
-| 2 | `.agents/skills/`, `.claude/skills/`, `.codex/skills/` | project-level installs |
-| 3 | each `help.skillRoots` entry | extra roots the repository declares |
-| 4 | `SKILLS_ROOT` — the parent directory of this skill's own installed directory (resolve it from where the `SKILL.md` you are reading lives, not from a guess) | the install this skill came from |
-| 5 | `~/.agents/skills/`, `~/.claude/skills/`, `~/.codex/skills/` | user-level installs |
+| #   | Root                                                                                                                                                        | Kind                                                           |
+| --- | ----------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------- |
+| 1   | `.ai/skills/`                                                                                                                                               | repo-local — overlays of installed skills, or repo-only skills |
+| 2   | `.agents/skills/`, `.claude/skills/`, `.codex/skills/`                                                                                                      | project-level installs                                         |
+| 3   | each `help.skillRoots` entry                                                                                                                                | extra roots the repository declares                            |
+| 4   | `SKILLS_ROOT` — the parent directory of this skill's own installed directory (resolve it from where the `SKILL.md` you are reading lives, not from a guess) | the install this skill came from                               |
+| 5   | `~/.agents/skills/`, `~/.claude/skills/`, `~/.codex/skills/`                                                                                                | user-level installs                                            |
 
 An install lock or manifest kept by a skills CLI may corroborate the list, but only a `SKILL.md` on disk counts as installed.
 

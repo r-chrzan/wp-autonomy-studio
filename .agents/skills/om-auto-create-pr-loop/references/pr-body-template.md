@@ -15,36 +15,43 @@ Source doc: {spec path}
 Status: in-progress
 
 ## 🎯 What changes
+
 {Who encounters the problem, what happens today, and what will happen after this
 change. State the benefit or reason in 1–3 concrete sentences. For a fix, include
 the causal mechanism here rather than repeating the symptom in another section.}
 
 ## 📋 Scope
+
 {The primary area and any shared systems it changes, with their effects. Identify
 current consumers or a dependency on future work when that matters to adoption.
 Explain why a shared change belongs here; flag independently shippable work.}
 
 ## ⚠️ Decision needed
+
 {Only if relevant: the unresolved direction call or assumption, recommended next
 step and its tradeoff. Separate a product choice from a demonstrated rule violation;
 name the rule and evidence for the latter.}
 
 ## 💥 Compatibility
+
 {Only when relevant: public contracts, persistent data, defaults or dependencies
 that will be costly to undo; affected consumers and migration/rollback limits.}
 
 ## 🧪 Validation
+
 {What ran and what it proved, with results and links to review/UI evidence. Name
 failed, skipped or pending checks and the remaining QA action. Link long logs and
 reproduction detail; do not paste the command transcript.}
 
-## 📋 Decisions touched                      <!-- conditional: product-brief.md exists -->
+## 📋 Decisions touched <!-- conditional: product-brief.md exists -->
+
 {One line per Non-goal, Business rule, or Decision id this change relies on or
 supersedes: the id, its effect, and whether honoured or superseded. For a
 supersede, include the replacement id and approving owner. When none are touched,
 state “No recorded decision is affected.”}
 
 ## 📋 Progress
+
 See the tracking plan.
 ```
 

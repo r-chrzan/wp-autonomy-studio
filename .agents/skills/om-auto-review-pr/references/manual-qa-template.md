@@ -21,10 +21,10 @@ an older comment with the `Manual QA instructions` heading when locating it.
 
 Exercise {changed behavior}. {Link to approved review and evidence, if available}.
 
-| Priority | Setup and action | Expected result / boundary |
-|----------|------------------|----------------------------|
-| P0 | {role, fixture, route, concrete action} | {expected result; permission or isolation check} |
-| P1 | {route and concrete action} | {observable outcome and relevant empty/error case} |
+| Priority | Setup and action                        | Expected result / boundary                         |
+| -------- | --------------------------------------- | -------------------------------------------------- |
+| P0       | {role, fixture, route, concrete action} | {expected result; permission or isolation check}   |
+| P1       | {route and concrete action}             | {observable outcome and relevant empty/error case} |
 
 QA reviewer: move `merge-queue` → `qa` when starting. All checks pass → replace
 `qa` with `merge-queue` and `qa-approved`. A failure → replace `qa` with

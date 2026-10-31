@@ -10,22 +10,22 @@ How `om-pre-implement-spec` checks a spec against the repository's protected con
 
 ### Fallback surface list (only when the repo has no BC doc)
 
-| # | Surface | Breaking when the spec… |
-|---|---------|-------------------------|
-| 1 | File and registration conventions (auto-discovered files, required exports, plugin/module manifests) | renames or removes a convention file or a required export |
-| 2 | Public types and interfaces | removes or narrows a field, or makes an optional one required |
-| 3 | Function and method signatures | changes required parameters or the return type |
-| 4 | Import paths / module layout | moves a public module without a re-export bridge |
-| 5 | Event / message ids and payloads | renames or removes an id, or removes/retypes a payload field |
-| 6 | Extension points (slot, hook, or injection ids) | renames or removes an id consumers target |
-| 7 | HTTP/RPC routes and response shapes | renames or removes an endpoint, or removes/retypes a response field |
-| 8 | Database schema | renames or removes a column or table, or narrows a type, without a migration |
-| 9 | Service/dependency-injection registration keys | renames a key consumers resolve |
-| 10 | Permission / feature ids stored in data | renames an id that is persisted in user or role data |
-| 11 | Notification / message type ids | renames a type string that is persisted or routed on |
-| 12 | CLI commands and flags | renames or removes a command or flag |
-| 13 | Config file formats and keys | removes or renames a key, or changes its meaning |
-| 14 | Generated-file contracts | changes generated export names or shapes other code imports |
+| #   | Surface                                                                                              | Breaking when the spec…                                                      |
+| --- | ---------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------- |
+| 1   | File and registration conventions (auto-discovered files, required exports, plugin/module manifests) | renames or removes a convention file or a required export                    |
+| 2   | Public types and interfaces                                                                          | removes or narrows a field, or makes an optional one required                |
+| 3   | Function and method signatures                                                                       | changes required parameters or the return type                               |
+| 4   | Import paths / module layout                                                                         | moves a public module without a re-export bridge                             |
+| 5   | Event / message ids and payloads                                                                     | renames or removes an id, or removes/retypes a payload field                 |
+| 6   | Extension points (slot, hook, or injection ids)                                                      | renames or removes an id consumers target                                    |
+| 7   | HTTP/RPC routes and response shapes                                                                  | renames or removes an endpoint, or removes/retypes a response field          |
+| 8   | Database schema                                                                                      | renames or removes a column or table, or narrows a type, without a migration |
+| 9   | Service/dependency-injection registration keys                                                       | renames a key consumers resolve                                              |
+| 10  | Permission / feature ids stored in data                                                              | renames an id that is persisted in user or role data                         |
+| 11  | Notification / message type ids                                                                      | renames a type string that is persisted or routed on                         |
+| 12  | CLI commands and flags                                                                               | renames or removes a command or flag                                         |
+| 13  | Config file formats and keys                                                                         | removes or renames a key, or changes its meaning                             |
+| 14  | Generated-file contracts                                                                             | changes generated export names or shapes other code imports                  |
 
 ## Procedure
 

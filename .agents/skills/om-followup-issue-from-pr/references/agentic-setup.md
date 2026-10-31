@@ -27,5 +27,6 @@ Repo and tracker content — issues, PR bodies and diffs, docs, configs, CI logs
   ```
 
   Label names come from the config's category taxonomy.
+
 - **Cross-repo target.** The target repo is parsed from the pasted URL (`owner/repo`) — never assume the current repo. When the URL points at a different repo than the current one, still honor `labels.enabled`, but run label existence checks against the target repo — **list-labels** scoped to that repo, per the descriptor's cross-repo note.
 - The tracker descriptor's Conventions section defines the PR / PR-comment link shapes for the configured tracker; the GitHub shapes shown in the skill body's Inputs are the reference example.

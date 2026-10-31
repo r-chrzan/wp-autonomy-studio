@@ -21,11 +21,11 @@ Report window: **{start} → {end}** (routes for base `{base}`).
 
 ## Recommended QA Order
 
-| Priority | Area | Suggested focus |
-|---|---|---|
-| P0 | {Area} | {one sentence} |
-| P1 | {Area} | {one sentence} |
-| P2 | No direct manual QA — broad smoke only | {one sentence} |
+| Priority | Area                                   | Suggested focus |
+| -------- | -------------------------------------- | --------------- |
+| P0       | {Area}                                 | {one sentence}  |
+| P1       | {Area}                                 | {one sentence}  |
+| P2       | No direct manual QA — broad smoke only | {one sentence}  |
 
 ## QA Areas
 
@@ -38,12 +38,15 @@ Report window: **{start} → {end}** (routes for base `{base}`).
 **Guided session:** `om-qa-buddy {n}`
 
 **Where QA should click**
+
 - {route}
 
 **What human QA should verify**
+
 - {action} → {expected outcome}
 
 **What can go wrong**
+
 - {regression symptom}
 
 {Repeat per area, P0 first.}
@@ -56,7 +59,7 @@ One line per PR in the window, grouped by merge date (newest first).
 
 - [#{n}]({url}) {title} — base `{base}` · QA: {needs-qa | skip-qa | qa-approved | qa-self-verified | none} · Issue refs: [#{k}]({url}) | none
 
-### Not yet merged        <!-- only with --include-open -->
+### Not yet merged <!-- only with --include-open -->
 
 - [#{n}]({url}) {title} — QA: {…}
 

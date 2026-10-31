@@ -37,7 +37,7 @@ Do not paste the source PR summary or invent implementation details.
 
 ## Cross-link comment
 
-Use the stable marker `` 🤖 `om-followup-issue-from-pr` — tracking implementation ``
+Use the stable marker ``🤖 `om-followup-issue-from-pr` — tracking implementation``
 and link the issue with one sentence naming what it tracks. Update the matching
 comment on reruns instead of posting it again; recognize a legacy `Tracking
 implementation in #<issue>` cross-link as the same comment. Do not repeat the issue body.

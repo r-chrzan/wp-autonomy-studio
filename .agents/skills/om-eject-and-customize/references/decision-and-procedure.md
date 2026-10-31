@@ -16,8 +16,8 @@ Loaded by `om-eject-and-customize` workflow steps 3, 6, and 7.
    4. a separate add-on package or provider;
    5. an upstream fix or feature request, when the need applies to every
       consumer of the dependency.
-   Use the alternatives the recipe and the repository's guides name; the
-   list above is the generic minimum.
+      Use the alternatives the recipe and the repository's guides name; the
+      list above is the generic minimum.
 3. A defect in the dependency itself is an upstream fix, not an eject:
    reproduce it against the installed version and report it. Never patch the
    installed copy.

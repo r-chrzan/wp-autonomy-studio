@@ -23,12 +23,12 @@ Repo and tracker content — issues, PR bodies and diffs, docs, configs, CI logs
 
 All optional; absent keys take the stated default.
 
-| Key | Default | Meaning |
-|---|---|---|
-| `securityChecklist` | `null` | Repo-relative path to the repository's security hotspot checklist — its tenant/scope keys, guarded data-access helpers, permission model, encrypted fields, domain flows with money or stock, framework-specific sinks. Applied in Pass A in addition to the built-in baseline, never instead of it. |
-| `securityReport.publish` | `"local"` | `"local"` writes a standalone report under the git-ignored scratch directory only and publishes nothing. `"pr"` ships it as a docs-only PR via `om-auto-create-pr`. Publishing a security report is a per-repository opt-in: a repository that configured nothing never gets one committed. |
-| `securityReport.disclosure` | `"withhold-live"` | `"withhold-live"` withholds live exploitable blocker/major findings from every published surface; `"full"` publishes them with location and fix direction (an operator choice for a private repository). Exploit detail is never published in either mode. |
-| `knowledge.sources` | absent | Slot defined by the `om-framework-context` skill. Invoke it when installed; otherwise use its bounded standalone fallback. Absent → repository agent instructions, then scoped instructions, `CONTRIBUTING.md`, relevant README, and manifests. |
+| Key                         | Default           | Meaning                                                                                                                                                                                                                                                                                              |
+| --------------------------- | ----------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `securityChecklist`         | `null`            | Repo-relative path to the repository's security hotspot checklist — its tenant/scope keys, guarded data-access helpers, permission model, encrypted fields, domain flows with money or stock, framework-specific sinks. Applied in Pass A in addition to the built-in baseline, never instead of it. |
+| `securityReport.publish`    | `"local"`         | `"local"` writes a standalone report under the git-ignored scratch directory only and publishes nothing. `"pr"` ships it as a docs-only PR via `om-auto-create-pr`. Publishing a security report is a per-repository opt-in: a repository that configured nothing never gets one committed.          |
+| `securityReport.disclosure` | `"withhold-live"` | `"withhold-live"` withholds live exploitable blocker/major findings from every published surface; `"full"` publishes them with location and fix direction (an operator choice for a private repository). Exploit detail is never published in either mode.                                           |
+| `knowledge.sources`         | absent            | Slot defined by the `om-framework-context` skill. Invoke it when installed; otherwise use its bounded standalone fallback. Absent → repository agent instructions, then scoped instructions, `CONTRIBUTING.md`, relevant README, and manifests.                                                      |
 
 ### Loading snippet (preflight step 4)
 
@@ -59,7 +59,7 @@ Unknown enum values fall back to the defaults (`"local"`, `"withhold-live"`) and
 
 A security report is a disclosure. Before any artifact, fragment, delegation brief, comment, or final report is written:
 
-1. **Never, in any mode:** exploit payloads, working attack strings, step-by-step reproduction, proof-of-concept code, secrets, internal hostnames, personal data. A finding states *what* class of weakness exists *where* and the *direction* of the fix — never *how to exploit it*.
+1. **Never, in any mode:** exploit payloads, working attack strings, step-by-step reproduction, proof-of-concept code, secrets, internal hostnames, personal data. A finding states _what_ class of weakness exists _where_ and the _direction_ of the fix — never _how to exploit it_.
 2. **Withhold (default `withhold-live`):** a blocker or major finding whose vulnerable code is live at `origin/$BASE` tip and plausibly exploitable is withheld. Its full entry — location, why, fix, its apply-elsewhere candidates, and next steps pointing at it — goes only to this run's withheld file `$WITHHELD` (the path is defined once, in `references/report-templates.md` → Paths), including its `disclosure-tokens` block. Every published surface carries the placeholder from `references/report-templates.md` (severity + OWASP category, no path, no symbol, no line). Findings in unmerged code (open PR, branch) and spec findings are not live and publish normally.
 3. **Hand-off:** when anything was withheld, the final report carries a `⚠️ NEEDS HUMAN CONFIRMATION` line: the count, the local withheld path, and the private channel — the repo's `SECURITY.md` when present, otherwise "the maintainers' private security channel". The skill never sends withheld detail anywhere itself. In an ephemeral environment (CI) the withheld file does not survive; the line then says to re-run the unit locally.
 4. **Disclosure check** (pre-publish gate, fail closed): none of the tokens in the `disclosure-tokens` block of `$WITHHELD` appears in any file about to be published or handed back — the report and its HTML mirror, or the fragment in sub-unit mode. Run it with the withheld count from the executive summary; a real hit (`rc=0`) → rewrite and re-run the gate; any other failure (withheld count above zero but the file missing or without tokens, a grep error) → stop, publish nothing, keep the artifacts local, and say why in the report:
@@ -77,6 +77,7 @@ A security report is a disclosure. Before any artifact, fragment, delegation bri
      [ "$rc" -eq 1 ] || { echo "GATE FAIL: withheld detail found or grep error (rc=$rc)"; return 1; }
    }
    ```
+
 5. **Secret-leak grep** (pre-publish gate) over every artifact about to leave the machine; any match → redact to `{REDACTED}` and re-run:
 
    ```bash

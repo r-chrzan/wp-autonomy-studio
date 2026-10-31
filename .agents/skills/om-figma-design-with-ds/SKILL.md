@@ -20,11 +20,11 @@ provider operations applied to the design file when the user explicitly asks.
 
 ## Modes
 
-| Mode | When | Output |
-|---|---|---|
-| **Brief** (default) | A new screen: list, detail, create, settings, dashboard, wizard, dialog, empty or error state | a brief a designer or design agent can draw from without seeing the code |
-| **Audit** | An existing design should conform to the design system | summary, ranked violations, remediation plan, optional provider operations |
-| **Prompt** | The user wants to run Brief or Audit in another tool or session | one self-contained prompt with the contract digest embedded and placeholders left intact |
+| Mode                | When                                                                                          | Output                                                                                   |
+| ------------------- | --------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------- |
+| **Brief** (default) | A new screen: list, detail, create, settings, dashboard, wizard, dialog, empty or error state | a brief a designer or design agent can draw from without seeing the code                 |
+| **Audit**           | An existing design should conform to the design system                                        | summary, ranked violations, remediation plan, optional provider operations               |
+| **Prompt**          | The user wants to run Brief or Audit in another tool or session                               | one self-contained prompt with the contract digest embedded and placeholders left intact |
 
 When the request is ambiguous, ask one short question: a new screen from
 scratch, or an existing design to bring into line? A feature whose direction is

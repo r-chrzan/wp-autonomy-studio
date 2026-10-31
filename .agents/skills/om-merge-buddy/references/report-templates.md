@@ -7,11 +7,11 @@ and emits no chaining fields. Lead with the counts and the next useful action.
 🚀 `om-merge-buddy` — {ready} ready, {almost} almost ready, {blocked} blocked.
 {Scope/date; disclose disabled label gates or missing check data when relevant.}
 
-| PR and change | State | Next action and reason |
-|---|---|---|
-| [#{number}: {title}]({url}) | Ready | All required gates pass; ready for a merge decision. |
-| [#{number}: {title}]({url}) | Almost ready | Wait for {check}; it is the only remaining gate. |
-| [#{number}: {title}]({url}) | Blocked | Resolve {conflict/finding} and obtain {missing approval}. |
+| PR and change               | State        | Next action and reason                                    |
+| --------------------------- | ------------ | --------------------------------------------------------- |
+| [#{number}: {title}]({url}) | Ready        | All required gates pass; ready for a merge decision.      |
+| [#{number}: {title}]({url}) | Almost ready | Wait for {check}; it is the only remaining gate.          |
+| [#{number}: {title}]({url}) | Blocked      | Resolve {conflict/finding} and obtain {missing approval}. |
 ```
 
 Use one row per included PR; keep all remaining blockers in that row. Do not

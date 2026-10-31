@@ -1,6 +1,6 @@
 # Claiming and releasing work — issues and PRs
 
-The generalized claim/lock procedure for any tracker item (issue or PR) an autonomous run takes ownership of. All reads and mutations go through the tracker descriptor's operations; label mutations only through the `apply_label` guard. This complements the skill-specific slot check in the skill body — the slot check decides whether the *work* exists, this procedure decides who *owns* it.
+The generalized claim/lock procedure for any tracker item (issue or PR) an autonomous run takes ownership of. All reads and mutations go through the tracker descriptor's operations; label mutations only through the `apply_label` guard. This complements the skill-specific slot check in the skill body — the slot check decides whether the _work_ exists, this procedure decides who _owns_ it.
 
 ## Three-signal in-progress check
 
@@ -16,7 +16,7 @@ Decision:
 - Signals point at `CURRENT_USER` → re-entry into your own run; refresh the claim (idempotent) and continue.
 - Signals point at someone else → **STOP** and report the owner — unless the lock is stale (below) or `--force` was passed.
 
-**`ci-monitoring` is not a lock signal.** It is a meta label meaning the previous run's work is *finished and fully reported* — labels applied, review submitted, comments posted — and that run is only watching CI, so it still owes a CI-result follow-up comment. An item carrying `ci-monitoring` **and none of the three signals above** is **not** in progress: claim it and proceed normally, without `--force` and without an override comment. Never fold `ci-monitoring` into the three-signal check, and never treat it as a reason to back off; the whole point of the label is that a monitoring process which dies leaves an honest state rather than a lock nobody holds. When `in-progress` and `ci-monitoring` are both present, the `in-progress` signal decides — `ci-monitoring` neither adds to it nor cancels it.
+**`ci-monitoring` is not a lock signal.** It is a meta label meaning the previous run's work is _finished and fully reported_ — labels applied, review submitted, comments posted — and that run is only watching CI, so it still owes a CI-result follow-up comment. An item carrying `ci-monitoring` **and none of the three signals above** is **not** in progress: claim it and proceed normally, without `--force` and without an override comment. Never fold `ci-monitoring` into the three-signal check, and never treat it as a reason to back off; the whole point of the label is that a monitoring process which dies leaves an honest state rather than a lock nobody holds. When `in-progress` and `ci-monitoring` are both present, the `in-progress` signal decides — `ci-monitoring` neither adds to it nor cancels it.
 
 ## Stale-lock recovery
 
@@ -48,14 +48,14 @@ When the same run (same `CURRENT_USER`) finishes one skill and continues on the 
 
 - **Hand-off (finishing step):** keep the `in-progress` label and lock assignee in place; instead of the release comment, post a hand-off comment naming the next phase:
 
-  `` 🤖 `{finishing-skill}` completed: {outcome}. Lock handed off to `{next-skill}` — chain continues on this {issue|PR}. ``
+  ``🤖 `{finishing-skill}` completed: {outcome}. Lock handed off to `{next-skill}` — chain continues on this {issue|PR}.``
 
 - **Take-over (next step):** the three-signal check finds the lock held by `CURRENT_USER` → re-entry. **Before any other work** — fetching diffs, running validation, posting findings — refresh the claim comment so the tracker always shows who holds the item and why:
 
-  `` 🤖 `{next-skill}` taking over the chain lock — {phase}. Started: {ISO-8601 timestamp}. ``
+  ``🤖 `{next-skill}` taking over the chain lock — {phase}. Started: {ISO-8601 timestamp}.``
 
 - **Ownership:** a skill releases only a lock its own run opened. An inherited (handed-off) lock is annotated in the completion comment (`Lock retained — chain continues.`) and released by the chain's driving skill at the end of the run, or by its failure path — "the claimant releases their own claim" applies to the chain as a whole.
-- **Crash recovery (adoption):** a hand-off lock is live only while its chain is running. A **standalone** run (one not invoked as a chain step) that re-enters a same-`CURRENT_USER` lock whose newest 🤖 claim/take-over/hand-off comment is older than the stale window treats the chain as dead: post an adoption note — `` 🤖 Adopting a stale chain lock ({age}) — previous run presumed dead. `` — then own the lock as if this run opened it, releasing it at the end. Chained invocations never adopt; their driver owns release.
+- **Crash recovery (adoption):** a hand-off lock is live only while its chain is running. A **standalone** run (one not invoked as a chain step) that re-enters a same-`CURRENT_USER` lock whose newest 🤖 claim/take-over/hand-off comment is older than the stale window treats the chain as dead: post an adoption note — `🤖 Adopting a stale chain lock ({age}) — previous run presumed dead.` — then own the lock as if this run opened it, releasing it at the end. Chained invocations never adopt; their driver owns release.
 - **Invariant:** an item under active automation is never observably unclaimed — the claim or take-over comment precedes any work product, and the hand-off or release is the step's last tracker mutation.
 
 ## om-auto-qa-pr specifics
@@ -77,4 +77,4 @@ PR mode only; local mode skips the whole procedure. Run this **before** touching
   🤖 `om-auto-qa-pr` completed: {PASS|FAIL|PARTIAL}. Evidence posted above. Lock released.
   ```
 
-- An **inherited chain lock** (step-1 re-entry: a flow runner such as `om-auto-fix-issue` or `om-auto-fix-pr` handed the lock off to this run) is never released here. Post the take-over comment before driving the app, and at teardown post the completion notice as `` 🤖 `om-auto-qa-pr` completed: {verdict}. Lock retained — chain continues. ``, leaving the label and assignee in place — the chain's driving skill releases at the end of its run (see the chained hand-off section above).
+- An **inherited chain lock** (step-1 re-entry: a flow runner such as `om-auto-fix-issue` or `om-auto-fix-pr` handed the lock off to this run) is never released here. Post the take-over comment before driving the app, and at teardown post the completion notice as ``🤖 `om-auto-qa-pr` completed: {verdict}. Lock retained — chain continues.``, leaving the label and assignee in place — the chain's driving skill releases at the end of its run (see the chained hand-off section above).

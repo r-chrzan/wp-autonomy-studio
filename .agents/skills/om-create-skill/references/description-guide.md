@@ -14,7 +14,7 @@ unchanged.
   phrases the way a user actually types them: `"create a skill for…"`,
   `"new om-skill"`, `"split this skill"`, `"refactor SKILL.md"`.
 - **Disambiguation from siblings** when a nearby skill overlaps — say what this
-  one is *not* for (e.g. "use the plain X for small fixes").
+  one is _not_ for (e.g. "use the plain X for small fixes").
 
 ## Rules
 
@@ -34,5 +34,5 @@ unchanged.
 > `<one line: what it does and produces>. <optional disambiguation from a sibling>. Use when the user says "<trigger>", "<trigger>", "<trigger>", "<trigger>".`
 
 Draft it, then read it back cold: from this line alone, would the model know to
-pick this skill over every other for the intended request — and know *not* to pick
+pick this skill over every other for the intended request — and know _not_ to pick
 it for adjacent ones?

@@ -63,7 +63,7 @@ permissions, dependencies, prototype link — are **not** checked here: a coveri
 spec supplies them, and step F3c authors one when it is missing.
 
 When a ticket-level item is missing, post one idempotent comment (marker
-`` 🤖 `om-auto-fix-issue` — not ready ``, the same shape
+``🤖 `om-auto-fix-issue` — not ready``, the same shape
 `om-auto-manage-issues` uses: the missing items as a list, addressed to the
 author, with the waiver sentence). Find it via **list-issue-comments**, update it
 in place via **update-comment** when the missing-items list changes, and skip the

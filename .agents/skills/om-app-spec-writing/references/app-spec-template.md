@@ -25,11 +25,13 @@ The document skeleton `om-app-spec-writing` instantiates at Phase 0 and fills ph
 [Describe: what the app does, how the business makes money, who pays.]
 
 **Flywheel:**
+
 ```
 [Draw the reinforcing loop that makes the system more valuable over time]
 ```
 
 #### Checklist
+
 - [ ] Paying customer identified — who writes the check? What do they get?
 - [ ] Flywheel articulated — the reinforcing loop, not just "users benefit"
 
@@ -42,6 +44,7 @@ The document skeleton `om-app-spec-writing` instantiates at Phase 0 and fills ph
 **What is NOT important:** [Explicit scope exclusions. What this app will NOT do.]
 
 #### Checklist
+
 - [ ] Primary goal stated with measurable outcome
 - [ ] Scope exclusions listed — what's out and why
 
@@ -50,10 +53,11 @@ The document skeleton `om-app-spec-writing` instantiates at Phase 0 and fills ph
 > DDD: one term = one meaning everywhere. This glossary IS the ubiquitous language.
 
 | Term | Definition | Source of data | Period |
-|------|-----------|----------------|--------|
-| | | | |
+| ---- | ---------- | -------------- | ------ |
+|      |            |                |        |
 
 #### Checklist
+
 - [ ] Every domain term defined once
 - [ ] Same word = same meaning across all specs and conversations
 - [ ] Source of data specified per term; period specified for time-windowed terms (metrics, KPIs) — N/A otherwise
@@ -64,6 +68,7 @@ The document skeleton `om-app-spec-writing` instantiates at Phase 0 and fills ph
 > Structure this section however the domain demands — there is no fixed format.
 >
 > Examples of what belongs here (depending on the domain):
+>
 > - Tier/level definitions with thresholds and governance rules
 > - KPI formulas with anti-gaming rules
 > - Business rules: permissions hierarchy, data ownership, cross-org visibility
@@ -74,6 +79,7 @@ The document skeleton `om-app-spec-writing` instantiates at Phase 0 and fills ph
 [Document your domain model here. Use subsections as needed.]
 
 #### Checklist
+
 - [ ] Domain entities identified with clear ownership
 - [ ] Domain rules documented — invariants, constraints, calculations
 - [ ] If there are levels/tiers: thresholds, benefits, governance rules (evaluation, grace period, downgrade, audit)
@@ -84,13 +90,13 @@ The document skeleton `om-app-spec-writing` instantiates at Phase 0 and fills ph
 
 > **Weak vs precise field definitions:**
 >
-> | Weak (will cause bugs) | Precise (implementation-ready) |
-> |----------------------|-------------------------------|
-> | "Case study has industry and tech info" | `industry` (dictionary, multi, required), `technologies` (dictionary, multi, required), `project_type` (select) |
-> | "Company profile with services" | `services` (dictionary, multi), `industries` (dictionary, multi), `team_size_bucket` (select) |
-> | "Budget information" | `budget_known` (boolean), `budget_bucket` (select, required), `budget_min_usd` (float), `budget_max_usd` (float) |
-> | "Track deal progress" | `registered_at` (datetime, system-set, immutable once stamped, UTC) |
-> | "License deal record" | `license_identifier` (text, required), `attributed_partner_id` (relation, required), `status` (select), `is_renewal` (boolean), `closed_at` (datetime) — unique key: `(license_identifier, year)` |
+> | Weak (will cause bugs)                  | Precise (implementation-ready)                                                                                                                                                                    |
+> | --------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+> | "Case study has industry and tech info" | `industry` (dictionary, multi, required), `technologies` (dictionary, multi, required), `project_type` (select)                                                                                   |
+> | "Company profile with services"         | `services` (dictionary, multi), `industries` (dictionary, multi), `team_size_bucket` (select)                                                                                                     |
+> | "Budget information"                    | `budget_known` (boolean), `budget_bucket` (select, required), `budget_min_usd` (float), `budget_max_usd` (float)                                                                                  |
+> | "Track deal progress"                   | `registered_at` (datetime, system-set, immutable once stamped, UTC)                                                                                                                               |
+> | "License deal record"                   | `license_identifier` (text, required), `attributed_partner_id` (relation, required), `status` (select), `is_renewal` (boolean), `closed_at` (datetime) — unique key: `(license_identifier, year)` |
 >
 > Rule of thumb: if a person reading the field definition has to ask "what type is this?" or "is this required?" — the definition is too vague.
 
@@ -100,9 +106,9 @@ The document skeleton `om-app-spec-writing` instantiates at Phase 0 and fills ph
 
 > SINGLE SOURCE OF TRUTH. If any spec contradicts this, update the spec.
 
-| Persona | Role key | Identity | Org scope | Sees | Does |
-|---------|----------|----------|-----------|------|------|
-| | | internal / external | | | |
+| Persona | Role key | Identity            | Org scope | Sees | Does |
+| ------- | -------- | ------------------- | --------- | ---- | ---- |
+|         |          | internal / external |           |      |      |
 
 **External-surface decision framework:**
 
@@ -129,8 +135,8 @@ External persona?
 **If USED — per persona justification:**
 
 | Portal persona | Why the external surface, not the internal one? | Custom pages needed? |
-|---|---|---|
-| | | |
+| -------------- | ----------------------------------------------- | -------------------- |
+|                |                                                 |                      |
 
 **If NOT USED — why:**
 [Justification — e.g., "All personas need the internal tooling. One identity system is simpler."]
@@ -139,6 +145,7 @@ External persona?
 [Per persona: why this identity type? What capabilities do they need? What was the alternative and why was it rejected?]
 
 #### Checklist
+
 - [ ] Every persona has ONE identity type — internal or external, no "maybe both" `PM`
 - [ ] Identity decision justified per persona — the capabilities they need drive the choice `PM`
 - [ ] No persona has two accounts — if someone needs both identity types, the model is wrong `Architect`
@@ -162,23 +169,26 @@ External persona?
 **Key personas:** [Who's involved at each step]
 
 **Boundaries:**
+
 - Starts when: [trigger]
 - Ends when: [completion criteria]
 - NOT this workflow: [what's explicitly out of scope]
 
 **Edge cases:**
+
 1. [scenario] -> [what should happen] -> [risk if unhandled]
 2. ...
 
 **Platform readiness (per step):**
 
 | Step | Platform capability | Gap? | Notes |
-|------|--------------------|------|-------|
-| | | | |
+| ---- | ------------------- | ---- | ----- |
+|      |                     |      |       |
 
 [Repeat per workflow]
 
 #### Checklist (per workflow)
+
 - [ ] End-to-end journey — first touchpoint to value delivery, no gaps `PM`
 - [ ] Measurable ROI — a specific metric that moves, not "users benefit" `PM`
 - [ ] Boundaries — explicit start, end, and NOT-this-workflow `PM`
@@ -186,6 +196,7 @@ External persona?
 - [ ] Every step mapped to a platform capability `Architect`
 
 #### Checklist (overall)
+
 - [ ] 3–7 core workflows defined `PM`
 - [ ] Any workflow needing >200 lines of new code was re-checked against the capability catalog for a missed platform capability — and its size justified when none exists `Architect`
 
@@ -202,38 +213,39 @@ External persona?
 > What sidebar groups and items does each role see? Order matters — most-used first.
 
 | Role | Sidebar groups | Notes |
-|------|---------------|-------|
-| | | |
+| ---- | -------------- | ----- |
+|      |                |       |
 
 ### Dashboard Widgets (per role)
 
 > What does each role see on their dashboard after login? Widgets should answer "what do I need to do right now?"
 
 | Widget | Roles that see it | Data shown | Click-through |
-|--------|------------------|------------|---------------|
-| | | | |
+| ------ | ----------------- | ---------- | ------------- |
+|        |                   |            |               |
 
 ### Custom Pages
 
 > Pages beyond the platform's standard CRUD surfaces, using the page conventions the capability catalog names.
 
-| Page | URL pattern | Role | Purpose | Building block |
-|------|------------|------|---------|----------------|
-| | | | | standard form / standard table / custom |
+| Page | URL pattern | Role | Purpose | Building block                          |
+| ---- | ----------- | ---- | ------- | --------------------------------------- |
+|      |             |      |         | standard form / standard table / custom |
 
 ### Portal Pages (when §2 Portal = USED)
 
 > External-surface pages are custom pages; the platform's standard grids and forms are not available there.
 > The agent generates them from this spec — it MUST be precise enough to implement without guessing.
 
-| Page | URL pattern | Portal role | Purpose | User actions | Stage gate | Building block |
-|------|------------|-------------|---------|--------------|------------|----------------|
-| | | | What the user accomplishes | What they can do | Stage/lifecycle condition, or "always" | dashboard widget / custom page / menu injection / form |
+| Page | URL pattern | Portal role | Purpose                    | User actions     | Stage gate                             | Building block                                         |
+| ---- | ----------- | ----------- | -------------------------- | ---------------- | -------------------------------------- | ------------------------------------------------------ |
+|      |             |             | What the user accomplishes | What they can do | Stage/lifecycle condition, or "always" | dashboard widget / custom page / menu injection / form |
 
 > **Stage gate:** the page is available only at certain workflow/lifecycle stages. If always available, write "always".
 > Disabled pages show an explanation tooltip — never hidden (preserve spatial memory).
 >
 > **Rules:**
+>
 > - Each page = minimum 1 atomic commit in §4 gap analysis. Estimate per page based on: data-fetching complexity, form validation, real-time events, role-conditional content.
 > - If a page uses real-time updates: list the events — they map to the event architecture.
 > - If a page has a stage gate: it maps to workflow state — verify in §3 Workflows.
@@ -243,26 +255,27 @@ External persona?
 > Where custom widgets inject into the platform's existing pages (detail pages, list pages) — when the platform supports injection points.
 
 | Widget | Injects into | Injection spot | Data |
-|--------|-------------|---------------|------|
-| | | | |
+| ------ | ------------ | -------------- | ---- |
+|        |              |                |      |
 
 ### Key User Flows
 
 > For each persona's primary task, trace the click path from login to completion.
 
-| Persona | Task | Flow (login → done) | Clicks | Notes |
-|---------|------|---------------------|--------|-------|
-| | | page → page → action → result | | |
+| Persona | Task | Flow (login → done)           | Clicks | Notes |
+| ------- | ---- | ----------------------------- | ------ | ----- |
+|         |      | page → page → action → result |        |       |
 
 ### Empty States
 
 > What does a first-time user see? Empty states should guide, not confuse.
 
-| Page/Widget | Empty state message | Action |
-|-------------|-------------------|--------|
-| | "No X yet. [Create one]" | Link to create page |
+| Page/Widget | Empty state message      | Action              |
+| ----------- | ------------------------ | ------------------- |
+|             | "No X yet. [Create one]" | Link to create page |
 
 #### Checklist
+
 - [ ] Every persona has a defined login-to-primary-task flow `PM`
 - [ ] Navigation grouping matches how users think about their work `UX`
 - [ ] Dashboard widgets answer "what to do next", not just "data" `UX`
@@ -283,22 +296,22 @@ External persona?
 
 Each gap is measured in **atomic commits** — one self-contained, testable increment that a single focused loop can deliver.
 
-| Score | Meaning | Example |
-|-------|---------|---------|
-| 0 | Platform does it, zero commits | An existing feature or a permission/role config |
-| 1 | 1 commit: config/seed only | Pipeline stages or defaults in seed data |
-| 2 | 1–2 commits: small gap | A widget/extension-point addition + i18n |
-| 3 | 2–3 commits: medium gap | New entity + CRUD route + admin page |
-| 4 | 3–5 commits: large gap | Multi-entity + pages + a workflow definition |
-| 5 | 5+ commits or external dependency | External API integration, an LLM pipeline |
+| Score | Meaning                           | Example                                         |
+| ----- | --------------------------------- | ----------------------------------------------- |
+| 0     | Platform does it, zero commits    | An existing feature or a permission/role config |
+| 1     | 1 commit: config/seed only        | Pipeline stages or defaults in seed data        |
+| 2     | 1–2 commits: small gap            | A widget/extension-point addition + i18n        |
+| 3     | 2–3 commits: medium gap           | New entity + CRUD route + admin page            |
+| 4     | 3–5 commits: large gap            | Multi-entity + pages + a workflow definition    |
+| 5     | 5+ commits or external dependency | External API integration, an LLM pipeline       |
 
 ### Per-Workflow Gap Matrix
 
 #### WF[N]: [Name] — Total: [N] atomic commits
 
-| Step | Platform capability | Gap | Scope | Commits | Notes |
-|------|--------------------|-----|-------|---------|-------|
-| | | | app / platform / automation / external | | |
+| Step | Platform capability | Gap | Scope                                  | Commits | Notes |
+| ---- | ------------------- | --- | -------------------------------------- | ------- | ----- |
+|      |                     |     | app / platform / automation / external |         |       |
 
 > **Scope column:** where does this commit live? `app` = this repo, `platform` = a contribution to the platform itself, `automation` = an external automation/integration layer, `external` = outside both.
 > Commits scoped `platform` are upstream contributions — welcome, but they need an upstream PR + approval. Flag them as dependencies: your phase can't ship that commit until upstream merges. Check first whether a sanctioned extension point can cover it from the app side.
@@ -310,12 +323,13 @@ Each gap is measured in **atomic commits** — one self-contained, testable incr
 ### Gap Summary
 
 | Workflow | Business Priority | Atomic Commits (raw) | Workaround? | Commits (effective) | Blocks ROI? |
-|----------|------------------|---------------------|-------------|---------------------|-------------|
-| | | | | | |
+| -------- | ----------------- | -------------------- | ----------- | ------------------- | ----------- |
+|          |                   |                      |             |                     |             |
 
 The Architect saves detailed commit plans to `${SPECS_DIR}/app-spec-notes/commits-WF<N>.md`.
 
 #### Checklist
+
 - [ ] Every workflow step scored in atomic commits `PM`
 - [ ] Architect checkpoint: workflow-to-platform mapping verified — no capability missed, no overengineering, commit plans saved `Architect`
 
@@ -328,28 +342,29 @@ The Architect saves detailed commit plans to `${SPECS_DIR}/app-spec-notes/commit
 
 ### Platform capabilities used
 
-| Capability | Usage | Extension points used | Notes |
-|-----------|-------|----------------------|-------|
-| | as-is / extend | (as named by the capability catalog) | |
+| Capability | Usage          | Extension points used                | Notes |
+| ---------- | -------------- | ------------------------------------ | ----- |
+|            | as-is / extend | (as named by the capability catalog) |       |
 
 ### Shared modules (existing or proposed)
 
 > If a gap is reusable (2+ apps would benefit), propose it as a shared/upstream module instead of building it into the app.
 > Proposed modules need clear boundaries: single responsibility, no app-specific domain logic.
 
-| Module | Status | Usage | Extension points | Rationale |
-|--------|--------|-------|-----------------|-----------|
-| | EXISTING / PROPOSED | use / extend / create | | Why shared vs app-level? Would other apps need this? |
+| Module | Status              | Usage                 | Extension points | Rationale                                            |
+| ------ | ------------------- | --------------------- | ---------------- | ---------------------------------------------------- |
+|        | EXISTING / PROPOSED | use / extend / create |                  | Why shared vs app-level? Would other apps need this? |
 
 ### App modules
 
 > App-specific domain logic that is NOT reusable across other apps.
 
 | Module | Responsibility | Entities owned | Notes |
-|--------|---------------|----------------|-------|
-| | | | |
+| ------ | -------------- | -------------- | ----- |
+|        |                |                |       |
 
 #### Checklist
+
 - [ ] Every platform capability listed with explicit usage type (as-is / extend) and extension points `Architect`
 - [ ] Every listed capability traces to a user story or workflow — template defaults don't count; if §2 rejects the portal, don't list portal capabilities `Architect`
 - [ ] Every shared module listed — existing ones with extension points, proposed ones with rationale `Architect`
@@ -386,6 +401,7 @@ Success: [concrete, testable criteria]
 pre-configured demo users with distinct roles so that I can log in and test every
 persona's experience without manual user/role setup.
 Success:
+
 - Each role from §2 Identity Model has at least one seeded user
 - All demo users share a single known password logged to the console at seed time
 - Login with each demo user shows only the UI and data their role permits
@@ -396,12 +412,14 @@ Success:
 and see realistic demo data (entities across lifecycle states, relationships) so that I can
 understand the app's domain without reading source code.
 Success:
+
 - At least 2–3 representative entities per major domain concept
 - Entities span different lifecycle states (pipeline stages, statuses — whatever the domain has)
 - Extended/custom fields populated with realistic values (not "test123"), where the platform supports them
 - Demo data is visually distinguishable (names contain a "Demo" marker)
 
 #### Checklist (domain stories)
+
 - [ ] Every story has: persona + action + measurable outcome + success criteria
 - [ ] Every story has alternate and failure paths — happy-path-only stories killed
 - [ ] Every story traces to a workflow step — no orphan stories
@@ -409,6 +427,7 @@ Success:
 - [ ] No weak stories — vague verbs killed: "manage", "track", "handle", "view data"
 
 #### Checklist (default stories)
+
 - [ ] US-0.1: demo users seeded for every role in §2, idempotent, known password
 - [ ] US-0.2: demo data covers major domain concepts with realistic values
 
@@ -419,12 +438,13 @@ Success:
 > Map each story to a platform capability. Measure in atomic commits.
 
 | Story | Platform Match | Atomic Commits | Notes |
-|-------|---------------|----------------|-------|
-| | | | |
+| ----- | -------------- | -------------- | ----- |
+|       |                |                |       |
 
 The Architect saves detailed commit plans to `${SPECS_DIR}/app-spec-notes/commits-US-<N>.md`.
 
 #### Checklist
+
 - [ ] Every story mapped to a specific platform capability/mechanism with an atomic-commit estimate `PM`
 - [ ] Every mapping that decides a phase is grounded, or labeled `docs-only` with its catalog source and logged in §10 `Architect`
 - [ ] Architect checkpoint: story-to-platform mapping verified — simplest solution per story, commit plans saved `Architect`
@@ -443,8 +463,8 @@ The Architect saves detailed commit plans to `${SPECS_DIR}/app-spec-notes/commit
 **Why this order:** [Business justification]
 
 | Story | What ships | Commits |
-|-------|-----------|---------|
-| | | |
+| ----- | ---------- | ------- |
+|       |            |         |
 
 **Total: [N] atomic commits**
 **Workaround:** [if any high-gap blocker is worked around]
@@ -458,21 +478,25 @@ The Architect saves detailed commit plans to `${SPECS_DIR}/app-spec-notes/commit
 > now defends; the one who builds now pushes back.
 
 **Domain criteria** `DDD`:
+
 - [ ] [Invariant that must hold after this phase — e.g., "every stamped record has exactly one immutable timestamp"]
 - [ ] [Aggregate consistency — e.g., "one change proposal per org per period"]
 - [ ] [Event completeness — e.g., "TierChanged published on every approval"]
 - [ ] [Data integrity — e.g., "an import for the same org+month archives the previous version"]
 
 **Business criteria** `PM`:
+
 - [ ] [Testable action the primary persona can perform end-to-end]
 - [ ] [Testable action another persona can perform]
 - [ ] ...
 
 **Value delivered:**
+
 - **Business value:** [What business problem is solved that wasn't solved before this phase? Be specific.]
 - **ROI metric:** [Measurable outcome. Target number. How you'd know this phase was worth building.]
 
 **Platform ROI** (if a reference app):
+
 - [Platform pattern demonstrated by this phase — e.g., "role-based access with org scoping via the platform's role config"]
 - [Platform pattern demonstrated — e.g., "an API interceptor publishing a domain event on entity change"]
 - ...
@@ -494,6 +518,7 @@ Phase 2: [name]    [N] commits    [which workflows]
 ```
 
 #### Checklist
+
 - [ ] Phases ordered by: business priority × gap score × blocker status
 - [ ] Each phase delivers a complete, usable increment — no half-done workflows
 - [ ] Workarounds documented for high-gap blockers (gap >3)
@@ -508,10 +533,11 @@ Phase 2: [name]    [N] commits    [which workflows]
 ## 8. Cross-Spec Conflicts `PM`
 
 | Conflict | Specs involved | Resolution |
-|----------|---------------|------------|
-| | | |
+| -------- | -------------- | ---------- |
+|          |                |            |
 
 #### Checklist
+
 - [ ] All related specs listed with what each contributes
 - [ ] Identity model consistent across specs
 - [ ] Terminology consistent — matches the glossary
@@ -526,9 +552,11 @@ Phase 2: [name]    [N] commits    [which workflows]
 > Only if this project is an example/reference app. N/A otherwise.
 
 **Platform patterns to demonstrate:**
+
 - [list of platform features this app showcases]
 
 **Anti-patterns to avoid:**
+
 - [list of what we're NOT building and why]
 - Leaving scaffold boilerplate (example modules, empty directories) from the project generator in the app
 - Registering modules the app doesn't use — only register what §4.5 Module Architecture lists, and remove their leftover imports
@@ -536,6 +564,7 @@ Phase 2: [name]    [N] commits    [which workflows]
 - Bypassing the platform's test runner with an app-local test config — the platform's runner handles environments and test discovery consistently
 
 #### Checklist
+
 - [ ] Every piece of new code passes the "copy test" — if someone copies this, do they build ON the platform or AROUND it?
 - [ ] Anti-patterns explicitly listed
 - [ ] Platform features demonstrated — the app showcases what the platform can do
@@ -547,11 +576,12 @@ Phase 2: [name]    [N] commits    [which workflows]
 
 ## 10. Open Questions `PM`
 
-| # | Question | Options | Impact | Owner | Status |
-|---|----------|---------|--------|-------|--------|
-| | | | | | |
+| #   | Question | Options | Impact | Owner | Status |
+| --- | -------- | ------- | ------ | ----- | ------ |
+|     |          |         |        |       |        |
 
 #### Checklist
+
 - [ ] Every question has: options, impact, owner, status
 - [ ] No BLOCKER question unresolved before its phase starts
 - [ ] Decided questions have their rationale recorded
@@ -563,10 +593,11 @@ Phase 2: [name]    [N] commits    [which workflows]
 > Assessed per implementation phase. Updated as phases ship.
 
 | Workflow | Deployable | Blocker | What the client would say |
-|----------|-----------|---------|---------------------------|
-| | | | |
+| -------- | ---------- | ------- | ------------------------- |
+|          |            |         |                           |
 
 #### Checklist
+
 - [ ] Each workflow assessed: deployable or not — binary, with the specific blocker
 - [ ] "What would the client say?" test — the complaint, not the technical gap
 - [ ] No workflow stops midway — if it can start but can't complete, it's worse than not existing
@@ -576,4 +607,5 @@ Phase 2: [name]    [N] commits    [which workflows]
 ## Changelog
 
 ### [date]
+
 - [what changed and why]

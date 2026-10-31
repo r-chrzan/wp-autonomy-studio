@@ -31,9 +31,7 @@ A workspace config that every engagement reuses:
     "repo": "acme/platform",
     "branch": "integration",
     "companionRepo": "acme/platform-modules",
-    "tierMap": [
-      { "pathPrefix": "packages/commercial/", "tier": "licensed" }
-    ],
+    "tierMap": [{ "pathPrefix": "packages/commercial/", "tier": "licensed" }],
     "significantPrAdditions": 10000
   }
 }
@@ -44,7 +42,7 @@ Only `platform.repo` is essential. When the platform ships its own knowledge —
 ```json
 {
   "knowledge": {
-    "sources": [ { "path": ".ai/platform/acme-platform.md" } ]
+    "sources": [{ "path": ".ai/platform/acme-platform.md" }]
   }
 }
 ```
@@ -73,18 +71,18 @@ After the analysis is complete, a second input can serve as a second opinion: an
 
 Everything in the deck is read off the three MDs — no number is invented, and the license-tier split survives into the client-facing view (a `✅ (core)` and a `✅ (licensed)` are different promises). Any HTML or slide template the team maintains works; keep repeatable per-epic / per-risk blocks. Where each deck element comes from:
 
-| Deck element | Read it from |
-|---|---|
-| project name, subtitle, intro | the client docs + the summary's executive paragraphs |
-| epic / story counts | tree frontmatter `total_epics` / `total_stories` |
-| coverage split (✅ / 🟡 / ❌, by tier) | summary → Coverage at a glance |
-| gap-to-close total (atomic commits) | backlog → effort roll-up |
-| epic cards | summary → Coverage by epic |
-| risk cards | summary → Top risks |
-| strength cards | summary → What's already strong |
-| open-decision cards | summary → Open questions |
-| sequencing bars | backlog → phases A / B / C |
-| effort histogram / cost curve | per-story `Effort:` scores in the tree |
+| Deck element                           | Read it from                                         |
+| -------------------------------------- | ---------------------------------------------------- |
+| project name, subtitle, intro          | the client docs + the summary's executive paragraphs |
+| epic / story counts                    | tree frontmatter `total_epics` / `total_stories`     |
+| coverage split (✅ / 🟡 / ❌, by tier) | summary → Coverage at a glance                       |
+| gap-to-close total (atomic commits)    | backlog → effort roll-up                             |
+| epic cards                             | summary → Coverage by epic                           |
+| risk cards                             | summary → Top risks                                  |
+| strength cards                         | summary → What's already strong                      |
+| open-decision cards                    | summary → Open questions                             |
+| sequencing bars                        | backlog → phases A / B / C                           |
+| effort histogram / cost curve          | per-story `Effort:` scores in the tree               |
 
 Two charts have earned their place in every deck so far:
 

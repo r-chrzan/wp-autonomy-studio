@@ -17,9 +17,16 @@ deliverable other skills depend on. Phase 1 reads `baseUrl` from it; the
   "stopScript": ".ai/scripts/test-env-down.sh",
   "app": { "startCommand": "<command>", "port": 4321, "healthPath": "/", "pid": 12345 },
   "services": [
-    { "type": "postgres", "host": "127.0.0.1", "port": 55432, "container": "<name>", "url": "postgres://…", "env": { "DATABASE_URL": "…" } }
+    {
+      "type": "postgres",
+      "host": "127.0.0.1",
+      "port": 55432,
+      "container": "<name>",
+      "url": "postgres://…",
+      "env": { "DATABASE_URL": "…" }
+    }
   ],
-  "credentials": [ { "role": "admin", "username": "<demo>", "passwordEnv": "TEST_ADMIN_PASSWORD" } ],
+  "credentials": [{ "role": "admin", "username": "<demo>", "passwordEnv": "TEST_ADMIN_PASSWORD" }],
   "credentialsFile": ".ai/qa/test-env.env",
   "browser": {
     "provider": "agent-browser",
@@ -29,7 +36,10 @@ deliverable other skills depend on. Phase 1 reads `baseUrl` from it; the
     "descriptor": ".ai/browsers/agent-browser.md",
     "notes": ""
   },
-  "testRunner": { "name": "playwright | cypress | wdio | other | none", "config": "<path or empty>" },
+  "testRunner": {
+    "name": "playwright | cypress | wdio | other | none",
+    "config": "<path or empty>"
+  },
   "platform": "linux | darwin | wsl2 | win32",
   "startedAt": "<ISO-8601 UTC>",
   "notes": "<anything a consumer must know: teardown, seeded data, gotchas, the working preparation chain>"
@@ -51,7 +61,7 @@ then a present `playwright.runner`, then the config's `browser.provider`, then
 legacy Playwright. `testRunner` describes the repository's committed E2E suite;
 it is independent of the agent-driven browser provider.
 
-`credentials` carries login *references*, not values: `username` is the demo
+`credentials` carries login _references_, not values: `username` is the demo
 identity, `passwordEnv` names a variable inside `credentialsFile` — a
 `KEY=value` env file the generated script writes next to the descriptor and
 keeps out of git. Consumers load the file into the shell (`set -a;

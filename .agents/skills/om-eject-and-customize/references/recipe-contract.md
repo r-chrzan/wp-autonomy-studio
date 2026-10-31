@@ -46,13 +46,13 @@ root after symlink resolution. Read only the files needed for this part.
 A source counts as an eject recipe only when it supplies all of these for the
 part in question:
 
-| Field | What it answers |
-|---|---|
-| Ejectable unit | Which parts can be ejected and how they are named. The target must be one of them. |
+| Field               | What it answers                                                                                                                                                                 |
+| ------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Ejectable unit      | Which parts can be ejected and how they are named. The target must be one of them.                                                                                              |
 | Supported procedure | The command (or tool) the dependency provides for ejecting, run from the repository root — or an explicit statement that manual copy of named files is the supported procedure. |
-| Landing location | Where the repository-owned copy goes. |
-| Registration | How the repository switches from the installed part to its own copy (a registry entry, config key, import path). |
-| Stays upstream | Contracts the copy must keep: stable identifiers, persisted schemas and migrations, public APIs, access rules, optional-part degradation. |
+| Landing location    | Where the repository-owned copy goes.                                                                                                                                           |
+| Registration        | How the repository switches from the installed part to its own copy (a registry entry, config key, import path).                                                                |
+| Stays upstream      | Contracts the copy must keep: stable identifiers, persisted schemas and migrations, public APIs, access rules, optional-part degradation.                                       |
 
 Optional fields, used when present: smaller alternatives to try first
 (extension points, overrides, add-on packages), post-eject steps

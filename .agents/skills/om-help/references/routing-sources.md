@@ -17,11 +17,11 @@ Optional files (default glob `.ai/help/*.md`) in which the repository states how
 
 Expected shape — Markdown, one topic per file, each opening with one sentence saying when it applies, then one or more tables:
 
-| Column | Meaning |
-|---|---|
-| signal / situation / request shape | the words or repository state that select the row |
-| skill(s) / sequence / workflow | skill names in order (`a → b → c`), or a plain instruction when no skill applies |
-| add when needed / notes (optional) | extra skills that join the route on a condition |
+| Column                             | Meaning                                                                          |
+| ---------------------------------- | -------------------------------------------------------------------------------- |
+| signal / situation / request shape | the words or repository state that select the row                                |
+| skill(s) / sequence / workflow     | skill names in order (`a → b → c`), or a plain instruction when no skill applies |
+| add when needed / notes (optional) | extra skills that join the route on a condition                                  |
 
 Free-form prose is accepted too; extract the same pairs from it. A glob that matches nothing is normal.
 
@@ -51,12 +51,12 @@ Only installed skills (step 3) are ever recommended as runnable. Prefer the rout
 
 Compare every skill name the sources above mention against the discovered list:
 
-| Finding | Report as |
-|---|---|
-| A source names a skill outside the `om-` set | ⚠️ `<skill>` is named by `<file>` but is outside the `om-` set — `om-help` does not route to it; follow `<file>` directly or rename the skill into the set. |
-| A source names a skill that is not installed | ⚠️ `<skill>` is named by `<file>` but not installed — the route is unavailable until it is installed (the `om-setup-agent-pipeline` coverage check prints the install command) or the data is corrected. |
-| A source describes a skill differently from its installed `description` | ⚠️ `<file>` says `<skill>` does X; the installed skill says Y. The installed description is current behavior; the file is stale or states intent. |
-| A source names a skill under an old name that an installed skill's description now covers | ⚠️ likely renamed — cite both. |
-| A repo-local `.ai/skills/<name>` overlay is a full standalone skill rather than an extension | ⚠️ overlay `<name>` repeats the installed skill instead of extending it; its catalog or steps may be stale. |
+| Finding                                                                                      | Report as                                                                                                                                                                                                |
+| -------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| A source names a skill outside the `om-` set                                                 | ⚠️ `<skill>` is named by `<file>` but is outside the `om-` set — `om-help` does not route to it; follow `<file>` directly or rename the skill into the set.                                              |
+| A source names a skill that is not installed                                                 | ⚠️ `<skill>` is named by `<file>` but not installed — the route is unavailable until it is installed (the `om-setup-agent-pipeline` coverage check prints the install command) or the data is corrected. |
+| A source describes a skill differently from its installed `description`                      | ⚠️ `<file>` says `<skill>` does X; the installed skill says Y. The installed description is current behavior; the file is stale or states intent.                                                        |
+| A source names a skill under an old name that an installed skill's description now covers    | ⚠️ likely renamed — cite both.                                                                                                                                                                           |
+| A repo-local `.ai/skills/<name>` overlay is a full standalone skill rather than an extension | ⚠️ overlay `<name>` repeats the installed skill instead of extending it; its catalog or steps may be stale.                                                                                              |
 
 Never repair the data yourself — this skill is read-only. The finding goes in the answer so the user can fix the source.

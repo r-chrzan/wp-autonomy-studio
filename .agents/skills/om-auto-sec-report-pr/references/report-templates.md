@@ -68,11 +68,11 @@ Target: **{pr:123 | spec:<path> | branch:<name>}** · Base: `{base}` · Analysis
 
 ## Deep vectors — what was checked
 
-| Vector | Outcome | Location or note |
-|---|---|---|
-| TOCTOU on money-moving flows | risk surfaced | `path/to/file.ext:200` |
-| Cache-key scope leakage | covered | scope key present in every key |
-| JWT algorithm confusion | not applicable | no token surface changed |
+| Vector                       | Outcome        | Location or note               |
+| ---------------------------- | -------------- | ------------------------------ |
+| TOCTOU on money-moving flows | risk surfaced  | `path/to/file.ext:200`         |
+| Cache-key scope leakage      | covered        | scope key present in every key |
+| JWT algorithm confusion      | not applicable | no token surface changed       |
 
 ## Next steps — go deeper
 
@@ -109,6 +109,7 @@ A vector row whose location belongs to a withheld finding reads `risk surfaced |
 
 ```markdown
 ## {target caption}
+
 <!-- sec-unit-status: complete -->
 <!-- sec-unit-withheld: {W} {withheld file relative to the primary checkout | -} -->
 
@@ -151,9 +152,9 @@ The brief itself contains nothing that is withheld. When the report documents a 
 ```markdown
 🔍 `om-auto-sec-report-pr` {target caption}: {N blocker, M major, L minor} — top {A01, A10}; {one sentence on the riskiest area}.
 🎯 Recommended next run: `om-auto-sec-report-pr {target}` — {why}.
-⚠️ NEEDS HUMAN CONFIRMATION: {W} finding(s) withheld — details in `{WITHHELD}` on this machine; disclose via {SECURITY.md channel | the maintainers' private security channel}.   ← only when W > 0
+⚠️ NEEDS HUMAN CONFIRMATION: {W} finding(s) withheld — details in `{WITHHELD}` on this machine; disclose via {SECURITY.md channel | the maintainers' private security channel}. ← only when W > 0
 📝 Report: {ANALYSIS_DIR path on the PR | local path in local mode | fragment path in sub-unit mode}.
-PR: #<number> (link: <full PR URL>)                                                               ← standalone pr mode only
+PR: #<number> (link: <full PR URL>) ← standalone pr mode only
 ```
 
 A sub-unit or local run emits no `PR:` line; never emit a nonexistent PR. When the run is incomplete, lead with 🔁, name what is missing, and relay `om-auto-create-pr`'s resume line (`om-auto-continue-pr {prNumber}`).

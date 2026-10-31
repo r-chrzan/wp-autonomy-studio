@@ -36,7 +36,7 @@ Add each through the `apply_issue_label` guard (a missing label degrades to a
 logged skip; `LABELS_ENABLED=false` skips all). **Only add what is missing** —
 never remove or swap a label a human already set (a present label is treated as
 the human's decision). After adding, update one comment under
-`` 🤖 `om-auto-manage-issues` — 🏷️ label rationale `` covering the applied set,
+``🤖 `om-auto-manage-issues` — 🏷️ label rationale`` covering the applied set,
 with one concrete reason per label per `references/rules.md`. Do not post separate
 comments per group or repeat the rationale in the report. A full existing set
 requires no mutation.

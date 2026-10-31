@@ -11,11 +11,11 @@ Every file carries these four boundary sections, once each, in this order,
 with these exact headings. Other sections live alongside them, never instead
 of them.
 
-| Section | What goes in it |
-|---|---|
-| `## Always` | Required defaults: MUST / MUST NOT rules and the commands agents apply without asking. The bulk of the constraint content. |
-| `## Ask First` | Decisions that need maintainer input before changing behavior, scope, dependencies, branch or deploy flow, or a contract surface. |
-| `## Never` | Prohibited actions and unsafe shortcuts, phrased as "Never …" bullets — the heading supplies the force. |
+| Section                  | What goes in it                                                                                                                      |
+| ------------------------ | ------------------------------------------------------------------------------------------------------------------------------------ |
+| `## Always`              | Required defaults: MUST / MUST NOT rules and the commands agents apply without asking. The bulk of the constraint content.           |
+| `## Ask First`           | Decisions that need maintainer input before changing behavior, scope, dependencies, branch or deploy flow, or a contract surface.    |
+| `## Never`               | Prohibited actions and unsafe shortcuts, phrased as "Never …" bullets — the heading supplies the force.                              |
 | `## Validation Commands` | The smallest set of real, copy-pasteable commands that prove the relevant code path (lint, build, typecheck, test, a targeted grep). |
 
 When a rule fits more than one boundary, place it in the most restrictive:
@@ -34,7 +34,7 @@ The skeleton is wrapped in a 4-backtick fence so the nested 3-backtick
 ## {Optional decision table — "When to Use", "Strategy Selection"}
 
 | When to use | Configuration |
-|---|---|
+| ----------- | ------------- |
 
 ## Always
 
@@ -65,7 +65,7 @@ The skeleton is wrapped in a 4-backtick fence so the nested 3-backtick
 ## {Secondary sections — data model constraints, reference files, environment}
 
 | When you need | Copy from |
-|---|---|
+| ------------- | --------- |
 
 ## Structure
 
@@ -87,14 +87,15 @@ same four boundary sections (repo-wide rules only) plus:
   where to look. Keep this column shape so it stays machine-friendly:
 
   ```markdown
-  | When the task involves… | Read first | Key rules |
-  |---|---|---|
+  | When the task involves…                   | Read first    | Key rules              |
+  | ----------------------------------------- | ------------- | ---------------------- |
   | {task keywords an agent would search for} | `{real path}` | {the rules that apply} |
   ```
 
   One row per significant area (each package/app group, API layer, UI layer,
   tests, CI, docs). Task keywords are verbs and nouns an agent would search for
   ("add an HTTP endpoint", "change the billing schema"), not bare package names.
+
 - pointers to the process documents that exist: `SDLC.md`, `CODE_REVIEW.md`,
   `BACKWARD_COMPATIBILITY.md`, `.ai/agentic.config.json`;
 - repo-wide `Validation Commands` from config `validation.commands` when set.
@@ -105,12 +106,12 @@ leave a router row.
 
 ## Optional sections — use when the code has the shape
 
-| Section | Use when |
-|---|---|
-| Decision table ("When to Use", "Strategy Selection") | the target offers alternative strategies, backends, or modes |
-| Task checklist ("Adding a New X") | agents repeatedly add the same kind of file (handler, worker, migration, component) |
-| Data Model Constraints | the target owns persisted entities |
-| Reference files ("When you need / Copy from") | there are canonical example files worth copying |
-| Environment / configuration | the target reads environment variables or config keys |
-| Structure | always for scoped files; brief |
-| Cross-Reference | another `AGENTS.md` or knowledge source owns a related topic |
+| Section                                              | Use when                                                                            |
+| ---------------------------------------------------- | ----------------------------------------------------------------------------------- |
+| Decision table ("When to Use", "Strategy Selection") | the target offers alternative strategies, backends, or modes                        |
+| Task checklist ("Adding a New X")                    | agents repeatedly add the same kind of file (handler, worker, migration, component) |
+| Data Model Constraints                               | the target owns persisted entities                                                  |
+| Reference files ("When you need / Copy from")        | there are canonical example files worth copying                                     |
+| Environment / configuration                          | the target reads environment variables or config keys                               |
+| Structure                                            | always for scoped files; brief                                                      |
+| Cross-Reference                                      | another `AGENTS.md` or knowledge source owns a related topic                        |

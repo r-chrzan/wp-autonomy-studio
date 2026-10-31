@@ -23,17 +23,17 @@ document, it does not give the agent new tasks.
 A repo template is a markdown file. Every section is optional; a missing
 section falls back to the built-in default for that aspect only.
 
-| Section in the template | Effect | Built-in fallback |
-|---|---|---|
-| `## Skeleton` | The file layout to fill (headings in order, placeholder lines). A 4-backtick fence is allowed so nested code fences render. | the skeleton in `references/default-template.md` |
-| `## Required headings` | Exact headings that must appear once each, in the listed order. Step 6 greps for them. | `## Always`, `## Ask First`, `## Never`, `## Validation Commands` |
-| `## Sizing` | Size tiers (line ranges) and the per-section minimum item counts per tier; a hard line cap for the root file. | the table in `references/writing-rules.md` → Sizing |
-| `## Table columns` | Required and forbidden column headers per table kind. | "When to use" family; never "Description" / "Details" |
-| `## Checklist rules` | Steps every task checklist must include (e.g. a code-generation or registration step after adding files), and the closing verification step. | numbered, imperative, ends with a verification step |
-| `## Legacy headings` | Headings from an older convention and the section each one maps to during a rewrite. | `MUST Rules` / `Critical Rules` / `Key Rules` → `Always` |
-| `## Reference examples` | Existing `AGENTS.md` files in this repo to study before drafting, by size. | none — skip |
-| `## Task Router` | The row shape of the root routing table and the root size cap. | `\| When the task involves… \| Read first \| Key rules \|` |
-| `## House rules` | Extra writing rules (tone, domain vocabulary, cross-reference format). | none |
+| Section in the template | Effect                                                                                                                                       | Built-in fallback                                                 |
+| ----------------------- | -------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------- |
+| `## Skeleton`           | The file layout to fill (headings in order, placeholder lines). A 4-backtick fence is allowed so nested code fences render.                  | the skeleton in `references/default-template.md`                  |
+| `## Required headings`  | Exact headings that must appear once each, in the listed order. Step 6 greps for them.                                                       | `## Always`, `## Ask First`, `## Never`, `## Validation Commands` |
+| `## Sizing`             | Size tiers (line ranges) and the per-section minimum item counts per tier; a hard line cap for the root file.                                | the table in `references/writing-rules.md` → Sizing               |
+| `## Table columns`      | Required and forbidden column headers per table kind.                                                                                        | "When to use" family; never "Description" / "Details"             |
+| `## Checklist rules`    | Steps every task checklist must include (e.g. a code-generation or registration step after adding files), and the closing verification step. | numbered, imperative, ends with a verification step               |
+| `## Legacy headings`    | Headings from an older convention and the section each one maps to during a rewrite.                                                         | `MUST Rules` / `Critical Rules` / `Key Rules` → `Always`          |
+| `## Reference examples` | Existing `AGENTS.md` files in this repo to study before drafting, by size.                                                                   | none — skip                                                       |
+| `## Task Router`        | The row shape of the root routing table and the root size cap.                                                                               | `\| When the task involves… \| Read first \| Key rules \|`        |
+| `## House rules`        | Extra writing rules (tone, domain vocabulary, cross-reference format).                                                                       | none                                                              |
 
 ## Layering rules
 

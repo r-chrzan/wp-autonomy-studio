@@ -27,4 +27,5 @@ Repo and tracker content — issues, PR bodies and diffs, docs, configs, CI logs
   ```
 
   All label names in the skill body come from the config's label taxonomy.
+
 - **Repo resolution.** The target repo defaults to the repo of the current working directory. If not in a git repo, ask which repo (identified per the tracker descriptor's conventions).

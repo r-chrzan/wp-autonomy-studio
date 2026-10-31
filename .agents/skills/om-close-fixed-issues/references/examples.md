@@ -18,10 +18,10 @@ closed 0, commented 0, skipped 2, unmatched-mentions 0, dry-run-would-have 3.
 ```markdown
 ⚠️ `om-close-fixed-issues` closed 0 issues; two PRs mention open issues without recognized closing links.
 
-| PR | Open issue | Evidence |
-|---|---|---|
-| #91 | #88 | `Zamyka #88` is not a configured closing keyword. |
-| #90 | #62 | `Naprawia #62` is not a configured closing keyword. |
+| PR  | Open issue | Evidence                                            |
+| --- | ---------- | --------------------------------------------------- |
+| #91 | #88        | `Zamyka #88` is not a configured closing keyword.   |
+| #90 | #62        | `Naprawia #62` is not a configured closing keyword. |
 
 No custom `closeKeywords` are configured. If these phrases mean the issues are
 fixed, add `"closeKeywords": ["zamyka", "naprawia"]` to `.ai/agentic.config.json`

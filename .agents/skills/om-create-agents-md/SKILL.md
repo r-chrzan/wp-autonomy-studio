@@ -55,8 +55,8 @@ commit unless the user asks.
      headings, legacy rule headings, descriptive tone) → **rewrite**;
    - a file that matches the structure but whose facts may have drifted →
      **refresh**.
-   When a sibling `CLAUDE.md` or equivalent exists, read it and ask whether it
-   should import the new file, be merged into it, or stay separate.
+     When a sibling `CLAUDE.md` or equivalent exists, read it and ask whether it
+     should import the new file, be merged into it, or stay separate.
 
 2. **Resolve the template.** First match wins: `--template` → config
    `agentsMd.template` → the conventional file `.ai/agents-md-template.md` →
@@ -81,8 +81,8 @@ commit unless the user asks.
    - **rewrite / refresh** — follow `references/rewrite-and-refresh.md`:
      reclassify content into the template's sections without losing any rule;
      in refresh, fix only drifted facts and list every removal for the user.
-   Cross-reference instead of duplicating: a topic already owned by another
-   `AGENTS.md` (or a knowledge source) gets a one-line pointer, not a copy.
+     Cross-reference instead of duplicating: a topic already owned by another
+     `AGENTS.md` (or a knowledge source) gets a one-line pointer, not a copy.
 
 5. **Ask what only the team knows.** Show the counts per boundary section and
    ask the few questions the code cannot answer — typically the `Ask First`

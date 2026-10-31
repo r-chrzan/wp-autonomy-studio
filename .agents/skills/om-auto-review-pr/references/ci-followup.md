@@ -70,7 +70,7 @@ wait at all — report and stop, applying no `ci-monitoring`). Then poll the req
 checks through **get-pr-checks** until they settle or the budget is spent.
 
 "Settled" is a claim about a complete reading, so make the reading complete before
-believing it: the check-run surface reports *jobs*, and a workflow run the tracker
+believing it: the check-run surface reports _jobs_, and a workflow run the tracker
 has created contributes no rows until its jobs register — so a head that was pushed
 moments ago can show a short, entirely-green list while the run that matters has not
 started. Alongside each poll, take **list-runs** on the PR head branch, keep the runs
@@ -85,7 +85,7 @@ workflow runs at that SHA), because a
 keep off a pull request.
 
 **Checks settled inside the budget** — post the outcome as an idempotent
-`` 🤖 `<skill-name>` — CI result `` comment (find the marker via
+``🤖 `<skill-name>` — CI result`` comment (find the marker via
 **list-issue-comments** and rewrite via **update-comment** on a re-run): which
 required checks passed or failed, with links, and what it means for the verdict.
 Then remove `ci-monitoring`.
@@ -104,7 +104,7 @@ process alive on a run that may take hours. Instead:
 1. Run the repository's configured `validation.commands` gate in order, scoped to
    the change where the toolchain supports scoping, as the run's own completion
    evidence.
-2. Post the bail-out comment under the same `` 🤖 `<skill-name>` — CI result ``
+2. Post the bail-out comment under the same ``🤖 `<skill-name>` — CI result``
    marker, carrying: the local validation results command by command, the required
    checks that were still pending at bail-out with their links, and the explicit
    statement that **no further follow-up will come from this agent** — a human or a

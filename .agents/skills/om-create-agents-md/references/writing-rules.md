@@ -17,13 +17,13 @@ it ("MUST NOT…"), or gives a procedure ("1. Create… 2. Add… 3. Run…").
   Follow, Resolve), a conditional directive ("When you need X, do Y"), or a
   MUST / MUST NOT constraint.
 
-| Descriptive (reject) | Prescriptive (write) |
-|---|---|
+| Descriptive (reject)                              | Prescriptive (write)                                                                  |
+| ------------------------------------------------- | ------------------------------------------------------------------------------------- |
 | "The cache layer provides multi-strategy caching" | "Use the cache service for all caching. MUST NOT talk to the cache backend directly." |
-| "Orders are core entities with line items" | "**Orders** — core entity. MUST have at least one line item" |
-| "Events support local and async dispatch" | "When async dispatch is configured, persistent events go through the queue worker" |
-| "Pricing uses layered overrides" | "Price layers compose in order: base → channel → customer → promotion" |
-| a "Description" column | a "When to use" or "When to modify" column |
+| "Orders are core entities with line items"        | "**Orders** — core entity. MUST have at least one line item"                          |
+| "Events support local and async dispatch"         | "When async dispatch is configured, persistent events go through the queue worker"    |
+| "Pricing uses layered overrides"                  | "Price layers compose in order: base → channel → customer → promotion"                |
+| a "Description" column                            | a "When to use" or "When to modify" column                                            |
 
 ## Boundary sections
 
@@ -54,11 +54,11 @@ Keep each force in its own section: MUST NOT rules belong in `Always`,
 
 ## Sizing
 
-| Tier | Lines | Min `Always` rules | `Ask First` | `Never` | `Validation Commands` |
-|---|---|---|---|---|---|
-| Small | < 80 | 3 | 1+ | 2+ | 1+ |
-| Medium | 80–150 | 5 | 2+ | 3+ | 2+ |
-| Large | 150+ | 8+ | 2+ | 4+ | 2+ |
+| Tier   | Lines  | Min `Always` rules | `Ask First` | `Never` | `Validation Commands` |
+| ------ | ------ | ------------------ | ----------- | ------- | --------------------- |
+| Small  | < 80   | 3                  | 1+          | 2+      | 1+                    |
+| Medium | 80–150 | 5                  | 2+          | 3+      | 2+                    |
+| Large  | 150+   | 8+                 | 2+          | 4+      | 2+                    |
 
 - Small packages usually land at 40–80 lines, modules at 60–100, large
   packages at 80–150. A very large existing file under a tone rewrite keeps its
@@ -74,14 +74,14 @@ Keep each force in its own section: MUST NOT rules belong in `Always`,
 - Never use the column headers "Description", "Details", or a standalone
   "Purpose" (write "Purpose / MUST rules" if needed).
 
-| Table kind | Column headers |
-|---|---|
-| Features / strategies | "When to use", "Configuration" |
-| Directory listing | "When to modify" |
-| Reference files | "When you need", "Copy from" |
-| API / endpoints | "When to use", "MUST rules" |
-| Environment variables | "When to configure" |
-| Injected services / imports | "When to use", "Import path" |
+| Table kind                  | Column headers                 |
+| --------------------------- | ------------------------------ |
+| Features / strategies       | "When to use", "Configuration" |
+| Directory listing           | "When to modify"               |
+| Reference files             | "When you need", "Copy from"   |
+| API / endpoints             | "When to use", "MUST rules"    |
+| Environment variables       | "When to configure"            |
+| Injected services / imports | "When to use", "Import path"   |
 
 ## Checklists
 

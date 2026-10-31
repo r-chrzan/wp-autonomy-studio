@@ -22,8 +22,8 @@ The payload `om-brainstorm` writes in workflow step 6 (ramps 2–5), consumed co
 ## Resolved unknowns
 
 | Question | Answer (from the conversation) |
-|----------|--------------------------------|
-| {…} | {…} |
+| -------- | ------------------------------ |
+| {…}      | {…}                            |
 
 ## Non-goals
 

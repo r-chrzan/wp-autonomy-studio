@@ -27,9 +27,9 @@ query, user choice between copies).
 ```markdown
 🎯 `om-framework-context`: {n} knowledge sources configured — {n} resolved, {n} degraded, {n} unresolved.
 
-| Source | Resolved to | Version | Knowledge files | Note |
-|---|---|---|---|---|
-| `{path or dependency}` | `{root}` | `{version or —}` | `{files}` | {skew / gap, or blank} |
+| Source                 | Resolved to | Version          | Knowledge files | Note                   |
+| ---------------------- | ----------- | ---------------- | --------------- | ---------------------- |
+| `{path or dependency}` | `{root}`    | `{version or —}` | `{files}`       | {skew / gap, or blank} |
 
 Status: {worst status across the rows}
 ```

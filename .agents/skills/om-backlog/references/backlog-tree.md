@@ -4,7 +4,7 @@ How the source becomes epics, stories, and tasks. The tree is shown to the user 
 
 ## From a product brief
 
-- **Epics** ← each item under *Scope → Now*. One epic per independently valuable slice of the product; a *Now* item that bundles two slices becomes two epics. *Later* items become one epic titled `E{nn} — Later` with the items as unfiled bullets in its body; *Not doing* items are never filed and are quoted in the parked epic's body as non-goals with their `N0n` ids.
+- **Epics** ← each item under _Scope → Now_. One epic per independently valuable slice of the product; a _Now_ item that bundles two slices becomes two epics. _Later_ items become one epic titled `E{nn} — Later` with the items as unfiled bullets in its body; _Not doing_ items are never filed and are quoted in the parked epic's body as non-goals with their `N0n` ids.
 - **Stories** ← the steps of the brief's Key flows that fall inside the epic, phrased as an outcome for a role from the Target group: "a {role} can {do the thing} and sees {the result}". A step with no outcome is a task, not a story.
 - **Acceptance criteria** ← derived from the brief's Goals (the observable user outcome and its check), Business rules (`R0n`: each rule the story touches becomes a criterion), Decisions (`D0n`: a decision that constrains the story, such as the payment provider, becomes a criterion), Non-goals (what the story must not do), and the Key flow step the story implements. Given / When / Then, verifiable by someone who did not write them, at least one negative case per story. A criterion that traces to none of these is dropped, not kept.
 - **Tasks** ← only when a story needs decomposition a single PR cannot carry (a migration, a contract change from `BACKWARD_COMPATIBILITY.md`, a third-party integration). Most stories have none.
@@ -30,4 +30,4 @@ When step 1 finds Problems or Target group resting on assumptions, or the user a
 
 ## Size
 
-A first backlog is one to five epics and three to twelve stories. More than that means the *Now* scope is not the smallest coherent product; say so and suggest moving items to *Later* before filing.
+A first backlog is one to five epics and three to twelve stories. More than that means the _Now_ scope is not the smallest coherent product; say so and suggest moving items to _Later_ before filing.

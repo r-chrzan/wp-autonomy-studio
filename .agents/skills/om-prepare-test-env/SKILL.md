@@ -23,12 +23,12 @@ compiler:
 
 The durable artifacts, and where they are saved:
 
-| Artifact | Default path | Purpose |
-| --- | --- | --- |
-| Entrypoint (up) | `.ai/scripts/test-env-up.sh` (`test-env-up.ps1` on native Windows) | The one command that brings the env up fast |
-| Teardown (down) | `.ai/scripts/test-env-down.sh` (`test-env-down.ps1` on native Windows) | Stops exactly what the up script started |
-| Environment descriptor | `.ai/qa/test-env.json` | What consumers (QA, integration tests) attach to |
-| Build cache state | `.ai/qa/test-env-build-cache.json` | Written/read by the up script, not by the agent |
+| Artifact               | Default path                                                           | Purpose                                          |
+| ---------------------- | ---------------------------------------------------------------------- | ------------------------------------------------ |
+| Entrypoint (up)        | `.ai/scripts/test-env-up.sh` (`test-env-up.ps1` on native Windows)     | The one command that brings the env up fast      |
+| Teardown (down)        | `.ai/scripts/test-env-down.sh` (`test-env-down.ps1` on native Windows) | Stops exactly what the up script started         |
+| Environment descriptor | `.ai/qa/test-env.json`                                                 | What consumers (QA, integration tests) attach to |
+| Build cache state      | `.ai/qa/test-env-build-cache.json`                                     | Written/read by the up script, not by the agent  |
 
 **Script flavor — match the platform the user is on.** The entrypoint is
 generated in the flavor that runs natively where generation happens, and every
@@ -39,7 +39,7 @@ example in this skill must be executed in the shell the user actually has:
 - **PowerShell** (`.ps1`) on native Windows (the user works in PowerShell or
   cmd, with no WSL/Git Bash available). Run with
   `pwsh -File .ai/scripts/test-env-up.ps1` (or `powershell -ExecutionPolicy
-  Bypass -File …` where only Windows PowerShell 5.x exists).
+Bypass -File …` where only Windows PowerShell 5.x exists).
 
 Both flavors implement the same entrypoint contract — same marker, `# history:`
 header, flags, result lines, and descriptor. Snippets below are POSIX with
@@ -118,7 +118,7 @@ happens once, and its result is the script.
 
    (If script execution is blocked by policy, invoke via
    `powershell -ExecutionPolicy Bypass -File $UpScript` instead of dot-sourcing;
-   never change the machine's execution policy.) When only the *other*
+   never change the machine's execution policy.) When only the _other_
    platform's flavor exists — the script was generated on a teammate's OS — do
    not translate it by hand at run time: enter step 2 and generate the missing
    flavor from the same discovered facts (the existing script is the best

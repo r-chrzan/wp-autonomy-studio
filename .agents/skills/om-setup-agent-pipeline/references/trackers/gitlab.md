@@ -343,7 +343,9 @@ Read the labels back (**get-pr** / **get-issue**, field `labels`) whenever the l
 ### Identity and repository
 
 #### auth-check
+
 Verify the CLI, its API surface, and the credentials. → non-zero exit on any gap.
+
 ```bash
 gitlab_tracker_auth_check() {
   command -v glab >/dev/null || { echo "glab CLI is not installed: https://gitlab.com/gitlab-org/cli#installation" >&2; return 1; }
@@ -365,21 +367,27 @@ gitlab_tracker_auth_check
 ```
 
 #### current-user
+
 → the automation user's username.
+
 ```bash
 CURRENT_USER=$(gl_get user -r '.username')
 [ -n "$CURRENT_USER" ] && [ "$CURRENT_USER" != null ] || { echo "Could not resolve the GitLab automation user" >&2; exit 1; }
 ```
 
 #### repo-info
+
 → full project path (`group/subgroup/project`), default branch, and web URL.
+
 ```bash
 gl_get "projects/$(gl_project)" '{nameWithOwner: .path_with_namespace, defaultBranch: .default_branch, url: .web_url, visibility}'
 REPO=$(gl_get "projects/$(gl_project)" -r '.path_with_namespace')
 ```
 
 #### default-branch
+
 → the project's default branch (used when the config's `baseBranch` is `"auto"`).
+
 ```bash
 BASE_BRANCH=$(gl_get "projects/$(gl_project)" 2>/dev/null -r '.default_branch // empty')
 [ -z "$BASE_BRANCH" ] && BASE_BRANCH=$(git symbolic-ref refs/remotes/origin/HEAD 2>/dev/null | sed 's@^refs/remotes/origin/@@')
@@ -389,7 +397,9 @@ BASE_BRANCH=$(gl_get "projects/$(gl_project)" 2>/dev/null -r '.default_branch //
 ### Issues
 
 #### get-issue
+
 `{issueId}`, field list → issue data in the same shape as `github.md` (`state` is `OPEN`/`CLOSED`; comments carry note handles).
+
 ```bash
 gl_issue_json() {
   local p t rc
@@ -414,7 +424,9 @@ gl_issue_json {issueId}
 ```
 
 #### search-issues
+
 Query and state (`opened`, `closed`, or `all`) → matching issues. Searches title and description.
+
 ```bash
 Q=$(printf '%s' "<query>" | jq -sRr @uri)
 STATE=opened   # opened | closed | all
@@ -423,7 +435,9 @@ gl_get "projects/$(gl_project)/issues?state=${STATE}&in=title,description&search
 ```
 
 #### create-issue
+
 Title, body file, assignee, labels → created issue URL. The issue is created before assignment because GitLab Free does not accept the create endpoint's Premium-only `assignee_ids`; the shared update helper handles the single-assignee response. Labels are also applied **after** creation through the guard: GitLab silently creates any unknown label passed at creation time, which would bypass the taxonomy.
+
 ```bash
 ISSUE_ASSIGNEE="<username>"
 ISSUE=$(jq -n --arg t "<title>" --rawfile d <body-file> '{title: $t, description: $d}' \
@@ -436,7 +450,9 @@ for label in <labels>; do apply_issue_label "$label" "$ISSUE_ID"; done
 ```
 
 #### close-issue
+
 `{issueId}`, reason, closing comment. GitLab has no close reason; state it in the comment (`completed`, `not planned`, `duplicate of #N`).
+
 ```bash
 gl_iid {issueId} || exit 1
 gl_note issues {issueId} <comment-file> >/dev/null || exit 1
@@ -444,14 +460,18 @@ jq -n '{state_event: "close"}' | gl_write PUT "projects/$(gl_project)/issues/{is
 ```
 
 #### comment-issue
+
 `{issueId}`, body file → the new note's handle.
+
 ```bash
 gl_iid {issueId} || exit 1
 gl_note issues {issueId} <body-file>
 ```
 
 #### update-issue
+
 `{issueId}`, new title and/or body. Edits only the issue's own fields; pass only what changed.
+
 ```bash
 gl_iid {issueId} || exit 1
 jq -n --arg t "<title>" '{title: $t}' | gl_write PUT "projects/$(gl_project)/issues/{issueId}" >/dev/null
@@ -459,17 +479,22 @@ jq -n --rawfile d <body-file> '{description: $d}' | gl_write PUT "projects/$(gl_
 ```
 
 #### assign-issue / unassign-issue
+
 `{issueId}`, username. GitLab replaces the whole assignee list, so read it, add or remove the one user, and write it back. On the Free tier an issue holds one assignee: when another user already holds the slot, the add does not take effect — the read-back reports it, and the claim then rests on the `in-progress` label and the claim note.
+
 ```bash
 gl_assign issues {issueId} add <username>
 gl_assign issues {issueId} remove <username>
 ```
 
 #### label-issue / unlabel-issue
+
 Always through the guards: `apply_issue_label "<label>" {issueId}` / `remove_issue_label "<label>" {issueId}`.
 
 #### get-issue-comment
+
 Comment handle → body, author, URL.
+
 ```bash
 gl_get_comment() {
   local p web
@@ -482,7 +507,9 @@ gl_get_comment {commentHandle}
 ```
 
 #### list-issue-comments
+
 Kind (`issues`, or `merge_requests` when the caller is working a PR) and iid → conversation comments, oldest first, with their handles. System notes and inline diff notes are excluded (inline notes come from **list-review-comments**).
+
 ```bash
 gl_list_comments() {
   gl_iid "$2" || return 1
@@ -494,7 +521,9 @@ gl_list_comments merge_requests {prNumber}
 ```
 
 #### update-comment
+
 Comment handle, new body file → the note rewritten in place (issue and MR notes alike). This is how marker-idempotent comments are updated on re-runs: find the `🤖 …` marker via **list-issue-comments**, then update that handle.
+
 ```bash
 COMMENT_HANDLE={commentHandle}
 gl_handle "$COMMENT_HANDLE" || exit 1
@@ -505,15 +534,20 @@ jq -n --rawfile b <body-file> '{body: $b}' \
 ### Pull requests
 
 #### get-pr
+
 `{prNumber}` (MR iid) → PR data in the field set `github.md` documents, serialized the same way: `state` `OPEN`/`CLOSED`/`MERGED`, review states `APPROVED`/`CHANGES_REQUESTED`, ISO-8601 timestamps. Select the fields the calling skill names from the object.
+
 ```bash
 PR_JSON=$(gl_pr_json {prNumber}) || exit 1
 printf '%s' "$PR_JSON" | jq '{number, title, url, state, isDraft, labels, reviewDecision}'   # select the requested fields
 ```
+
 Mapping notes: `mergeable` / `mergeStateStatus` derive from GitLab's `detailed_merge_status` (`mergeable` → `CLEAN`, `conflict` → `DIRTY`, `need_rebase` → `BEHIND`, `draft_status` → `DRAFT`, still computing → `UNKNOWN`, every other blocker → `BLOCKED`). `files` carries per-file `additions`/`deletions` counted from the MR diffs; `additions` sums them and `changedFiles` counts them. GitLab collapses very large diffs, which then count as zero — when the size matters, fetch the branch with **checkout-pr** and use `git diff --shortstat`. `commits` carries `oid`, `messageHeadline`, and `authoredDate`. `closingIssuesReferences` comes from GitLab's own closes-issues list.
 
 #### list-prs
+
 State (`opened`, `merged`, `closed`, `all`), optional search text and date bound, limit (≤100) → PRs in the **get-pr** shape, without the heavy fields (`reviews`, `latestReviews`, `commits`, `files`, `comments`, and `additions` are empty or null — call **get-pr** for them). GitLab's `closed` state already means closed without merging. Cost: four API calls per MR (the MR, approvals, reviewers, closes-issues), so keep `limit` as small as the caller needs on gitlab.com's rate limits.
+
 ```bash
 # $1 = state, $2 = limit, $3 = optional updated-after ISO date, $4 = optional search text.
 gl_list_prs() {
@@ -533,7 +567,9 @@ printf '%s' "$PRS" | jq --arg d "${SINCE_DATE}" '[.[] | select(.closedAt >= $d)]
 ```
 
 #### search-prs
+
 Free-text query and state (`opened`, `merged`, `closed`, `all`) → matching PRs. An issue reference (`#123`) uses GitLab's related-merge-requests list for that issue, which finds MRs that mention or close it; any other query (a plan path, a slug) searches MR titles and descriptions.
+
 ```bash
 gl_search_prs() {
   local p found
@@ -552,7 +588,9 @@ gl_search_prs "#{issueId}" opened
 ```
 
 #### create-pr
+
 Base branch, draft flag, title, body file → PR. Push the branch first; the source branch is the current one. A draft gets the `Draft:` title prefix.
+
 ```bash
 PR=$(jq -n --arg s "$(git rev-parse --abbrev-ref HEAD)" --arg b "$BASE_BRANCH" --arg t "<title>" \
   --argjson draft true --rawfile d <body-file> \
@@ -563,7 +601,9 @@ PR_NUMBER=$(printf '%s' "$PR" | jq -er '.iid') || exit 1
 ```
 
 #### update-pr
+
 `{prNumber}`, new title and/or body file → the MR's own title/description rewritten in place. Pass only what changed. A title update keeps the `Draft:` prefix while the MR is a draft, so it never promotes the MR as a side effect.
+
 ```bash
 gl_iid {prNumber} || exit 1
 DRAFT=$(gl_get "projects/$(gl_project)/merge_requests/{prNumber}" '.draft // false')
@@ -574,16 +614,20 @@ jq -n --rawfile d <body-file> '{description: $d}' | gl_write PUT "projects/$(gl_
 ```
 
 #### comment-pr
+
 `{prNumber}`, body file → the new note's handle.
+
 ```bash
 gl_iid {prNumber} || exit 1
 gl_note merge_requests {prNumber} <body-file>
 ```
 
 #### attach-image-evidence
+
 `{prNumber}`, a markdown body file (without the images), a `{slug}` (e.g. `pr-{prNumber}`), and local PNG paths → one note with the images embedded **inline**; returns the note URL.
 
 Commit the images to a dedicated slash-free evidence branch (never the MR's own branch) through the Repository Files API, then reference their `/-/raw/` URLs. On a private or internal project those URLs render for viewers signed in to the instance.
+
 ```bash
 gl_iid {prNumber} || exit 1
 P=$(gl_project)
@@ -617,26 +661,34 @@ NOTE_HANDLE=$(gl_note merge_requests {prNumber} "$EV_TMP.body") || { rm -f "$EV_
 rm -f "$EV_TMP.body"
 gl_get "projects/$P/merge_requests/{prNumber}" -r --arg n "${NOTE_HANDLE##*/}" '"\(.web_url)#note_\($n)"'
 ```
+
 Fallbacks: when the evidence branch cannot be created or written (no Developer access, a protected-branch rule matching `qa-evidence-*`), post the note with the local artifact paths instead and say inline rendering is unavailable. Never store evidence on the MR's own branch, and never force-push.
 
 #### assign-pr / unassign-pr
+
 The same read-modify-write as **assign-issue**, on the merge request: `gl_assign merge_requests {prNumber} add <username>` / `gl_assign merge_requests {prNumber} remove <username>`.
 
 #### label-pr / unlabel-pr
+
 Always through the guards: `apply_label "<label>" {prNumber}` / `set_pipeline_label {prNumber} "<label>"` for the mutually exclusive pipeline group; direct removal: `remove_label "<label>" {prNumber}`.
 
 #### get-pr-diff
+
 `{prNumber}` → the full unified diff, or the changed-file list.
+
 ```bash
 gl_iid {prNumber} || exit 1
 gl_list_jq "projects/$(gl_project)/merge_requests/{prNumber}/diffs" -r '.[] |
   "diff --git a/\(.old_path) b/\(.new_path)\n--- \(if .new_file then "/dev/null" else "a/" + .old_path end)\n+++ \(if .deleted_file then "/dev/null" else "b/" + .new_path end)\n\(.diff)"'
 gl_list_jq "projects/$(gl_project)/merge_requests/{prNumber}/diffs" -r '.[].new_path'   # name-only
 ```
+
 GitLab truncates or collapses very large diffs. When a file's `diff` is empty but the file changed, check out the MR (**checkout-pr**) and use `git diff "origin/<baseRefName>...HEAD"`.
 
 #### get-pr-files
+
 `{prNumber}` → changed files with per-file status.
+
 ```bash
 gl_iid {prNumber} || exit 1
 gl_list_jq "projects/$(gl_project)/merge_requests/{prNumber}/diffs" '[.[] | {path: .new_path,
@@ -644,16 +696,21 @@ gl_list_jq "projects/$(gl_project)/merge_requests/{prNumber}/diffs" '[.[] | {pat
 ```
 
 #### checkout-pr
+
 `{prNumber}` → the MR head available locally. GitLab publishes every MR head, fork MRs included, as `refs/merge-requests/<iid>/head` on the target project.
+
 ```bash
 gl_iid {prNumber} || exit 1
 git fetch origin "refs/merge-requests/{prNumber}/head:mr-{prNumber}"
 git checkout "mr-{prNumber}"
 ```
+
 To push fixes to a fork MR, push to the source project's repository URL and `headRefName` — possible only when `maintainerCanModify` is true. For a same-project MR, check out `headRefName` from `origin` instead.
 
 #### review-pr
+
 `{prNumber}`, verdict (approve / request changes), body file. Approving is GitLab's native approval; requesting changes revokes this user's approval, if any. Both then post the review body as a note that opens with the hidden verdict marker (see Conventions), which is how **get-pr** reads the verdict back.
+
 ```bash
 gl_review() {
   local p me ids marker note_body rc
@@ -686,10 +743,13 @@ gl_review() {
 gl_review {prNumber} approve <body-file>
 gl_review {prNumber} request-changes <body-file>
 ```
+
 Surface a refused self-approval instead of working around it, exactly as on GitHub.
 
 #### merge-pr
+
 `{prNumber}` and the `headRefOid` the caller's merge gate checked; squash by default. Passing that SHA makes GitLab refuse the merge if a newer commit landed after the gate, so unverified code never merges. Auto-merge (merge once the pipeline succeeds) only when the skill asks for it; delete the source branch only when asked.
+
 ```bash
 gl_iid {prNumber} || exit 1
 jq -n --arg sha "<headRefOid>" '{squash: true, sha: $sha}' \
@@ -697,10 +757,13 @@ jq -n --arg sha "<headRefOid>" '{squash: true, sha: $sha}' \
 jq -n --arg sha "<headRefOid>" '{squash: true, sha: $sha, merge_when_pipeline_succeeds: true}' \
   | gl_write PUT "projects/$(gl_project)/merge_requests/{prNumber}/merge" >/dev/null   # auto-merge
 ```
+
 A project whose squash setting is "Do not allow" rejects `squash: true`, and a moved head answers 409; surface either rather than merging differently. Recent GitLab versions also accept `auto_merge: true` in place of the older `merge_when_pipeline_succeeds`.
 
 #### mark-pr-ready
+
 Promote a draft MR by stripping the draft prefix from its title, then read it back.
+
 ```bash
 gl_iid {prNumber} || exit 1
 glab api "projects/$(gl_project)/merge_requests/{prNumber}" \
@@ -710,7 +773,9 @@ gl_get "projects/$(gl_project)/merge_requests/{prNumber}" -e '(.draft // false) 
 ```
 
 #### get-pr-checks
+
 `{prNumber}` → the jobs and downstream-pipeline bridges of the MR's head pipeline, with `name`, `state`, `bucket` (`pass`/`fail`/`pending`/`skipping`/`cancel`, the same buckets `github.md` reports), `link`, and the stage as `workflow`. No head pipeline means no CI ran: an empty list. A newly created pipeline can still under-report here while its jobs register, so consumers must cross-check **list-runs** at the MR head SHA before treating a short list as green.
+
 ```bash
 gl_pr_checks() {
   local p head pid pp jobs bridges
@@ -728,20 +793,27 @@ gl_pr_checks() {
 }
 gl_pr_checks {prNumber}
 ```
+
 A failed job marked `allow_failure: true` reports `NEUTRAL` (bucket `pass`); a manual job reports `PENDING` only when it blocks the pipeline. A job list that cannot be read is an error, never an empty list — an empty list means "no CI ran", which a merge gate would read as nothing to wait for.
 
 #### get-required-checks
+
 GitLab has no per-branch list of required checks. The merge rule is the project's "Pipelines must succeed" setting, which a failing non-`allow_failure` job violates. This operation therefore prints no check names — the contract's "unreadable" case — and every check **get-pr-checks** reports counts as required. Allow-failure jobs are already `NEUTRAL` there, so they never block. Print the project setting for the record:
+
 ```bash
 gl_get "projects/$(gl_project)" -r '"only_allow_merge_if_pipeline_succeeds=\(.only_allow_merge_if_pipeline_succeeds)"' >&2
 ```
+
 External status checks (Ultimate) are not included; a team that uses them extends this operation in its copy.
 
 #### get-pr-comment / get-review-comment
+
 Comment handle → body, author, URL. Conversation notes and inline diff notes share one API on GitLab, so both use `gl_get_comment` from **get-issue-comment**: `gl_get_comment merge_requests/{prNumber}/{noteId}`. A pasted `…/-/merge_requests/<iid>#note_<id>` link maps onto that handle.
 
 #### list-review-comments
+
 `{prNumber}` → every inline diff note on the MR (file, line, author, body), with GitLab's thread `resolved` state — which GitHub's REST API does not expose. `reply_to` is the handle of the first note in the thread for replies, `null` for the note that opened it.
+
 ```bash
 gl_iid {prNumber} || exit 1
 WEB=$(gl_get "projects/$(gl_project)/merge_requests/{prNumber}" -r '.web_url')
@@ -754,10 +826,12 @@ gl_list_jq "projects/$(gl_project)/merge_requests/{prNumber}/discussions" \
 
 ### CI runs
 
-CI status for an *MR* comes from **get-pr-checks** above. These operations address **pipelines** directly — a GitLab pipeline is a "run" here, and its id is the `{runId}`.
+CI status for an _MR_ comes from **get-pr-checks** above. These operations address **pipelines** directly — a GitLab pipeline is a "run" here, and its id is the `{runId}`.
 
 #### list-runs
+
 Branch (or head SHA) → recent pipelines with `databaseId`, `workflowName` (the pipeline source, e.g. `push`, `merge_request_event`), `status` (`queued`/`in_progress`/`completed`), and `conclusion` (`success`/`failure`/`cancelled`/`skipped`/`action_required`).
+
 ```bash
 gl_get "projects/$(gl_project)/pipelines?ref=$(printf '%s' "{branch}" | jq -sRr @uri)&order_by=id&sort=desc&per_page=20" \
   "$GL_JQ_DEFS"'map(gl_run)'
@@ -765,7 +839,9 @@ gl_get "projects/$(gl_project)/pipelines?sha={headSha}&order_by=id&sort=desc&per
 ```
 
 #### get-run
+
 Pipeline id → status, conclusion, and per-job breakdown.
+
 ```bash
 gl_iid {runId} || exit 1
 P=$(gl_project)
@@ -777,7 +853,9 @@ rm -f "$JOBS"
 ```
 
 #### get-run-failed-logs
+
 Pipeline id → the trace of each failed job (the last 400 lines of each; failures are at the end). This is the primary diagnosis input for CI failures.
+
 ```bash
 gl_iid {runId} || exit 1
 P=$(gl_project)
@@ -791,7 +869,9 @@ fi
 ```
 
 #### rerun-failed
+
 Pipeline id → retry only its failed and canceled jobs. Use to disambiguate flaky failures before changing any code.
+
 ```bash
 gl_iid {runId} || exit 1
 RETRY=$(glab api -X POST "projects/$(gl_project)/pipelines/{runId}/retry") || { echo "GitLab refused the retry of pipeline {runId}" >&2; exit 1; }
@@ -799,7 +879,9 @@ printf '%s' "$RETRY" | jq "$GL_JQ_DEFS"'gl_run'
 ```
 
 #### watch-run
+
 Pipeline id → block until the pipeline finishes; exit non-zero unless it succeeded. `glab` has no blocking watch for an arbitrary pipeline, so this polls **get-run** within the caller's wait budget (`ci.maxWaitMinutes`, default 40).
+
 ```bash
 gl_iid {runId} || exit 1
 DEADLINE=$(( $(date +%s) + ${CI_MAX_WAIT_MINUTES:-40} * 60 ))
@@ -816,13 +898,17 @@ printf '%s' "$RUN" | jq -e '.conclusion == "success"' >/dev/null
 ### Labels
 
 #### list-labels
+
 → every label name available to the project, including labels inherited from its groups.
+
 ```bash
 gl_list_jq "projects/$(gl_project)/labels" -r '.[].name'
 ```
 
 #### create-label
+
 Name, color (`#rrggbb`), description. Creates a project label; teams that share a taxonomy across projects may create the same names as group labels instead. Never delete, rename, or recolor existing labels.
+
 ```bash
 gl_create_label() {
   jq -n --arg n "$1" --arg c "$2" --arg d "$3" '{name: $n, color: $c, description: $d}' \
@@ -832,7 +918,9 @@ gl_create_label "<name>" "#<hex>" "<description>"
 ```
 
 #### ensure-label-taxonomy
+
 Create every label from the config's taxonomy that does not exist yet (used by `om-setup-agent-pipeline`; skips ones **list-labels** already returns):
+
 ```bash
 EXISTING=$(gl_list "projects/$(gl_project)/labels") || { echo "Could not read GitLab labels" >&2; exit 1; }
 EXISTING=$(printf '%s' "$EXISTING" | jq -r '.[].name')

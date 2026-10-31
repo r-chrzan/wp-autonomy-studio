@@ -26,9 +26,9 @@ Print the full drafted entry, followed by the per-PR audit in collapsed detail:
 ```markdown
 <details><summary>Credit and categorization audit</summary>
 
-| PR | Category | Line emoji | Primary author | Via | Path | Commits by credited author | Notes |
-|---|---|---|---|---|---|---|---|
-| {PR} | {category} | {entry emoji} | {author} | {via when present} | {A–E/fallback} | {credited/total} | {evidence or unresolved correction} |
+| PR   | Category   | Line emoji    | Primary author | Via                | Path           | Commits by credited author | Notes                               |
+| ---- | ---------- | ------------- | -------------- | ------------------ | -------------- | -------------------------- | ----------------------------------- |
+| {PR} | {category} | {entry emoji} | {author}       | {via when present} | {A–E/fallback} | {credited/total}           | {evidence or unresolved correction} |
 
 </details>
 ```

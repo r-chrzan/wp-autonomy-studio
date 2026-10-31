@@ -7,14 +7,12 @@ guidance (Copyright 2026 Anthropic, PBC), licensed under the
 
 Generic skill-design guidance `om-create-skill` applies in author mode (steps 1–3
 of `references/author-workflow.md`). It complements `references/philosophy.md`:
-that file decides *which layer* a fragment belongs to; this one decides *whether
-the fragment should exist at all*, *what kind of resource* it is, and *how much
-freedom* it leaves the executing agent.
+that file decides _which layer_ a fragment belongs to; this one decides _whether
+the fragment should exist at all_, _what kind of resource_ it is, and _how much
+freedom_ it leaves the executing agent.
 
-Contents: 1. Start from concrete requests · 2. Only write what the agent lacks ·
-3. Pick the degree of freedom · 4. Choose the resource type · 5. Organize
-references · 6. Output patterns · 7. Workflow patterns · 8. Frontmatter limits ·
-9. What never goes into a skill · 10. Iterate after real use
+Contents: 1. Start from concrete requests · 2. Only write what the agent lacks · 3. Pick the degree of freedom · 4. Choose the resource type · 5. Organize
+references · 6. Output patterns · 7. Workflow patterns · 8. Frontmatter limits · 9. What never goes into a skill · 10. Iterate after real use
 
 ## 1. Start from concrete requests
 
@@ -36,19 +34,19 @@ clear, keep this short — but do not skip it for a skill whose inputs are vague
 The context window is shared with the system prompt, the conversation, every
 other skill's `description`, and the user's request. Assume the executing agent
 is already capable; add only the procedural knowledge, repository facts, and
-guardrails it cannot infer. For every paragraph, ask: *does the agent really
-need this, and does it justify its token cost on every run?* Prefer one short
+guardrails it cannot infer. For every paragraph, ask: _does the agent really
+need this, and does it justify its token cost on every run?_ Prefer one short
 example over a long explanation.
 
 ## 3. Pick the degree of freedom
 
 Match specificity to how fragile the task is:
 
-| Freedom | Form | Use when |
-| --- | --- | --- |
-| High | prose instructions, heuristics | several approaches are valid; the right call depends on context |
-| Medium | pseudocode, a parameterized script or snippet | a preferred pattern exists but some variation is fine |
-| Low | an exact script or command sequence, few parameters | the operation is error-prone, consistency is critical, or the order is mandatory |
+| Freedom | Form                                                | Use when                                                                         |
+| ------- | --------------------------------------------------- | -------------------------------------------------------------------------------- |
+| High    | prose instructions, heuristics                      | several approaches are valid; the right call depends on context                  |
+| Medium  | pseudocode, a parameterized script or snippet       | a preferred pattern exists but some variation is fine                            |
+| Low     | an exact script or command sequence, few parameters | the operation is error-prone, consistency is critical, or the order is mandatory |
 
 A narrow path with cliffs on both sides gets guardrails (low freedom); an open
 field gets directions (high freedom). Gates, markers, and anything another skill
@@ -65,7 +63,7 @@ A skill is a `SKILL.md` plus optional bundled resources in its own directory:
   context, which saves tokens. Every script you add must be exercised by actually
   running it before handing back (a representative sample when there are many
   similar ones), and must follow the repository's portability conventions.
-- **`assets/`** — files used in the *output*, not read for reasoning: templates to
+- **`assets/`** — files used in the _output_, not read for reasoning: templates to
   copy, boilerplate projects, images, fonts. They never need to load into
   context.
 
@@ -75,7 +73,7 @@ name must exist.
 
 ## 5. Organize references
 
-- **Keep information in one place.** A fact lives in the body *or* in a
+- **Keep information in one place.** A fact lives in the body _or_ in a
   reference, never both — duplication drifts.
 - **One level deep.** Every reference is pointed to from `SKILL.md` directly; do
   not chain reference → reference → reference for anything the flow needs.

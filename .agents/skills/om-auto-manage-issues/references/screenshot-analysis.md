@@ -80,7 +80,7 @@ Please correct the description if that interpretation is wrong.
 ```
 
 Before posting, scan **list-issue-comments** for an existing comment beginning with
-the new marker or legacy `` 🤖 `om-auto-manage-issues` understanding — ``
+the new marker or legacy ``🤖 `om-auto-manage-issues` understanding —``
 marker (also accept bare skill names). If one exists, update the body's clarified
 section and matching comment only when new evidence changes them; never duplicate.
 The comment describes the delta and links the body instead of repeating its

@@ -66,9 +66,9 @@ This skill is a sweep, not a single-PR step: it finds every unreviewed open PR a
    ```markdown
    Reviewed {count} PRs; {approved} approved, {changes} need changes, {skipped} skipped.
 
-   | PR / Change | Verdict | Reason and next action |
-   |-------------|---------|------------------------|
-   | [#456](url) — Filter catalog search | APPROVED | Filters passed validation; QA must exercise saved searches. |
+   | PR / Change                              | Verdict           | Reason and next action                                                          |
+   | ---------------------------------------- | ----------------- | ------------------------------------------------------------------------------- |
+   | [#456](url) — Filter catalog search      | APPROVED          | Filters passed validation; QA must exercise saved searches.                     |
    | [#445](url) — Preserve login destination | CHANGES REQUESTED | Return URL is discarded; restore it and re-request review. [Review](reviewUrl). |
    ```
 

@@ -76,12 +76,12 @@ passing checklist output and duplicate summaries.
 
 ## Severity and Verdict
 
-| Severity | Criteria | Action |
-|----------|----------|--------|
-| **blocker** | Security vulnerability, data corruption or loss risk, cross-scope data leak, missing permission check, breaking contract change without a deprecation path, failing validation gate | MUST fix before merge |
-| **major** | Correctness bug on a realistic path, missing regression test for a bug fix, weakened assertions, unbounded query on growing data, unresolved race on shared state, architecture violation | MUST fix before merge unless the maintainer explicitly accepts and documents the risk |
-| **minor** | Convention violation, suboptimal pattern, missing best practice, readability problem | Should fix; does not block on its own |
-| **nit** | Style suggestion, optional polish | Author's call |
+| Severity    | Criteria                                                                                                                                                                                  | Action                                                                                |
+| ----------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------- |
+| **blocker** | Security vulnerability, data corruption or loss risk, cross-scope data leak, missing permission check, breaking contract change without a deprecation path, failing validation gate       | MUST fix before merge                                                                 |
+| **major**   | Correctness bug on a realistic path, missing regression test for a bug fix, weakened assertions, unbounded query on growing data, unresolved race on shared state, architecture violation | MUST fix before merge unless the maintainer explicitly accepts and documents the risk |
+| **minor**   | Convention violation, suboptimal pattern, missing best practice, readability problem                                                                                                      | Should fix; does not block on its own                                                 |
+| **nit**     | Style suggestion, optional polish                                                                                                                                                         | Author's call                                                                         |
 
 Verdict rule:
 

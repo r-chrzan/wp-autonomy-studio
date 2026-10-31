@@ -6,12 +6,12 @@ The file is optional, and so is every section in it. A missing section falls bac
 
 ## Sections
 
-| Section | Content | Fallback when absent |
-|---|---|---|
-| `## Project guards` | Bullets grouped under the generic categories of `references/judge-workflow.md` §2 (`### Data scoping and authorization`, `### Boundaries and ownership`, `### Stable contract surfaces`, `### Route uniqueness`, `### Canonical building blocks`). Each bullet is one checkable rule, naming the repo's own helper, path, or identifier. A category may say `Not applicable — <reason>`. | The generic categories, applied where the repo has the concept they guard (§2). |
-| `## Required attestations` | One bullet per attestation a `pass` requires, written as the name the harness result uses, or as an exact `validation.commands` entry. | The attestations the harness result declares; else every `validation.commands` entry. |
-| `## Dependency provenance` | Globs of installed dependencies whose exact, declared files a case may read (warning-level provenance, §2). | No dependency reads are declared; any one found is reported. |
-| `## Design system` | Where the design rules live (a file or a `knowledge.sources` entry), or the rules themselves as bullets. It is read only when `.uxproof/contract.json` is absent. | `knowledge.sources`, then "not applicable — no design contract declared". |
+| Section                    | Content                                                                                                                                                                                                                                                                                                                                                                                  | Fallback when absent                                                                  |
+| -------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------- |
+| `## Project guards`        | Bullets grouped under the generic categories of `references/judge-workflow.md` §2 (`### Data scoping and authorization`, `### Boundaries and ownership`, `### Stable contract surfaces`, `### Route uniqueness`, `### Canonical building blocks`). Each bullet is one checkable rule, naming the repo's own helper, path, or identifier. A category may say `Not applicable — <reason>`. | The generic categories, applied where the repo has the concept they guard (§2).       |
+| `## Required attestations` | One bullet per attestation a `pass` requires, written as the name the harness result uses, or as an exact `validation.commands` entry.                                                                                                                                                                                                                                                   | The attestations the harness result declares; else every `validation.commands` entry. |
+| `## Dependency provenance` | Globs of installed dependencies whose exact, declared files a case may read (warning-level provenance, §2).                                                                                                                                                                                                                                                                              | No dependency reads are declared; any one found is reported.                          |
+| `## Design system`         | Where the design rules live (a file or a `knowledge.sources` entry), or the rules themselves as bullets. It is read only when `.uxproof/contract.json` is absent.                                                                                                                                                                                                                        | `knowledge.sources`, then "not applicable — no design contract declared".             |
 
 ## Example
 
@@ -21,20 +21,25 @@ The file is optional, and so is every section in it. A missing section falls bac
 ## Project guards
 
 ### Data scoping and authorization
+
 - Every query on tenant-owned tables filters by `tenant_id` through `TenantScope::apply()`.
 - Admin controllers check ACL resources server-side via `isAllowed()`.
 
 ### Boundaries and ownership
+
 - Never edit files under `generated/` or `vendor/`.
 
 ### Route uniqueness
+
 - Not applicable — the app has no file-based routes; routes are declared in `etc/routes.xml` and checked by `bin/check-routes`.
 
 ## Required attestations
+
 - `composer test`
 - `vendor/bin/phpstan analyse`
 
 ## Design system
+
 - `docs/design/admin-ui.md`
 ```
 

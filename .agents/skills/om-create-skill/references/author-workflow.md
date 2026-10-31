@@ -50,8 +50,8 @@ Start from `references/templates/skill-skeleton.md`. Fill:
   Drop the tracker/label parts for a read-only skill; always keep the
   untrusted-content boundary.
 - **Arguments / Contract** — the signature, concisely.
-- **Workflow skeleton** — numbered steps as one-liners; each says *what* happens
-  and *which reference to open* for detail.
+- **Workflow skeleton** — numbered steps as one-liners; each says _what_ happens
+  and _which reference to open_ for detail.
 - **Rules** — only the hard, global, safety rules.
 
 ## 3. Push detail down to references/

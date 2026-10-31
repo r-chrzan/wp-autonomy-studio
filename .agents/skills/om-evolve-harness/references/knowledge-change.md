@@ -6,17 +6,17 @@ Loaded by `om-evolve-harness` workflow step 1, before any harness edit. The clas
 
 `knowledge-contract` — the change touches emitted/root agent instructions, authoritative skill/reference files, a source-link inventory or parity ledger, discovery/generator contracts, evaluator or oracle code, routing/context data in the case catalog, a canonical example inventory, generated-fact provenance/rendering, or any exact source mapped by an affected case. Its changed contracts are drawn from:
 
-| Contract | Covers |
-|---|---|
-| `routing` | router rows, skill descriptions, case routing expectations |
-| `skill-link` | links from knowledge owners to skills |
-| `source-link` | visible exact-file links from knowledge owners to authoritative source |
-| `example-source` | the repo's canonical teaching/example code that owners link to, and any byte-identical mirror of it |
+| Contract           | Covers                                                                                                     |
+| ------------------ | ---------------------------------------------------------------------------------------------------------- |
+| `routing`          | router rows, skill descriptions, case routing expectations                                                 |
+| `skill-link`       | links from knowledge owners to skills                                                                      |
+| `source-link`      | visible exact-file links from knowledge owners to authoritative source                                     |
+| `example-source`   | the repo's canonical teaching/example code that owners link to, and any byte-identical mirror of it        |
 | `installed-source` | a linked dependency package, package-relative target, version, published file set, or preset applicability |
-| `discovery` | generators/extractors that emit facts or inventories |
-| `context-read` | read policy — what the agent may or must load |
-| `evaluator` | harness evaluator/validator code |
-| `oracle` | deterministic artifact checks |
+| `discovery`        | generators/extractors that emit facts or inventories                                                       |
+| `context-read`     | read policy — what the agent may or must load                                                              |
+| `evaluator`        | harness evaluator/validator code                                                                           |
+| `oracle`           | deterministic artifact checks                                                                              |
 
 `asset-sync` — every changed path is a generated/materialized copy or a count/docs snapshot, every authoritative source hash is unchanged from the base, and regenerated hashes match exactly. It still runs synchronization validation (`harness.commands.syncCheck`) but needs no new behavior test.
 

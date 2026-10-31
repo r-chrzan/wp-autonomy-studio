@@ -47,8 +47,8 @@ The reason names the evidence behind the action without repeating protocol rules
 ```markdown
 ✅ `om-close-fixed-issues` processed {since} → {today}: closed {N}, commented {M}, skipped {K}, unmatched-mentions {U}, dry-run-would-have {X}.
 
-| PR | Issue | Action | Reason |
-|---|---|---|---|
+| PR          | Issue          | Action                     | Reason                                                                                                   |
+| ----------- | -------------- | -------------------------- | -------------------------------------------------------------------------------------------------------- |
 | {linked PR} | {linked issue} | {closed/commented/skipped} | {Explicit fix merged into base at SHA / non-base merge / closed unmerged / human hold / already closed.} |
 ```
 
@@ -63,9 +63,9 @@ comment on them; show this diagnosis in dry runs too.
 ```markdown
 ### ⚠️ Issue mentions without a recognized closing keyword
 
-| PR | Open issues mentioned | Evidence |
-|---|---|---|
-| {linked PR} | {issue links} | {Actual reference and why it is not an authoritative closing link.} |
+| PR          | Open issues mentioned | Evidence                                                            |
+| ----------- | --------------------- | ------------------------------------------------------------------- |
+| {linked PR} | {issue links}         | {Actual reference and why it is not an authoritative closing link.} |
 
 These issues remain open. {N} configured `closeKeywords` extend the built-in
 English terms. If a phrase is intended to close an issue, add that phrase's

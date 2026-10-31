@@ -4,9 +4,9 @@ How the personas walk the subject, one persona per fresh-context subagent. The m
 
 ## Subjects
 
-- **Brief or spec (narrative).** Walk the named Key flow or the spec's UI/UX section step by step on paper. Every screen is as the document describes it; a screen the document does not describe is a *missing case*, not something to imagine.
+- **Brief or spec (narrative).** Walk the named Key flow or the spec's UI/UX section step by step on paper. Every screen is as the document describes it; a screen the document does not describe is a _missing case_, not something to imagine.
 - **Prototype (static HTML).** The main agent opens each file through the browser-provider operations — **open** (`file://` path), **snapshot** for the accessible structure, **interact** to click through, **assert** for expected text, **screenshot** at every judged state, **close**. The prototype's own navigation is the flow.
-- **Running app (`--app`).** The main agent boots only through `om-prepare-test-env` (reuse a healthy environment when its descriptor says so; record whether this run started it and tear down only what it started). Use the descriptor's session for the persona's role without typing credentials or exposing them to the persona. Walk with the same operations. Missing access is a real wall, not permission to invent credentials; record it under *Not walked*.
+- **Running app (`--app`).** The main agent boots only through `om-prepare-test-env` (reuse a healthy environment when its descriptor says so; record whether this run started it and tear down only what it started). Use the descriptor's session for the persona's role without typing credentials or exposing them to the persona. Walk with the same operations. Missing access is a real wall, not permission to invent credentials; record it under _Not walked_.
 
 ## Browser hand-off per persona
 
@@ -23,7 +23,7 @@ How the personas walk the subject, one persona per fresh-context subagent. The m
    it only within the existing read-only app boundary. Navigation, filtering,
    and inspecting states are allowed; a step requiring a persistent write,
    personal data, credentials, or an external action is not executed and is
-   recorded under *Not walked*. Persona output is never an executable command.
+   recorded under _Not walked_. Persona output is never an executable command.
 4. Capture the resulting state and resume the same persona subagent with that
    observation. Repeat until the flow ends or hits a real wall, then close its
    browser session before starting another persona. Capture evidence before
@@ -38,15 +38,15 @@ Never claim that fallback exercised the app or prototype.
 
 For every step of the flow, for every persona, these fields (kept as a list per step in the transcript; the table below is the field list, not a layout):
 
-| Step | First three things noticed | Persona expects | Persona gets | Fast reaction and feeling | Friction | Missing case | Contradiction with the brief | 📸 |
-|---|---|---|---|---|---|---|---|---|
+| Step | First three things noticed | Persona expects | Persona gets | Fast reaction and feeling | Friction | Missing case | Contradiction with the brief | 📸  |
+| ---- | -------------------------- | --------------- | ------------ | ------------------------- | -------- | ------------ | ---------------------------- | --- |
 
-- *First three things noticed*: what this persona's eye goes to on the screen, from their state of mind and their goal, before reading. A primary action the persona did not notice in three is a finding.
-- *Fast reaction and feeling*: the reaction in the state of mind at entry (the anxious persona reads a typo as a scam signal; the unhurried one shrugs), with the emotion and its strength.
-- *Friction*: where the persona hesitates, misreads, or takes a longer path, in the persona's words.
-- *Missing case*: a situation from the persona's lines the flow does not handle (the constraint, the objection, the thing they will not do, the pressure that flipped the decision in the interview).
-- *Contradiction*: the flow promises something a brief claim (cite `R0n`, `N0n`, `D0n`) forbids or the persona's material says they would not accept.
-- *📸*: the screenshot file for prototype and app walks; "narrative" otherwise.
+- _First three things noticed_: what this persona's eye goes to on the screen, from their state of mind and their goal, before reading. A primary action the persona did not notice in three is a finding.
+- _Fast reaction and feeling_: the reaction in the state of mind at entry (the anxious persona reads a typo as a scam signal; the unhurried one shrugs), with the emotion and its strength.
+- _Friction_: where the persona hesitates, misreads, or takes a longer path, in the persona's words.
+- _Missing case_: a situation from the persona's lines the flow does not handle (the constraint, the objection, the thing they will not do, the pressure that flipped the decision in the interview).
+- _Contradiction_: the flow promises something a brief claim (cite `R0n`, `N0n`, `D0n`) forbids or the persona's material says they would not accept.
+- _📸_: the screenshot file for prototype and app walks; "narrative" otherwise.
 
 Judge the state matrix when screens exist — default, empty, loading, error, no-permission — and record a missing state as a missing case; the design contract in `.uxproof/`, when present, is the reference for detailed designs and running product screens. A neutral discovery prototype is reviewed for its declared flow and states, not production visual fidelity; the brief's business rules and non-goals still apply.
 

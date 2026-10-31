@@ -6,7 +6,7 @@ description: Diagnose what state one open PR is actually in — unfinished plan 
 # PR Autopilot
 
 One entry point for an open PR: **diagnose → classify → chain → report**. This
-skill decides *which* skills to run and in what order; it delegates all real work
+skill decides _which_ skills to run and in what order; it delegates all real work
 to the existing `om-*` skills and never re-implements their logic.
 
 It is the dispatcher that sits above `om-auto-continue-pr` (finish the
@@ -122,7 +122,7 @@ absence never stops a run.
   and merge belongs to the delegated skill. This skill only diagnoses,
   sequences, and reports.
 - **Never merge implicitly.** The chain stops at merge-ready unless
-  `--allow-merge` was passed *and* the QA gate is satisfied.
+  `--allow-merge` was passed _and_ the QA gate is satisfied.
   `om-approve-merge-pr` owns the merge.
 - **The QA gate is hard.** When `qaGate` is on, a PR that requires QA and has no
   QA approval is not mergeable, whatever else is green. This skill never applies

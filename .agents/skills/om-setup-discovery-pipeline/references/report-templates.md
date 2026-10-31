@@ -23,7 +23,7 @@ no chaining reference lines.
 ```
 
 On the first successful setup, explain how to remove the layer using
-`references/sdlc-sections.md` → *Removing the product layer*: first restore the
+`references/sdlc-sections.md` → _Removing the product layer_: first restore the
 delivery-only Discovery and Intake rows, then remove the remaining
 discovery-marked sections, routing entry, and `discovery` config key. Preserve
 the delivery Designer. Show the removal diff before applying it.

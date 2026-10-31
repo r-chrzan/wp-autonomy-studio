@@ -10,46 +10,59 @@ audit and the final reply are for the user and follow `references/rules.md`.
 # Design brief — {screen name}
 
 ## Goal
+
 {One sentence: what the user accomplishes on this screen.}
 
 ## User
+
 {Who, in what situation, with what constraint.}
 
 ## Layout
+
 - Archetype: {kind} — {anatomy from the contract, region by region}.
 - Width, page spacing, section spacing, field spacing: {contract size tokens}.
 
 ## Sections (in order)
+
 1. {Section} — {purpose; components used}.
 
 ## Components (registry entries only)
+
 - {Component name} ({variant or size}; design library: {designComponent}) — {what it renders, where, and its label text}.
 
 ## Tokens (contract entries only)
+
 - Color: {code token → design variable, per role: text, background, border, status, destructive, restricted}.
 - Type, spacing, radius, shadow, layering: {tokens per use}.
 
 ## Icons
+
 - Set: {the icon set the conventions name}. {Each icon by component name.}
 - Unknown mapping: `[ICON: needs-mapping — candidates: {A}, {B}]`.
 
 ## States to design
+
 - Default; loading; empty (with the sentence and the action the user reads); error (with the recovery action); validation errors; success; hover, focus, active, disabled; each theme the tokens declare.
 - {Archetype requiredStates not already listed.}
 
 ## Interactions
+
 {Primary-action and cancel shortcuts the conventions define; focus order; labels for icon-only controls; required and invalid field marking.}
 
 ## Responsive
+
 {Behavior per breakpoint the contract declares.}
 
 ## Out of scope
+
 {What not to design.}
 
 ## Reference screens in the codebase
+
 - {Two or three archetype example files from the contract.}
 
 ## Design-system gaps
+
 {Only when present: the component or token the screen needs that the contract lacks, and what the user decided.}
 ```
 
@@ -62,15 +75,19 @@ audit and the final reply are for the user and follow `references/rules.md`.
 {Only when found: screens that fit no archetype; missing states, as discoveries.}
 
 ### 🔍 Violations
+
 1. **{critical|warning|info}** — {frame › element} — {value as it appears} → {exact fix}. {why} {×N in frames …}
 
 ### 📋 Remediation plan
+
 1. {One executable design action, with where and how many.}
 
 ### Provider operations
+
 {Only when a provider could apply fixes: bind-variable / swap-component / scale snaps, grouped. Not applied.}
 
 ### 🧪 Evidence limits
+
 {Only material limits: skipped checks and why, pixel-estimated values, frames not read.}
 ```
 

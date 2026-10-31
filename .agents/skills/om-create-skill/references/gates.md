@@ -22,7 +22,7 @@ Prove the refactor lost nothing and preserved the risk surface. Set `BASE_REF` t
 the ref holding the pre-split `SKILL.md` (e.g. the base branch, or `HEAD` before
 you started editing), and `SKILL` to the skill name:
 
-```bash
+````bash
 SKILL=<skill-name>
 BASE_REF=<ref-with-pre-split-version>
 dir="skills/$SKILL"
@@ -53,7 +53,7 @@ grep -q "Untrusted content boundary" "$dir/SKILL.md" "$dir/references/agentic-se
 diff <(git show "$BASE_REF:$dir/SKILL.md" | sed -n '/^---$/,/^---$/{/^description:/p}') \
      <(sed -n '/^---$/,/^---$/{/^description:/p}' "$dir/SKILL.md") \
   && echo "description: unchanged" || echo "FAIL: description changed"
-```
+````
 
 Pass condition: `code lines lost: 0`, no `FAIL:` lines, and every 2b `REVIEW`
 line is only a section-intro sentence you deliberately condensed into a pointer

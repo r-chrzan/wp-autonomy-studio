@@ -15,40 +15,49 @@ produces incomplete coverage and a report nobody can defend later.
 **Date:** {YYYY-MM-DD}
 
 ## Scope
+
 In scope:
+
 - {feature / module / flow, from the plain-language brief}
 
 Out of scope:
+
 - {feature} — {reason}
 
 ## Risk areas
-| Hotspot (from knowledge base, if any) | Concrete risk | How it's probed |
-|---|---|---|
-| {theme} | {what could break} | {test case or technique} |
+
+| Hotspot (from knowledge base, if any) | Concrete risk      | How it's probed          |
+| ------------------------------------- | ------------------ | ------------------------ |
+| {theme}                               | {what could break} | {test case or technique} |
 
 ## Exit criteria
+
 All Critical/High cases pass. No open Critical/High defects.
 
 ## Environment
+
 - URL: {base URL from the test-env descriptor}
 - Role/login: {role used, from the descriptor's credentials}
 
 ## Case inventory
-| ID | Title | Type | Priority | Status |
-|---|---|---|---|---|
-| TC-{MODULE}-001 | ... | Functional | Critical | Not run |
+
+| ID              | Title | Type       | Priority | Status  |
+| --------------- | ----- | ---------- | -------- | ------- |
+| TC-{MODULE}-001 | ...   | Functional | Critical | Not run |
 
 ---
 
 ## Cases
 
 ### TC-{MODULE}-001 — {Title}
+
 **Type:** Functional / Regression / Negative / Smoke / ...
 **Priority:** Critical / High / Medium / Low
 **Preconditions:** {exact state required beforehand}
 **Test data:** {exact values, never "valid input"}
 
 **Steps:**
+
 1. ...
 2. ...
 
@@ -97,12 +106,12 @@ Steps:         Numbered, one action per step
 Expected:      Precise, observable, verifiable outcome
 ```
 
-| Priority | Definition |
-|---|---|
-| Critical | Crash, data loss, security breach |
-| High | Core business function broken, no workaround |
-| Medium | Feature partially broken, workaround exists |
-| Low | Cosmetic, minor UX, edge case |
+| Priority | Definition                                   |
+| -------- | -------------------------------------------- |
+| Critical | Crash, data loss, security breach            |
+| High     | Core business function broken, no workaround |
+| Medium   | Feature partially broken, workaround exists  |
+| Low      | Cosmetic, minor UX, edge case                |
 
 Anti-patterns to avoid: vague preconditions ("user is logged in" — say which
 role, which scope), multiple actions per step, subjective expected results

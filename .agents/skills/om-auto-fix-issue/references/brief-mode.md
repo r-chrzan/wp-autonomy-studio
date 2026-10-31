@@ -11,7 +11,7 @@ the resulting `{issueId}`.
   `#number`, or a tracker issue URL.
 - **Brief** (this path): anything else — a sentence, an error message, a pasted
   problem description.
-- A **numeric** `{issueId}` that **get-issue** cannot find is *not* brief mode:
+- A **numeric** `{issueId}` that **get-issue** cannot find is _not_ brief mode:
   stop and report the bad reference instead of filing a new issue from a bare
   number — there is no brief to file from.
 

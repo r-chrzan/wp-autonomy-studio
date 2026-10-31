@@ -11,13 +11,16 @@ full checklist.
 # 🔍 Code Review: {PR title or change description}
 
 ## Verdict
+
 {✅ approve | ❌ request changes} — {the concrete reason and next action}
 
 ## 🎯 Summary
+
 {Who can do what after this change, or which failure it fixes; one or two
 sentences. Name the main area and any shared surface that changes the decision.}
 
 ## Direction and scope
+
 {Only when a product/architecture choice needs attention: the choice, current
 consumer or cited plan, durable commitment, and recommended action. Distinguish
 an observed fact from an inference or something not checked.}
@@ -25,29 +28,35 @@ an observed fact from an inference or something not checked.}
 ## Findings
 
 ### ⛔ Blocker
+
 - `{file:line}` — {trigger → wrong behavior or broken rule → concrete fix}.
   {Evidence or repo rule link when needed to establish the claim.}
 
 ### ⚠️ Major
+
 - `{file:line}` — {trigger → consequence → concrete fix}.
 
 ### Minor
+
 - `{file:line}` — {specific improvement and its benefit}.
 
 ### Nit
+
 - `{file:line}` — {optional suggestion and its reason}.
 
 ## 🧪 Validation Gate
 
-| Command | Status | Evidence or limitation |
-|---------|--------|------------------------|
+| Command                             | Status                | Evidence or limitation                          |
+| ----------------------------------- | --------------------- | ----------------------------------------------- |
 | {each configured command, in order} | PASS / FAIL / NOT RUN | {failure, useful evidence link, or why not run} |
 
 ## 💥 Breaking Changes
+
 {Only touched contracts with a material consequence: what becomes a dependency,
 who consumes it, and any migration/deprecation path or uncovered risk.}
 
 ## 🧪 Test Coverage
+
 {Changed behavior proved by the tests; material gaps with exact cases and files.
 Link evidence; do not repeat a missing-test finding already listed above.}
 ```

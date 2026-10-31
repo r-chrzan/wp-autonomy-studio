@@ -67,12 +67,12 @@ Links, mockups, technical notes.
 
 ## Severity guide
 
-| Severity | When to use |
-|---|---|
+| Severity | When to use                                     |
+| -------- | ----------------------------------------------- |
 | Critical | Crash, data loss, security breach, login broken |
-| High | Core business function broken, no workaround |
-| Medium | Feature partially broken, workaround exists |
-| Low | Cosmetic, typo, non-blocking UX glitch |
+| High     | Core business function broken, no workaround    |
+| Medium   | Feature partially broken, workaround exists     |
+| Low      | Cosmetic, typo, non-blocking UX glitch          |
 
 ## Language and tone standard — check every report against all of these
 

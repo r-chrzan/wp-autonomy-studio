@@ -65,7 +65,7 @@ contract in this repo's AGENTS.md):
   `PR_URL=` / `PR_NUMBER=` / `SPEC_PATH=` lines, emitters never write them) — and a
   `Companion skills:` sentence naming invoked skills + the fallback when one is
   missing.
-- Tracker comments with stable idempotent markers — `` 🤖 `<skill-name>` — <purpose> ``
+- Tracker comments with stable idempotent markers — ``🤖 `<skill-name>` — <purpose>``
   (skill name is a backtick-wrapped code span, as in all user-facing output) —
   updated in place on re-runs, never duplicated. The marker-parse pattern accepts
   both the backticked and the legacy bare `🤖 <skill> —` form, so detection on

@@ -42,7 +42,7 @@ An issue that is both unlabeled and laconic sorts to the very top.
   scope prominently in the report.
 - **Truncation is never silent.** When more issues match than `--limit`, process
   `--limit` and report how many matched but were left (`"37 open issues matched;
-  processed the worst-described 25; 12 not processed — raise --limit to include
-  them"`).
+processed the worst-described 25; 12 not processed — raise --limit to include
+them"`).
 - Never widen `--state` to `closed`/`all` on your own — a closed issue is
   generally out of scope for enrichment unless the user explicitly asked.

@@ -17,9 +17,9 @@ Exclude these from commit tallies, from `primaryAuthor` / `viaAuthor`, and from 
 \[bot\]$        dependabot        renovate        ^app/        ^web-flow$
 ```
 
-…plus AI coding agents, which commit under their own identities and must never appear as a contributor: `claude`, `cursoragent`, `copilot`, `codex`, `devin` (match the whole handle, case-insensitively; a human handle that merely *contains* one of these words is a real contributor).
+…plus AI coding agents, which commit under their own identities and must never appear as a contributor: `claude`, `cursoragent`, `copilot`, `codex`, `devin` (match the whole handle, case-insensitively; a human handle that merely _contains_ one of these words is a real contributor).
 
-When a PR's credit resolves to nothing but excluded identities, render the bullet with **no** `*(@...)*` suffix at all — never credit the bot, and never fall back to the merger. When carried-forward work *originates* from a bot (a dependency bump reopened or rebased by a maintainer), the maintainer keeps the credit: there is no human original author to restore.
+When a PR's credit resolves to nothing but excluded identities, render the bullet with **no** `*(@...)*` suffix at all — never credit the bot, and never fall back to the merger. When carried-forward work _originates_ from a bot (a dependency bump reopened or rebased by a maintainer), the maintainer keeps the credit: there is no human original author to restore.
 
 ## Path A: `Supersedes #N` in the PR body
 
@@ -51,7 +51,7 @@ Closing in favor of #{newPrNumber} ({newPrUrl}).
 Credit to @{originalAuthor} for the original implementation. ...
 ```
 
-Detection is reversed compared to Paths A and B — you are walking *candidate superseded PRs*, not the merged PR itself. For each closed-unmerged PR in the same window (**list-prs**, state closed, `closed:>=${SINCE_DATE} is:unmerged`), check its body **and** its comments for a line matching:
+Detection is reversed compared to Paths A and B — you are walking _candidate superseded PRs_, not the merged PR itself. For each closed-unmerged PR in the same window (**list-prs**, state closed, `closed:>=${SINCE_DATE} is:unmerged`), check its body **and** its comments for a line matching:
 
 ```
 ^Closing in favor of #(\d+)\b
@@ -59,7 +59,7 @@ Detection is reversed compared to Paths A and B — you are walking *candidate s
 
 When the captured number equals the merged PR currently being credited, treat the merged PR as a carry-forward. Set `primaryAuthor` to the closed PR's author (via **get-pr**) and `viaAuthor` to the merged replacement's author.
 
-Run Path C as a real sweep of the window's closed-unmerged PRs, not as a spot check — and when a detected replacement is *absent* from the entry (it merged after the release was cut), confirm that rather than assuming it.
+Run Path C as a real sweep of the window's closed-unmerged PRs, not as a spot check — and when a detected replacement is _absent_ from the entry (it merged after the release was cut), confirm that rather than assuming it.
 
 ## Path D: umbrella / feature-branch merge
 
@@ -100,18 +100,18 @@ If none of A–E match, `primaryAuthor = mergedPrAuthor` and `viaAuthor = null` 
 
 Run this after resolving every credit and **before** assembling the entry. It is not a spot check: compare each bullet's `primaryAuthor` against that PR's commit authorship (already fetched for Path D) and review every mismatch by hand.
 
-| Signal | Verdict |
-|--------|---------|
+| Signal                                                                                     | Verdict                                                                                                   |
+| ------------------------------------------------------------------------------------------ | --------------------------------------------------------------------------------------------------------- |
 | Credited author wrote **0** commits **and** a `Credit:` / `Supersedes` template is present | ✅ correct — the original commits live on the closed PR; the template is authoritative over commit counts |
-| Credited author wrote **0** commits **and** no template | ❌ **wrong** — apply Path D or E, or investigate before shipping |
-| Credited author wrote a minority of commits, the rest by a maintainer | ✅ usually correct — normal review-fixup or rebase-and-fix carry |
-| …and the maintainer's majority commits are titled "address review findings" or similar | ✅ correct — a review fix is not authorship |
-| PR author differs from the dominant commit author on a large (50+ commit) PR | ❌ investigate as an umbrella merge (Path D) |
-| Every commit author is an excluded identity | ✅ render the bullet with no author suffix |
+| Credited author wrote **0** commits **and** no template                                    | ❌ **wrong** — apply Path D or E, or investigate before shipping                                          |
+| Credited author wrote a minority of commits, the rest by a maintainer                      | ✅ usually correct — normal review-fixup or rebase-and-fix carry                                          |
+| …and the maintainer's majority commits are titled "address review findings" or similar     | ✅ correct — a review fix is not authorship                                                               |
+| PR author differs from the dominant commit author on a large (50+ commit) PR               | ❌ investigate as an umbrella merge (Path D)                                                              |
+| Every commit author is an excluded identity                                                | ✅ render the bullet with no author suffix                                                                |
 
 Report the pass in the run report: how many credits were checked, how many mismatches were reviewed, and what each mismatch resolved to. When a mismatch cannot be resolved confidently, keep the fallback credit and leave an `<!-- credit unverified for #N -->` HTML comment above the entry.
 
-**Residual gap, stated so nobody assumes coverage:** a hand-off with no template, no attribution wording, *and* commits re-authored under the merging maintainer's name is invisible to all five paths and to the verification pass. Only a human who knows the work can catch it.
+**Residual gap, stated so nobody assumes coverage:** a hand-off with no template, no attribution wording, _and_ commits re-authored under the merging maintainer's name is invisible to all five paths and to the verification pass. Only a human who knows the work can catch it.
 
 ## Worked example
 
@@ -126,7 +126,7 @@ Credit: original implementation by @contributor-a. This follow-up PR carries tha
 ...and PR author `@reviewer-b` (the reviewer), the changelog entry becomes:
 
 ```markdown
-- 🐛 Validate event names against module registry (supersedes #1421). (#1555) *(@contributor-a, via @reviewer-b)*
+- 🐛 Validate event names against module registry (supersedes #1421). (#1555) _(@contributor-a, via @reviewer-b)_
 ```
 
 The Contributors block lists `@contributor-a` first (primary author) and `@reviewer-b` once (only if they did not already appear as a primary author for some other PR in the same release).
@@ -134,7 +134,7 @@ The Contributors block lists `@contributor-a` first (primary author) and `@revie
 Contrast with Path D — merged PR `#1820` "implementation of the warehouse module", authored by `@maintainer-c`, whose 192 commits are 100 by `@contributor-d`, 92 by an AI agent, and none by `@maintainer-c`; sub-PR `#1655` is in the same window and its merge commit is inside `#1820`:
 
 ```markdown
-- ✨ Implementation of the warehouse module. (#1820, #1655) *(@contributor-d)*
+- ✨ Implementation of the warehouse module. (#1820, #1655) _(@contributor-d)_
 ```
 
 No `via @maintainer-c` — pressing merge is not a contribution.

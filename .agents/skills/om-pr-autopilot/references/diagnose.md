@@ -29,8 +29,8 @@ Derive:
 - `PUSHABLE` — `!IS_FORK || IS_MINE` (you can push to your own fork). This, not
   `IS_FORK` alone, decides whether the carry-forward flow applies.
 - `DRIVABLE` — `IS_MINE`, or the user explicitly asked for the autofix chain on
-  this PR. Separate from `PUSHABLE` on purpose: `PUSHABLE` answers *can I push*
-  and `DRIVABLE` answers *may I*. A colleague's PR on a branch in the main
+  this PR. Separate from `PUSHABLE` on purpose: `PUSHABLE` answers _can I push_
+  and `DRIVABLE` answers _may I_. A colleague's PR on a branch in the main
   repository is `PUSHABLE` and not `DRIVABLE`, and every chain step that puts
   commits on the head branch requires `DRIVABLE`.
 - `IS_DRAFT`.

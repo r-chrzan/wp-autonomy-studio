@@ -19,12 +19,12 @@ hits and their trend, and judges no screen.
 
 **Input and output** — two execution paths, decided in step 1:
 
-| Input | Path | Output |
-|---|---|---|
-| A PR number, or a branch with an open PR | tracker path: **get-pr**, **get-pr-diff**, then **comment-pr** for a first review or **update-comment** when the marker already exists | one marker-idempotent review comment per `references/report-templates.md`, with the screenshots its findings cite via **attach-image-evidence** |
-| A branch with no open PR, or nothing (the working tree) | local path: diff against `BASE_BRANCH`, no tracker operation at all | the same report, returned to the user, with the screenshots saved locally and the Contract line stating that nothing was posted |
-| Any of the above plus `--guard` | guard mode: the static contract check of the diff only — no app, no browser | one marker-idempotent guard comment on the tracker path, or the same guard report returned locally |
-| `--guard --health [<path>]` | health mode: the guard rules counted across the repository or `<path>`, always local | the health report with per-rule, per-area counts and the trend against the previous report |
+| Input                                                   | Path                                                                                                                                   | Output                                                                                                                                          |
+| ------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------- |
+| A PR number, or a branch with an open PR                | tracker path: **get-pr**, **get-pr-diff**, then **comment-pr** for a first review or **update-comment** when the marker already exists | one marker-idempotent review comment per `references/report-templates.md`, with the screenshots its findings cite via **attach-image-evidence** |
+| A branch with no open PR, or nothing (the working tree) | local path: diff against `BASE_BRANCH`, no tracker operation at all                                                                    | the same report, returned to the user, with the screenshots saved locally and the Contract line stating that nothing was posted                 |
+| Any of the above plus `--guard`                         | guard mode: the static contract check of the diff only — no app, no browser                                                            | one marker-idempotent guard comment on the tracker path, or the same guard report returned locally                                              |
+| `--guard --health [<path>]`                             | health mode: the guard rules counted across the repository or `<path>`, always local                                                   | the health report with per-rule, per-area counts and the trend against the previous report                                                      |
 
 The local path exists so a review before opening a PR is still possible; it
 mutates nothing. Health mode writes one file, and only when the config names

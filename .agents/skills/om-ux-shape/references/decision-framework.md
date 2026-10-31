@@ -25,12 +25,12 @@ Do not force this sentence when the evidence contradicts the requested feature.
 
 Use four evidence classes:
 
-| Class | Meaning | Treatment |
-|---|---|---|
-| Known | Directly supplied or observed | Use as a constraint or input |
-| Inferred | Interpretation supported by known evidence | State the reasoning |
-| Assumed | Necessary but unverified belief | Attach a validation path |
-| Unknown | Missing information that may change the decision | Rank by risk |
+| Class    | Meaning                                          | Treatment                    |
+| -------- | ------------------------------------------------ | ---------------------------- |
+| Known    | Directly supplied or observed                    | Use as a constraint or input |
+| Inferred | Interpretation supported by known evidence       | State the reasoning          |
+| Assumed  | Necessary but unverified belief                  | Attach a validation path     |
+| Unknown  | Missing information that may change the decision | Rank by risk                 |
 
 Prefer behavioral evidence over stated preferences. Never present synthetic personas, imagined quotes, or generic market claims as findings.
 
@@ -86,15 +86,14 @@ Do not omit error recovery, permissions, accessibility, or measurement merely be
 
 ## 7. Match tests to assumptions
 
-| Riskiest belief | Smallest useful test |
-|---|---|
-| The problem is real or frequent | Behavioral interview, observation, support/log review |
-| The proposed value changes choice | Concept comparison, fake door, concierge test |
-| People can understand the flow | Task-based prototype usability test |
-| The technology can meet the bar | Technical spike or representative evaluation set |
-| AI can add unique value | Wizard-of-Oz comparison against rules/manual baseline |
-| The economics or policy work | Cost model, pricing test, legal/operations review |
-| The released feature changes behavior | Instrumented pilot with guardrails |
+| Riskiest belief                       | Smallest useful test                                  |
+| ------------------------------------- | ----------------------------------------------------- |
+| The problem is real or frequent       | Behavioral interview, observation, support/log review |
+| The proposed value changes choice     | Concept comparison, fake door, concierge test         |
+| People can understand the flow        | Task-based prototype usability test                   |
+| The technology can meet the bar       | Technical spike or representative evaluation set      |
+| AI can add unique value               | Wizard-of-Oz comparison against rules/manual baseline |
+| The economics or policy work          | Cost model, pricing test, legal/operations review     |
+| The released feature changes behavior | Instrumented pilot with guardrails                    |
 
 Define before testing: expected signal, failure threshold, and the decision each result triggers.
-

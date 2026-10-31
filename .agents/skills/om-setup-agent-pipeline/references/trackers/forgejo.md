@@ -17,6 +17,7 @@ At runtime: `om-setup-agent-pipeline` copies this file into the repository at `.
   - `REPO=owner/name` addresses another repository on the same host.
 
   A plain `http://` base is refused.
+
 - **Token.** Read from `FORGEJO_TOKEN_<HOST>`, where `<HOST>` is the contacted host (port included) upper-cased, with every non-alphanumeric character replaced by `_`. Examples: `codeberg.org` → `FORGEJO_TOKEN_CODEBERG_ORG`; `git.example.com:3000` → `FORGEJO_TOKEN_GIT_EXAMPLE_COM_3000`. `FORGEJO_TOKEN` is the fallback.
   - The token is always chosen for the host actually contacted, after any override, so one instance's token is never sent to another.
   - To reuse a token under another name, alias it in the shell profile: `export FORGEJO_TOKEN_CODEBERG_ORG="$MY_CODEBERG_TOKEN"`.
@@ -67,7 +68,7 @@ At runtime: `om-setup-agent-pipeline` copies this file into the repository at `.
 
 Source this block once before running any operation below. The label guards and operations call these functions. `fj_http` is the only place that calls `curl`.
 
-```bash
+````bash
 # Web base (https://host[:port][/subpath]) and owner/repo of a remote URL. $1 = remote URL.
 # Prints "<web base> <owner/repo>". Refuses http:// and anything it cannot parse.
 fj_parse_remote() {
@@ -385,7 +386,7 @@ fj_pr_json() {
   rm -rf "$t"
   return "$rc"
 }
-```
+````
 
 ## Label guards
 
@@ -487,7 +488,9 @@ Read the labels back (**get-pr** / **get-issue**, field `labels`) whenever the l
 ### Identity and repository
 
 #### auth-check
+
 Verify the tools, the instance version, and the credentials. Exits non-zero on any gap.
+
 ```bash
 forgejo_tracker_auth_check() {
   local version major
@@ -516,21 +519,27 @@ forgejo_tracker_auth_check
 ```
 
 #### current-user
+
 → the automation user's login.
+
 ```bash
 CURRENT_USER=$(fj_get user -r '.login')
 [ -n "$CURRENT_USER" ] && [ "$CURRENT_USER" != null ] || { echo "Could not resolve the Forgejo automation user" >&2; exit 1; }
 ```
 
 #### repo-info
+
 → `owner/name`, default branch, web URL, and visibility.
+
 ```bash
 fj_get "repos/$(fj_repo)" '{nameWithOwner: .full_name, defaultBranch: .default_branch, url: .html_url, visibility: (if .private then "private" else "public" end)}'
 REPO=$(fj_get "repos/$(fj_repo)" -r '.full_name')
 ```
 
 #### default-branch
+
 → the repository's default branch (used when the config's `baseBranch` is `"auto"`).
+
 ```bash
 BASE_BRANCH=$(fj_get "repos/$(fj_repo)" 2>/dev/null -r '.default_branch // empty')
 [ -z "$BASE_BRANCH" ] && BASE_BRANCH=$(git symbolic-ref refs/remotes/origin/HEAD 2>/dev/null | sed 's@^refs/remotes/origin/@@')
@@ -540,7 +549,9 @@ BASE_BRANCH=$(fj_get "repos/$(fj_repo)" 2>/dev/null -r '.default_branch // empty
 ### Issues
 
 #### get-issue
+
 `{issueId}`, field list → issue data in the same shape as `github.md` (`state` is `OPEN`/`CLOSED`). `isPullRequest` is true when the number belongs to a pull request. Callers that resolve `#N` references, such as `om-close-fixed-issues`, drop those.
+
 ```bash
 fj_issue_json() {
   local r t rc
@@ -565,7 +576,9 @@ fj_issue_json {issueId}
 ```
 
 #### search-issues
+
 Query and state (`open`, `closed`, or `all`) → matching issues (pull requests excluded). Searches title and body.
+
 ```bash
 Q=$(printf '%s' "<query>" | jq -sRr @uri)
 STATE=open   # open | closed | all
@@ -574,7 +587,9 @@ fj_list_jq "repos/$(fj_repo)/issues?type=issues&state=${STATE}&q=${Q}" "" \
 ```
 
 #### create-issue
+
 Title, body file, assignee, labels → created issue URL. The issue is created first. Labels are applied **after** creation through the guard, because the create endpoint takes label ids and would bypass the existence check.
+
 ```bash
 ISSUE_ASSIGNEE="<username>"
 ISSUE=$(jq -n --arg t "<title>" --rawfile b <body-file> '{title: $t, body: $b}' \
@@ -587,7 +602,9 @@ for label in <labels>; do apply_issue_label "$label" "$ISSUE_ID"; done
 ```
 
 #### close-issue
+
 `{issueId}`, reason, closing comment. Forgejo has no close reason; state it in the comment (`completed`, `not planned`, `duplicate of #N`).
+
 ```bash
 fj_num {issueId} || exit 1
 fj_comment {issueId} <comment-file> >/dev/null || exit 1
@@ -595,13 +612,17 @@ jq -n '{state: "closed"}' | fj_write PATCH "repos/$(fj_repo)/issues/{issueId}" |
 ```
 
 #### comment-issue
+
 `{issueId}`, body file → the new comment's id.
+
 ```bash
 fj_comment {issueId} <body-file>
 ```
 
 #### update-issue
+
 `{issueId}`, new title and/or body. Edits only the issue's own fields; pass only what changed.
+
 ```bash
 fj_num {issueId} || exit 1
 jq -n --arg t "<title>" '{title: $t}' | fj_write PATCH "repos/$(fj_repo)/issues/{issueId}" >/dev/null
@@ -609,17 +630,22 @@ jq -n --rawfile b <body-file> '{body: $b}' | fj_write PATCH "repos/$(fj_repo)/is
 ```
 
 #### assign-issue / unassign-issue
+
 `{issueId}`, username. Forgejo replaces the whole assignee list, so read it, add or remove the one user, write it back, and read it back.
+
 ```bash
 fj_assign {issueId} add <username>
 fj_assign {issueId} remove <username>
 ```
 
 #### label-issue / unlabel-issue
+
 Always through the guards: `apply_issue_label "<label>" {issueId}` / `remove_issue_label "<label>" {issueId}`.
 
 #### get-issue-comment
+
 Comment id → body, author, URL. Forgejo answers `204` with an empty body when the id belongs to an inline review comment, which shares the `#issuecomment-<id>` link shape with conversation comments. That is an error naming **get-review-comment**, never an empty comment.
+
 ```bash
 fj_get_comment() {
   local hdr resp http_code
@@ -640,7 +666,9 @@ fj_get_comment {commentId}
 ```
 
 #### list-issue-comments
+
 `{issueId or prNumber}` → conversation comments, oldest first. PR conversation comments are issue comments on Forgejo, and inline review comments come from **list-review-comments**.
+
 ```bash
 fj_list_comments() {
   fj_num "$1" || return 1
@@ -650,7 +678,9 @@ fj_list_comments {number}
 ```
 
 #### update-comment
+
 `{commentId}`, new body file → the comment rewritten in place (issue and PR conversation comments alike). This is how marker-idempotent comments are updated on re-runs: find the `🤖 …` marker via **list-issue-comments**, then update that id.
+
 ```bash
 fj_num {commentId} || exit 1
 jq -n --rawfile b <body-file> '{body: $b}' \
@@ -660,12 +690,16 @@ jq -n --rawfile b <body-file> '{body: $b}' \
 ### Pull requests
 
 #### get-pr
+
 `{prNumber}` → PR data in the field set `github.md` documents, serialized the same way: `state` `OPEN`/`CLOSED`/`MERGED`, review states `APPROVED`/`CHANGES_REQUESTED`/`COMMENTED`/`DISMISSED`, UTC ISO-8601 timestamps. Select the fields the calling skill names from the object.
+
 ```bash
 PR_JSON=$(fj_pr_json {prNumber}) || exit 1
 printf '%s' "$PR_JSON" | jq '{number, title, url, state, isDraft, labels, reviewDecision}'   # select the requested fields
 ```
+
 Mapping notes:
+
 - `mergeable` / `mergeStateStatus` follow the derivation in Conventions.
 - `reviews` drop Forgejo's review-request and pending entries.
 - `additions` and `changedFiles` come from the PR object, and `files` carries per-file `additions`/`deletions`.
@@ -673,7 +707,9 @@ Mapping notes:
 - `closingIssuesReferences` is parsed from the title and body (Conventions).
 
 #### list-prs
+
 State (`open`, `merged`, `closed`, `all`), limit, optional updated-after ISO date, optional search text → PRs in the **get-pr** shape, without the heavy fields: `commits`, `files`, and `comments` are empty; call **get-pr** for them. `closed` means closed **without** merging, matching GitHub's `closed:… is:unmerged`; `merged` means merged. The list endpoint has no date filter, so pages are read newest-updated first until the date bound is passed.
+
 ```bash
 # $1 = state, $2 = limit, $3 = optional updated-after ISO date, $4 = optional search text.
 fj_list_prs() {
@@ -712,12 +748,16 @@ printf '%s' "$PRS" | jq --arg d "${SINCE_DATE}" '[.[] | select(.mergedAt >= $d)]
 PRS=$(fj_list_prs closed {limit} "${SINCE_DATE}") || exit 1
 printf '%s' "$PRS" | jq --arg d "${SINCE_DATE}" '[.[] | select(.closedAt >= $d)]'
 ```
+
 Cost: up to four API calls per PR (the PR, its reviews, the base branch, the combined status). Keep `limit` as small as the caller needs.
 
 #### search-prs
+
 Free-text query and state (`open`, `merged`, `closed`, `all`) → matching PRs.
+
 - An issue reference (`#123`) reads that issue's **timeline** and keeps the pull requests that reference or close it, the counterpart of GitLab's related-merge-requests list. The instance's search indexer may not match `#123` inside PR bodies, and duplicate-PR detection depends on this lookup.
 - Any other query (a plan path, a slug) searches PR titles and bodies.
+
 ```bash
 fj_search_prs() {
   local r found
@@ -739,7 +779,9 @@ fj_search_prs "#{issueId}" open
 ```
 
 #### create-pr
+
 Base branch, draft flag, title, body file → PR. Push the branch first; the head is the current branch. For a head in a fork, set `HEAD_REF=<owner>:<branch>`. A draft gets the `WIP: ` title prefix.
+
 ```bash
 PR=$(jq -n --arg h "${HEAD_REF:-$(git rev-parse --abbrev-ref HEAD)}" --arg b "$BASE_BRANCH" --arg t "<title>" \
   --argjson draft true --rawfile d <body-file> \
@@ -750,7 +792,9 @@ PR_NUMBER=$(printf '%s' "$PR" | jq -er '.number') || exit 1
 ```
 
 #### update-pr
+
 `{prNumber}`, new title and/or body file → the PR's own title/body rewritten in place. Pass only what changed. A title update keeps the `WIP: ` prefix while the PR is a draft, so it never promotes the PR as a side effect.
+
 ```bash
 fj_num {prNumber} || exit 1
 DRAFT=$(fj_get "repos/$(fj_repo)/pulls/{prNumber}" '.draft // false') || exit 1
@@ -761,20 +805,25 @@ jq -n --rawfile b <body-file> '{body: $b}' | fj_write PATCH "repos/$(fj_repo)/pu
 ```
 
 #### comment-pr
+
 `{prNumber}`, body file → the new comment's id.
+
 ```bash
 fj_comment {prNumber} <body-file>
 ```
 
 #### attach-image-evidence
+
 `{prNumber}`, a markdown body file (without the images), a `{slug}`, and local image paths → one comment with the images embedded **inline**. Returns the comment URL.
 
 Forgejo stores attachments on the comment itself, so no branch is ever written. The steps:
+
 1. Post the comment.
 2. Upload each image to `/issues/comments/{id}/assets`.
 3. Rewrite the comment with the returned download URLs.
 
 On a private repository the images render only for viewers signed in with access.
+
 ```bash
 fj_num {prNumber} || exit 1
 R=$(fj_repo) || exit 1
@@ -790,16 +839,21 @@ done
 jq -n --rawfile b "$EV_BODY" '{body: $b}' | fj_write PATCH "repos/$R/issues/comments/$COMMENT_ID" | jq -r '.html_url'
 rm -f "$EV_BODY"
 ```
+
 Fallback: when an upload fails (attachments disabled, size limit), the comment lists the local artifact paths for those images, says inline rendering was unavailable, and the operation still succeeds. Never store evidence on the PR's own branch.
 
 #### assign-pr / unassign-pr
+
 The same read-modify-write as **assign-issue**, on the PR number: `fj_assign {prNumber} add <username>` / `fj_assign {prNumber} remove <username>`.
 
 #### label-pr / unlabel-pr
+
 Always through the guards: `apply_label "<label>" {prNumber}` / `set_pipeline_label {prNumber} "<label>"` for the mutually exclusive pipeline group; direct removal: `remove_label "<label>" {prNumber}`.
 
 #### get-pr-diff
+
 `{prNumber}` → the full unified diff, or the changed-file list.
+
 ```bash
 fj_num {prNumber} || exit 1
 fj_http GET "repos/$(fj_repo)/pulls/{prNumber}.diff"
@@ -807,7 +861,9 @@ fj_list_jq "repos/$(fj_repo)/pulls/{prNumber}/files" "" -r '.[].filename'   # na
 ```
 
 #### get-pr-files
+
 `{prNumber}` → changed files with per-file status (added/modified/removed/renamed).
+
 ```bash
 fj_num {prNumber} || exit 1
 fj_list_jq "repos/$(fj_repo)/pulls/{prNumber}/files" "" '[.[] | {path: .filename,
@@ -815,16 +871,21 @@ fj_list_jq "repos/$(fj_repo)/pulls/{prNumber}/files" "" '[.[] | {path: .filename
 ```
 
 #### checkout-pr
+
 `{prNumber}` → the PR head available locally. Forgejo publishes every PR head, fork PRs included, as `refs/pull/<n>/head` on the base repository. Here `origin` must be the Forgejo remote.
+
 ```bash
 fj_num {prNumber} || exit 1
 git fetch origin "refs/pull/{prNumber}/head:pr-{prNumber}"
 git checkout "pr-{prNumber}"
 ```
+
 To push fixes to a fork PR, push to the head repository's URL and `headRefName`. That works only when `maintainerCanModify` is true. For a same-repository PR, check out `headRefName` from `origin` instead.
 
 #### review-pr
+
 `{prNumber}`, verdict (approve / request changes), body file. Forgejo records both natively.
+
 ```bash
 fj_review() {
   local event
@@ -843,13 +904,17 @@ fj_review() {
 fj_review {prNumber} approve <body-file>
 fj_review {prNumber} request-changes <body-file>
 ```
+
 Surface a refused self-approval instead of working around it, exactly as on GitHub.
 
 #### merge-pr
+
 `{prNumber}` and the `headRefOid` the caller's merge gate checked; squash by default.
+
 - `head_commit_id` makes Forgejo refuse the merge if a newer commit landed after the gate, so unverified code never merges.
 - Auto-merge (merge once checks succeed) runs only when the skill asks for it.
 - The source branch is deleted only when asked.
+
 ```bash
 fj_num {prNumber} || exit 1
 jq -n --arg sha "<headRefOid>" '{Do: "squash", head_commit_id: $sha}' \
@@ -858,12 +923,16 @@ fj_get "repos/$(fj_repo)/pulls/{prNumber}" -e '.merged == true' >/dev/null
 jq -n --arg sha "<headRefOid>" '{Do: "squash", head_commit_id: $sha, merge_when_checks_succeed: true}' \
   | fj_write POST "repos/$(fj_repo)/pulls/{prNumber}/merge" >/dev/null   # auto-merge
 ```
+
 The merge endpoint answers with an empty body, so the read-back is the proof. Surface these refusals instead of merging differently:
+
 - a 405: required checks or approvals unmet, squash disallowed by the repository settings, or Forgejo still recomputing mergeability right after a change to either branch. Re-read **get-pr** and retry once before surfacing it;
 - a 409: the head moved.
 
 #### mark-pr-ready
+
 Promote a draft PR by stripping the work-in-progress prefix from its title, then read it back. If Forgejo still reports a draft (the instance uses other prefixes), fail and name the title.
+
 ```bash
 fj_num {prNumber} || exit 1
 fj_get "repos/$(fj_repo)/pulls/{prNumber}" "$FJ_JQ_DEFS"'{title: (.title | sub(fj_draft_re; ""; "i"))}' \
@@ -875,7 +944,9 @@ fj_get "repos/$(fj_repo)/pulls/{prNumber}" -e '(.draft // false) == false' >/dev
 ```
 
 #### get-pr-checks
+
 `{prNumber}` → the latest commit status per context on the PR head, with `name`, `state`, `bucket` (`pass`/`fail`/`pending`/`skipping`), `link`, and the workflow name. Bucket mapping:
+
 - `success` → `pass`;
 - `failure` and `error` → `fail`;
 - `pending` → `pending`;
@@ -883,6 +954,7 @@ fj_get "repos/$(fj_repo)/pulls/{prNumber}" -e '(.draft // false) == false' >/dev
 - `skipped` → `skipping`.
 
 No statuses means no CI reported, so the result is an empty list. A status list can under-report here while its jobs register, so consumers must cross-check **list-runs** at the PR head SHA before treating a short list as green.
+
 ```bash
 fj_pr_checks() {
   local r web sha statuses
@@ -896,14 +968,18 @@ fj_pr_checks() {
 }
 fj_pr_checks {prNumber}
 ```
+
 An unreadable status list is an error, never an empty list. An empty list means "no CI reported", which a merge gate would read as nothing to wait for.
 
 #### get-required-checks
+
 Base branch → the required status contexts, one per line.
+
 - Read from `GET /branches/{branch}`. The server has already resolved which protection rule applies, and no admin rights are needed.
 - A branch that does not enforce status checks prints nothing, which is the contract's "treat every reported check as required" case.
 - A rule whose contexts contain glob patterns also prints nothing, with a note on stderr.
 - An unreadable branch (401, 403, 5xx, network) **exits non-zero**. It never reads as "no required checks".
+
 ```bash
 fj_required_checks() {
   local branch
@@ -921,9 +997,12 @@ fj_required_checks {baseRefName}
 ```
 
 #### get-pr-comment / get-review-comment
+
 Forgejo links both kinds as `…/pulls/<n>#issuecomment-<id>`.
+
 - Try `fj_get_comment {commentId}` from **get-issue-comment** first.
 - When it reports an inline review comment, use `fj_get_review_comment {prNumber} {commentId}`. There is no lookup by id alone, so it scans the PR's reviews.
+
 ```bash
 fj_get_review_comment() {
   local r reviews rid found
@@ -943,7 +1022,9 @@ fj_get_review_comment {prNumber} {commentId}
 ```
 
 #### list-review-comments
+
 `{prNumber}` → every inline review comment on the diff (file, line, author, body), with Forgejo's `resolved` state. Forgejo does not expose reply threading through the API, so `reply_to` is always `null`. Group comments by `path` and `line` to reconstruct a thread.
+
 ```bash
 fj_review_comments() {
   local r reviews rid t rc
@@ -963,12 +1044,14 @@ fj_review_comments {prNumber}
 
 ### CI runs
 
-CI status for a *PR* comes from **get-pr-checks** above. These operations address **Forgejo Actions runs** directly. A run's API `id` is the `{runId}`.
+CI status for a _PR_ comes from **get-pr-checks** above. These operations address **Forgejo Actions runs** directly. A run's API `id` is the `{runId}`.
 
 When the CI is external (Woodpecker or another service) or Actions is disabled, Forgejo has no runs to read. The operations below then exit 4 and print `RUNS_UNAVAILABLE <link>`, where the link is the first commit status's `target_url`, so the caller can hand the run to a human instead of reading "no runs" as "nothing pending".
 
 #### list-runs
+
 Branch (or head SHA) → the Actions runs at that commit with `databaseId`, `workflowName` (the workflow file), `status` (`queued`/`in_progress`/`completed`), `conclusion`, `headSha`, `url`, and `createdAt`. A branch is resolved to its head SHA first, because pull-request runs are recorded against the PR rather than the branch.
+
 ```bash
 fj_list_runs() {
   local r web sha runs statuses hdr
@@ -1002,10 +1085,13 @@ fj_list_runs() {
 fj_list_runs {branch}
 fj_list_runs {headSha}
 ```
+
 An empty list means Actions is enabled but no run has registered for the commit yet. With statuses present but no runs, the CI is external, so the answer is `RUNS_UNAVAILABLE`.
 
 #### get-run
+
 Run id → status, conclusion, and per-job breakdown.
+
 ```bash
 fj_get_run() {
   local r jobs rc
@@ -1021,7 +1107,9 @@ fj_get_run {runId}
 ```
 
 #### get-run-failed-logs
+
 Run id → the log of each failed job (the last 400 lines of each; failures are at the end). This is the primary diagnosis input for CI failures.
+
 ```bash
 fj_num {runId} || exit 1
 R=$(fj_repo) || exit 1
@@ -1035,9 +1123,12 @@ fi
 ```
 
 #### rerun-failed
+
 Run id → disambiguate a flaky failure before changing any code. Forgejo 16's API cannot re-run a job, which only the web UI can do. It can only dispatch a workflow again, and a dispatched run reports its statuses under a different event (`… (workflow_dispatch)`), so the PR's failed check stays red. Forgejo 17 adds native rerun endpoints. This descriptor retains the verified version-16 fallback for compatibility. The operation has two modes, chosen by the switch below. Edit it in the repository's committed copy to change it.
+
 - `report` (default): prints `RERUN_UNAVAILABLE <run link>` and exits 3. The caller records the failure as an unconfirmed flake and leaves the check for a human to re-run from the link. That is the only path that turns the same check green.
 - `dispatch`: re-dispatches the run's workflow file on the PR head branch (or the run's ref) and returns the new run in the **get-run** shape, ready for **watch-run**. This suits unattended orchestrators with no web access. It diagnoses only: the PR check stays red until a re-run from the UI or a new push. It needs `workflow_dispatch:` in the workflow's `on:` triggers and re-runs the whole workflow file, not only the failed jobs.
+
 ```bash
 FORGEJO_RERUN_MODE=report   # report | dispatch — the team's switch; commit the change in .ai/trackers/forgejo.md
 fj_rerun() {
@@ -1067,7 +1158,9 @@ fj_rerun {runId}
 ```
 
 #### watch-run
+
 Run id → block until the run finishes; exit non-zero unless it succeeded. This polls **get-run** within the caller's wait budget (`ci.maxWaitMinutes`, default 40).
+
 ```bash
 fj_num {runId} || exit 1
 DEADLINE=$(( $(date +%s) + ${CI_MAX_WAIT_MINUTES:-40} * 60 ))
@@ -1084,14 +1177,18 @@ printf '%s' "$RUN" | jq -e '.conclusion == "success"' >/dev/null
 ### Labels
 
 #### list-labels
+
 → every label name available to the repository, including its organization's labels.
+
 ```bash
 LABELS=$(fj_labels) || { echo "Could not read Forgejo labels" >&2; exit 1; }
 printf '%s' "$LABELS" | jq -r '.[].name'
 ```
 
 #### create-label
+
 Name, color (`#rrggbb`), description. Creates a repository label. Teams that share a taxonomy across repositories may create the same names as organization labels instead. Never delete, rename, or recolor existing labels.
+
 ```bash
 fj_create_label() {
   jq -n --arg n "$1" --arg c "$2" --arg d "$3" '{name: $n, color: $c, description: $d}' \
@@ -1101,7 +1198,9 @@ fj_create_label "<name>" "#<hex>" "<description>"
 ```
 
 #### ensure-label-taxonomy
+
 Create every label from the config's taxonomy that does not exist yet. `om-setup-agent-pipeline` uses it; labels that **list-labels** already returns are skipped.
+
 ```bash
 EXISTING=$(fj_labels) || { echo "Could not read Forgejo labels" >&2; exit 1; }
 EXISTING=$(printf '%s' "$EXISTING" | jq -r '.[].name')

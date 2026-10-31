@@ -39,14 +39,14 @@ Do not edit repository files, write code, create specs or issues, or invoke any 
 
 The conversation's conclusion routes to exactly one ramp; decision guidance and boundary cases in `references/exit-ramps.md`. A repo-local extension may add repo-specific ramps; it may never remove the confirmation gate or the write restrictions.
 
-| # | Conclusion | Handoff |
-|---|-----------|---------|
-| 1 | Question answered, or nothing worth building | none — the answer is the report |
-| 2 | Worth capturing, not now | `om-prepare-issue "<goal> — brief: <path>"` |
-| 3 | Feature; the blocking unknowns are resolved | `om-auto-write-spec "<goal> — brief: <path>"` |
-| 4 | Feature; the user wants to co-design the spec | `om-spec-writing "<goal> — brief: <path>"` |
-| 5 | Small, well-understood change | `om-auto-create-pr "<task> — brief: <path>"` |
-| 6 | Already tracked (found in step 3) | `om-auto-fix-issue <issueId>` |
+| #   | Conclusion                                    | Handoff                                       |
+| --- | --------------------------------------------- | --------------------------------------------- |
+| 1   | Question answered, or nothing worth building  | none — the answer is the report               |
+| 2   | Worth capturing, not now                      | `om-prepare-issue "<goal> — brief: <path>"`   |
+| 3   | Feature; the blocking unknowns are resolved   | `om-auto-write-spec "<goal> — brief: <path>"` |
+| 4   | Feature; the user wants to co-design the spec | `om-spec-writing "<goal> — brief: <path>"`    |
+| 5   | Small, well-understood change                 | `om-auto-create-pr "<task> — brief: <path>"`  |
+| 6   | Already tracked (found in step 3)             | `om-auto-fix-issue <issueId>`                 |
 
 ## Output contract
 

@@ -54,40 +54,52 @@ Use the relevant sections below; omit empty sections and standard framework beha
 # {Title}
 
 ## 📝 TLDR
+
 {2–3 sentences: who needs this, current behavior, proposed behavior, and the reason. Label the proposal as future behavior.}
 
 ## 📝 Problem Statement
+
 {What are we solving? Evidence it matters.}
 
 ## 📝 Proposed Solution
+
 {High-level approach; alternatives considered and why they lost}
 
 ## 📝 Architecture
+
 {Primary module, reused components and cross-system effects; current consumers and dependencies on future work. Use a small Mermaid flow only if it clarifies these effects, label existing/new/planned components and add a prose takeaway.}
 
 ## 📝 Data Model
+
 {Entities, fields, relations, migrations; sensitive-data handling}
 
 ## 📝 API Contracts
+
 {Endpoints/commands with request/response shapes and validation}
 
 ## 📝 UI/UX
+
 {Flows, states, accessibility; only what is unique — not standard CRUD}
 Prototype: {repo-relative path to the exact accepted design version, when one exists — accepted mockups under assets or an interactive design with its launch record. Record the acceptance evidence and accepted scope nearby. Omit the line when no version is accepted; link pending proposals separately.}
 
 ## 📝 Edge Cases & Failure Scenarios
+
 {What breaks, and what the user sees when it does}
 
 ## 📝 Risks & Impact Review
+
 {Hard-to-reverse contracts, schema, defaults or dependencies; who bears the impact, migration and rollback limits. Separate product direction calls from evidenced violations of repository rules.}
 
 ## 📝 Decisions in play
+
 {Only when product-brief.md exists: the Non-goal, Business rule, and Decision ids this spec relies on, and any it proposes to supersede — with the owner who must approve}
 
 ## 📋 Phasing
+
 {Phase 1: … / Phase 2: … — each independently shippable}
 
 ## 📋 Implementation Plan
+
 {Phases → numbered Steps; each step testable and leaves the app working}
 ```
 
@@ -101,14 +113,17 @@ When reviewing a spec, lead with the direction decision and distinguish it from 
 {Verdict and reason in 1–2 sentences: proceed, revise, or resolve a direction call first.}
 
 ## ⚠️ Decision needed
+
 {Only for an unresolved product/scope choice: the question, recommended answer,
 tradeoff, and evidence still needed. Do not present a preference as a defect.}
 
 ## 🔍 Findings
+
 - **{Critical|High|Medium|Low}: {specific problem}.** {Source/rule and trigger →
   consequence → recommended correction. One entry per actionable finding.}
 
 ## 🧪 Review limits
+
 {What was examined, evidence unavailable, and anything not checked that limits
 this verdict. Link detailed evidence; do not imply a spec review tested the implementation.}
 ```

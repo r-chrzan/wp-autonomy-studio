@@ -1,6 +1,6 @@
 # Interviews under pressure (step 3)
 
-How the agent interviews a persona. The questions come from the brief's Problems, Goals, and Riskiest assumptions; the answers come from the persona's lines and the research passages retrieved for that question. A question the material cannot answer is answered "no basis" and lands under *To confirm with real users*.
+How the agent interviews a persona. The questions come from the brief's Problems, Goals, and Riskiest assumptions; the answers come from the persona's lines and the research passages retrieved for that question. A question the material cannot answer is answered "no basis" and lands under _To confirm with real users_.
 
 ## Ground every answer, question by question
 
@@ -8,7 +8,7 @@ Before the interview, find for each question the passages in the research direct
 
 ## What the persona never sees
 
-The persona's context holds its own persona block, the passages retrieved for the current question, and the subject being walked. It never holds the brief's assumptions (`A0n`), the team's hypotheses, the interviewer's expected answer, or another persona's transcript. A model that is handed the answer someone hopes for uses it worse than it would be used by simply averaging afterwards, and a persona that has seen the assumption confirms it. The assumptions shape the *questions* in the script and the pressures applied; they do not enter the persona.
+The persona's context holds its own persona block, the passages retrieved for the current question, and the subject being walked. It never holds the brief's assumptions (`A0n`), the team's hypotheses, the interviewer's expected answer, or another persona's transcript. A model that is handed the answer someone hopes for uses it worse than it would be used by simply averaging afterwards, and a persona that has seen the assumption confirms it. The assumptions shape the _questions_ in the script and the pressures applied; they do not enter the persona.
 
 ## Ask about the past, not the future
 
@@ -39,7 +39,7 @@ For the acquiescence measure, every persona gets the same four yes/no questions 
 ## Stance behaviour
 
 - `validate` — interview answers stay grounded in the persona's sourced passages, not in the brief's promises. The later walkthrough records friction only from the running product or prototype states the main agent actually observes.
-- `simulate` — every answer ends with *to confirm with: {role, question}*; the consolidated interview plan is the deliverable.
+- `simulate` — every answer ends with _to confirm with: {role, question}_; the consolidated interview plan is the deliverable.
 - `adversary` — after each answer the persona adds "and here is why I would still not switch"; the objection must come from the persona's material or be marked assumption. A persona's interview with no objections is re-run with the persona instructed to refuse the product; a whole run in which every persona agreed is discarded.
 
 ## `--open`: exploratory interviews

@@ -137,16 +137,16 @@ it did not create.
 When generating the PowerShell flavor, use these equivalents for the
 contract's primitives (Docker commands are identical in both):
 
-| Contract primitive | POSIX `sh` | PowerShell |
-| --- | --- | --- |
-| Fail fast on errors | `set -eu` | `Set-StrictMode -Version Latest; $ErrorActionPreference='Stop'` |
-| Atomic lock | `mkdir "$QA_DIR/test-env.lock"` | `New-Item -ItemType Directory $LockDir` (throws when it exists) |
-| Release on every exit | `trap ... EXIT` | `try { … } finally { … }` |
-| PID alive? | `kill -0 "$PID"` | `Get-Process -Id $appPid -ErrorAction SilentlyContinue` (never name the variable `$PID` — it is a read-only automatic in PowerShell) |
-| Background app start | `cmd &` + `$!` | `Start-Process -PassThru` (keep `.Id`) |
-| HTTP health probe | `curl -fsS` / `wget -q` | `Invoke-WebRequest -UseBasicParsing -TimeoutSec …` |
-| UTC timestamp | `date -u +%FT%TZ` | `(Get-Date).ToUniversalTime().ToString('yyyy-MM-ddTHH:mm:ssZ')` |
-| File size+mtime | `stat -f '%z:%m'` / `stat -c '%s:%Y'` | `"$($_.Length):$($_.LastWriteTimeUtc.Ticks)"` from `Get-ChildItem` |
-| Checksum for fingerprint | `cksum` | `Get-FileHash -Algorithm SHA256 -InputStream` over the joined string |
-| JSON read/write | `jq` / `sed` fallback | `ConvertFrom-Json` / `ConvertTo-Json` (built in) |
-| Free port | `free_port()` cascade above | `Get-FreePort` above |
+| Contract primitive       | POSIX `sh`                            | PowerShell                                                                                                                           |
+| ------------------------ | ------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------ |
+| Fail fast on errors      | `set -eu`                             | `Set-StrictMode -Version Latest; $ErrorActionPreference='Stop'`                                                                      |
+| Atomic lock              | `mkdir "$QA_DIR/test-env.lock"`       | `New-Item -ItemType Directory $LockDir` (throws when it exists)                                                                      |
+| Release on every exit    | `trap ... EXIT`                       | `try { … } finally { … }`                                                                                                            |
+| PID alive?               | `kill -0 "$PID"`                      | `Get-Process -Id $appPid -ErrorAction SilentlyContinue` (never name the variable `$PID` — it is a read-only automatic in PowerShell) |
+| Background app start     | `cmd &` + `$!`                        | `Start-Process -PassThru` (keep `.Id`)                                                                                               |
+| HTTP health probe        | `curl -fsS` / `wget -q`               | `Invoke-WebRequest -UseBasicParsing -TimeoutSec …`                                                                                   |
+| UTC timestamp            | `date -u +%FT%TZ`                     | `(Get-Date).ToUniversalTime().ToString('yyyy-MM-ddTHH:mm:ssZ')`                                                                      |
+| File size+mtime          | `stat -f '%z:%m'` / `stat -c '%s:%Y'` | `"$($_.Length):$($_.LastWriteTimeUtc.Ticks)"` from `Get-ChildItem`                                                                   |
+| Checksum for fingerprint | `cksum`                               | `Get-FileHash -Algorithm SHA256 -InputStream` over the joined string                                                                 |
+| JSON read/write          | `jq` / `sed` fallback                 | `ConvertFrom-Json` / `ConvertTo-Json` (built in)                                                                                     |
+| Free port                | `free_port()` cascade above           | `Get-FreePort` above                                                                                                                 |

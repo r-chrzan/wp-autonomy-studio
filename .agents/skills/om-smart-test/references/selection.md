@@ -17,12 +17,12 @@ For each suite, first check the **layer gate**: every remaining changed file
 belongs to a layer whose `skipSuites` names this suite → `skip` (report the
 layer). Otherwise take the first mode whose inputs exist:
 
-| Mode | Use when | Inputs |
-|---|---|---|
-| `related` | the suite defines `related` | changed non-test source files that still exist; units that became affected only through a map-declared edge (`dependsOn` / `declarations` — invisible to the runner's import graph) get an additional `direct` run of their tests, or the suite runs `full` when it has no `direct` |
-| `direct` | the suite defines `direct` and the affected units' tests for this suite (map `tests.<suite>` or `files` under the unit paths) are listable | the test files of all `affected` units |
-| `unit` | the suite defines `unit` | one invocation per affected unit |
-| `full` | otherwise, or any input failed validation | — |
+| Mode      | Use when                                                                                                                                   | Inputs                                                                                                                                                                                                                                                                              |
+| --------- | ------------------------------------------------------------------------------------------------------------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `related` | the suite defines `related`                                                                                                                | changed non-test source files that still exist; units that became affected only through a map-declared edge (`dependsOn` / `declarations` — invisible to the runner's import graph) get an additional `direct` run of their tests, or the suite runs `full` when it has no `direct` |
+| `direct`  | the suite defines `direct` and the affected units' tests for this suite (map `tests.<suite>` or `files` under the unit paths) are listable | the test files of all `affected` units                                                                                                                                                                                                                                              |
+| `unit`    | the suite defines `unit`                                                                                                                   | one invocation per affected unit                                                                                                                                                                                                                                                    |
+| `full`    | otherwise, or any input failed validation                                                                                                  | —                                                                                                                                                                                                                                                                                   |
 
 - A `direct` list that resolves to **zero** tests for an affected unit is not
   proof the unit is untested: when the unit has source changes and the suite has

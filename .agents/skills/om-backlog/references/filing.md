@@ -22,7 +22,9 @@ Then **update-issue** to append:
 
 ```markdown
 ## 📋 Stories
+
 <!-- om-backlog: checklist, rewritten on every run -->
+
 - [ ] {filled after the stories exist}
 ```
 
@@ -35,15 +37,17 @@ Epic: #{epicNumber}
 Depends on: {ids and numbers, or none}
 
 ## ✅ Acceptance criteria
+
 - Given … When … Then …
 - Given … When … Then … (negative case)
 
 ## 📋 Decisions in play
+
 - D03 — {decision in one line} (owner: {name})
 - R01 — {rule in one line}
 ```
 
-No post-creation edit is needed for a story; the ids cited inline in Summary and Out of scope by `om-prepare-issue`'s own rule and the *Decisions in play* section list the same ids, and that is intended.
+No post-creation edit is needed for a story; the ids cited inline in Summary and Out of scope by `om-prepare-issue`'s own rule and the _Decisions in play_ section list the same ids, and that is intended.
 
 ## Task
 
@@ -55,7 +59,7 @@ After the children exist, **update-issue** on the epic replaces the block betwee
 
 ## Adopted issues
 
-An adoption proposed in step 3 is performed only after step 4's confirmation: **update-issue** adds the `Backlog source:`, `Backlog id:`, and parent line (and the id prefix in the title only with the user's yes, since a title is the owner's). Preserve its existing body; regenerating an adopted issue's requirements requires an explicitly confirmed diff. One **comment-issue** with the marker `` 🤖 `om-backlog` — adopted into {epic id} `` explains why and includes the source/id pair. An issue another actor is actively working on (three-signal check) gets the comment only; the body is left alone. Recover it through this source's `backlog.md` section and the adoption comment on re-runs. An issue marked for another source is linked as an external dependency, never adopted or rewritten.
+An adoption proposed in step 3 is performed only after step 4's confirmation: **update-issue** adds the `Backlog source:`, `Backlog id:`, and parent line (and the id prefix in the title only with the user's yes, since a title is the owner's). Preserve its existing body; regenerating an adopted issue's requirements requires an explicitly confirmed diff. One **comment-issue** with the marker ``🤖 `om-backlog` — adopted into {epic id}`` explains why and includes the source/id pair. An issue another actor is actively working on (three-signal check) gets the comment only; the body is left alone. Recover it through this source's `backlog.md` section and the adoption comment on re-runs. An issue marked for another source is linked as an external dependency, never adopted or rewritten.
 
 ## Idempotency
 
@@ -67,13 +71,14 @@ Searches only find candidates: verify both `Backlog source:` and the complete `B
 # Backlogs
 
 ## {source}
+
 Backlog source: {BACKLOG_SOURCE}
 Last filed: {date}
 
-| Id | Issue | Title | Epic | Depends on | Adopted |
-|---|---|---|---|---|---|
-| E01 | #12 | … | — | — | no |
-| E01-S01 | #13 | … | #12 | — | no |
+| Id      | Issue | Title | Epic | Depends on | Adopted |
+| ------- | ----- | ----- | ---- | ---------- | ------- |
+| E01     | #12   | …     | —    | —          | no      |
+| E01-S01 | #13   | …     | #12  | —          | no      |
 ```
 
 The tracker is the authority; this file keeps one section per source, including reserved ids for retired items. Update only the current source's rows, preserving all other sections and rows outside `--epic`; legacy single-source files are retained and wrapped per `references/identity.md`.

@@ -60,8 +60,8 @@ Weight: {w}; spread: ±{s}; personas: P01, P03 (run 1), P07 (run 2); {ties, if a
 
 ## 🧪 To confirm with real users
 
-| # | Hypothesis | Persona ids / runs | Settles | Who to recruit | How |
-|---|---|---|---|---|---|
+| #   | Hypothesis | Persona ids / runs | Settles | Who to recruit | How |
+| --- | ---------- | ------------------ | ------- | -------------- | --- |
 
 {Pair every surviving finding with a real interview, data request, or usability test. Include the role, recruitment count when the plan specifies one, question or task, and brief claim or assumption it settles.}
 

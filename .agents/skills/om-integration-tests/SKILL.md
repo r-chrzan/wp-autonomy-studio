@@ -93,12 +93,12 @@ When a feature touches routes, client-side interactive components, shared provid
 
 ## Deriving scenarios from a spec
 
-| Spec section | Generates |
-|-------------|-----------|
-| API contracts — each endpoint | One API test per endpoint |
-| UI/UX — each user flow | One UI test per flow |
-| Edge cases / error scenarios | One test per significant error path |
-| Risks & impact review | Regression tests for documented failure modes |
+| Spec section                  | Generates                                     |
+| ----------------------------- | --------------------------------------------- |
+| API contracts — each endpoint | One API test per endpoint                     |
+| UI/UX — each user flow        | One UI test per flow                          |
+| Edge cases / error scenarios  | One test per significant error path           |
+| Risks & impact review         | Regression tests for documented failure modes |
 
 A typical spec produces 3–8 test cases. Happy paths first; edge cases as separate files when they earn it.
 

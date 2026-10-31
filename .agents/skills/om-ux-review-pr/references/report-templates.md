@@ -29,6 +29,7 @@ existing review rather than posting another copy.
    - **Accept when**: {observable criterion}.
 
 ### 📸 Evidence
+
 {Referenced screenshots, each captioned with the screen and state it proves}.
 
 {Only when consequential: checks not run or findings mostly based on assumptions}.
@@ -57,11 +58,13 @@ violation's rule, lines, and fix.
 **Scope**: {N} changed lines in {N} files; {N} older occurrences in touched files, not counted against this change.
 
 ### 🔍 Violations
+
 - ❌ **critical** `{rule id}` — {file}:{lines} — {what the line does} → {fix}. {why}
 - ⚠️ **warning** `{rule id}` — {file}:{lines} — {…} → {fix}.
 - **info** `{rule id}` — {…}
 
 ### 📋 Remediation plan
+
 1. {Shared component first: file, rule, lines, exact replacement}.
 
 {Only when present: exempt-with-a-reason candidates, and cases to check by hand.}
@@ -78,10 +81,10 @@ Returned locally; written to `ux.healthReport` only when configured.
 ```markdown
 🔍 Design-contract health — {path or repository}, {date}: {the one trend that matters most, and the suggested next area}.
 
-| Rule | Severity | Count | Change | Target |
-|---|---|---|---|---|
-| `{rule id}` | {severity} | {N} | {+N / −N / new / no baseline} | 0 |
-| `{when/require rule id}` coverage | {severity} | {N}% | {±N pts} | 100% |
+| Rule                              | Severity   | Count | Change                        | Target |
+| --------------------------------- | ---------- | ----- | ----------------------------- | ------ |
+| `{rule id}`                       | {severity} | {N}   | {+N / −N / new / no baseline} | 0      |
+| `{when/require rule id}` coverage | {severity} | {N}%  | {±N pts}                      | 100%   |
 
 **By area** (worst first): {area — total; top rule}.
 **Next area**: {top of the ranking}.

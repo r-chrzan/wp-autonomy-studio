@@ -11,7 +11,12 @@ map, the same information is derived from the workspace manifest (below).
 {
   "version": 1,
   "ignore": ["**/*.md", "docs/**"],
-  "wide": ["<root runner config>", "<shared build/compiler config>", "<lockfile>", "<shared library root>/**"],
+  "wide": [
+    "<root runner config>",
+    "<shared build/compiler config>",
+    "<lockfile>",
+    "<shared library root>/**"
+  ],
   "units": [
     {
       "name": "billing",
@@ -21,24 +26,26 @@ map, the same information is derived from the workspace manifest (below).
     }
   ],
   "unitPattern": "src/modules/{unit}/**",
-  "declarations": [
-    { "glob": "src/modules/*/e2e/deps.json", "keys": ["dependsOn"] }
-  ],
+  "declarations": [{ "glob": "src/modules/*/e2e/deps.json", "keys": ["dependsOn"] }],
   "layers": [
-    { "name": "style", "paths": ["**/*.css", "<design-token dir>/**"], "skipSuites": ["integration"] },
+    {
+      "name": "style",
+      "paths": ["**/*.css", "<design-token dir>/**"],
+      "skipSuites": ["integration"]
+    },
     { "name": "presentation", "paths": ["**/components/**"], "followDependents": false }
   ]
 }
 ```
 
-| Field | Meaning |
-|---|---|
-| `ignore` | Changed files dropped before classification (reported as dropped). Default when the map or field is absent: `**/*.md` and `docs/**`. Set `[]` to consider everything. |
-| `wide` | Cross-cutting files — shared libraries, root runner/compiler/build config, lockfiles, root manifests. Any match → full run of every suite. |
-| `units[]` | Explicit units: `name`, owned `paths` globs, `dependsOn` (unit names), and optional `tests.<suite>` globs listing the suite's tests that cover this unit (default: the suite's `files` globs under the unit's paths). |
-| `unitPattern` | Path template with one `{unit}` segment; every matching directory is a unit named by that segment (explicit `units[]` entries win on name clash). Units with the same name under different roots are **different units** — identity is the unit root path, never the bare name. |
+| Field            | Meaning                                                                                                                                                                                                                                                                              |
+| ---------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `ignore`         | Changed files dropped before classification (reported as dropped). Default when the map or field is absent: `**/*.md` and `docs/**`. Set `[]` to consider everything.                                                                                                                |
+| `wide`           | Cross-cutting files — shared libraries, root runner/compiler/build config, lockfiles, root manifests. Any match → full run of every suite.                                                                                                                                           |
+| `units[]`        | Explicit units: `name`, owned `paths` globs, `dependsOn` (unit names), and optional `tests.<suite>` globs listing the suite's tests that cover this unit (default: the suite's `files` globs under the unit's paths).                                                                |
+| `unitPattern`    | Path template with one `{unit}` segment; every matching directory is a unit named by that segment (explicit `units[]` entries win on name clash). Units with the same name under different roots are **different units** — identity is the unit root path, never the bare name.      |
 | `declarations[]` | Dependency declarations kept next to the tests: for each file matching `glob`, read the string arrays under the listed `keys` (JSON, YAML, or a literal array in source) as `dependsOn` of the unit that owns the file. Values are unit names — validate them; ignore anything else. |
-| `layers[]` | Change classes that bound the blast radius. `skipSuites` — a suite is skipped only when **every** remaining changed file belongs to a layer that lists it. `followDependents: false` — changes in this layer affect their own unit only, not its dependents. |
+| `layers[]`       | Change classes that bound the blast radius. `skipSuites` — a suite is skipped only when **every** remaining changed file belongs to a layer that lists it. `followDependents: false` — changes in this layer affect their own unit only, not its dependents.                         |
 
 A unit matched by several globs belongs to the **most specific** (longest
 literal prefix) one. Unknown fields are ignored; an unparseable map is reported
@@ -49,13 +56,13 @@ and treated as absent (derive from the manifest).
 Detect the repository's workspace layout from the manifest(s) it already has —
 never assume one package manager or ecosystem:
 
-| Manifest | Units | Internal dependencies |
-|---|---|---|
+| Manifest                                                                             | Units                 | Internal dependencies                                                                  |
+| ------------------------------------------------------------------------------------ | --------------------- | -------------------------------------------------------------------------------------- |
 | `package.json` `workspaces` (array or `.packages`), `pnpm-workspace.yaml` `packages` | each member directory | `dependencies` / `devDependencies` / `peerDependencies` naming another member's `name` |
-| `Cargo.toml` `[workspace] members` | each crate | `path =` dependencies on sibling crates |
-| `go.work` `use` | each module | `require` of a sibling module path |
-| `pyproject.toml` workspace tables (e.g. `[tool.uv.workspace] members`) | each member | dependencies naming another member |
-| `pom.xml` `<modules>`, `settings.gradle(.kts)` `include` | each module | project/module dependencies |
+| `Cargo.toml` `[workspace] members`                                                   | each crate            | `path =` dependencies on sibling crates                                                |
+| `go.work` `use`                                                                      | each module           | `require` of a sibling module path                                                     |
+| `pyproject.toml` workspace tables (e.g. `[tool.uv.workspace] members`)               | each member           | dependencies naming another member                                                     |
+| `pom.xml` `<modules>`, `settings.gradle(.kts)` `include`                             | each module           | project/module dependencies                                                            |
 
 - No workspace manifest → the whole repository is **one unit**; selection then
   relies on the runner's own import graph (`related`) or runs full.

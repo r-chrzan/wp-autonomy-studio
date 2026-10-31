@@ -70,4 +70,3 @@ Before delivering, ask:
 2. Which sentence is abstract where observable behavior would be clearer?
 3. Which assumption most needs a label?
 4. Does the output help the next person act without inventing missing product behavior?
-

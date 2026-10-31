@@ -12,20 +12,20 @@ file under investigation). Detect from manifests and lockfiles — never assume 
 package manager. More than one ecosystem may be present; pick the one whose
 manifest declares the dependency.
 
-| Marker files | Ecosystem / manager | Installed root of `<dep>` | Exact installed version from |
-|---|---|---|---|
-| `package.json` + `package-lock.json` / `npm-shrinkwrap.json` | Node — npm | first `node_modules/<dep>/` walking up from the consuming root | `<root>/package.json` → `version` |
-| `package.json` + `pnpm-lock.yaml` | Node — pnpm | `node_modules/<dep>` is a symlink into `node_modules/.pnpm/…`; resolve it | same |
-| `package.json` + `yarn.lock` with a `node_modules/` tree | Node — Yarn (node-modules linker) | as npm | same |
-| `package.json` + `yarn.lock` + `.pnp.cjs` / `.pnp.loader.mjs`, no `node_modules/` | Node — Yarn Plug'n'Play | packages live in zip archives in the cache; not directly readable | the lockfile entry; ask the package manager's own `why`/`info` command, or report `degraded` |
-| `package.json` + `bun.lock` / `bun.lockb` | Node — Bun | as npm | same |
-| `pyproject.toml` / `requirements*.txt` + `uv.lock` / `poetry.lock` / `Pipfile.lock` | Python | the active environment's `site-packages/<import_name>/` (`$VIRTUAL_ENV`, else `.venv/`, `venv/`) | `site-packages/<dist>-<version>.dist-info/METADATA` → `Version` |
-| `composer.json` + `composer.lock` | PHP — Composer | `vendor/<vendor>/<package>/` | `vendor/composer/installed.json` → the package's `version` |
-| `Gemfile` + `Gemfile.lock` | Ruby — Bundler | `bundle info --path <gem>` (or `vendor/bundle/…`) | `Gemfile.lock` specs entry |
-| `go.mod` + `go.sum` | Go modules | `vendor/<module>/` when vendored, else `go list -m -f '{{.Dir}}' <module>` | `go list -m -f '{{.Version}}' <module>` (or the `go.mod` require line) |
-| `Cargo.toml` + `Cargo.lock` | Rust — Cargo | `cargo metadata --format-version 1` → the package's `manifest_path` directory | `Cargo.lock` `[[package]]` entry |
-| `*.csproj` + `packages.lock.json` / `obj/project.assets.json` | .NET — NuGet | the global packages folder `<id-lowercase>/<version>/` | `packages.lock.json` resolved version |
-| `pom.xml` / `build.gradle*` | JVM — Maven / Gradle | jars in the local repository cache; knowledge files usually absent | the resolved dependency tree of the build tool |
+| Marker files                                                                        | Ecosystem / manager               | Installed root of `<dep>`                                                                        | Exact installed version from                                                                 |
+| ----------------------------------------------------------------------------------- | --------------------------------- | ------------------------------------------------------------------------------------------------ | -------------------------------------------------------------------------------------------- |
+| `package.json` + `package-lock.json` / `npm-shrinkwrap.json`                        | Node — npm                        | first `node_modules/<dep>/` walking up from the consuming root                                   | `<root>/package.json` → `version`                                                            |
+| `package.json` + `pnpm-lock.yaml`                                                   | Node — pnpm                       | `node_modules/<dep>` is a symlink into `node_modules/.pnpm/…`; resolve it                        | same                                                                                         |
+| `package.json` + `yarn.lock` with a `node_modules/` tree                            | Node — Yarn (node-modules linker) | as npm                                                                                           | same                                                                                         |
+| `package.json` + `yarn.lock` + `.pnp.cjs` / `.pnp.loader.mjs`, no `node_modules/`   | Node — Yarn Plug'n'Play           | packages live in zip archives in the cache; not directly readable                                | the lockfile entry; ask the package manager's own `why`/`info` command, or report `degraded` |
+| `package.json` + `bun.lock` / `bun.lockb`                                           | Node — Bun                        | as npm                                                                                           | same                                                                                         |
+| `pyproject.toml` / `requirements*.txt` + `uv.lock` / `poetry.lock` / `Pipfile.lock` | Python                            | the active environment's `site-packages/<import_name>/` (`$VIRTUAL_ENV`, else `.venv/`, `venv/`) | `site-packages/<dist>-<version>.dist-info/METADATA` → `Version`                              |
+| `composer.json` + `composer.lock`                                                   | PHP — Composer                    | `vendor/<vendor>/<package>/`                                                                     | `vendor/composer/installed.json` → the package's `version`                                   |
+| `Gemfile` + `Gemfile.lock`                                                          | Ruby — Bundler                    | `bundle info --path <gem>` (or `vendor/bundle/…`)                                                | `Gemfile.lock` specs entry                                                                   |
+| `go.mod` + `go.sum`                                                                 | Go modules                        | `vendor/<module>/` when vendored, else `go list -m -f '{{.Dir}}' <module>`                       | `go list -m -f '{{.Version}}' <module>` (or the `go.mod` require line)                       |
+| `Cargo.toml` + `Cargo.lock`                                                         | Rust — Cargo                      | `cargo metadata --format-version 1` → the package's `manifest_path` directory                    | `Cargo.lock` `[[package]]` entry                                                             |
+| `*.csproj` + `packages.lock.json` / `obj/project.assets.json`                       | .NET — NuGet                      | the global packages folder `<id-lowercase>/<version>/`                                           | `packages.lock.json` resolved version                                                        |
+| `pom.xml` / `build.gradle*`                                                         | JVM — Maven / Gradle              | jars in the local repository cache; knowledge files usually absent                               | the resolved dependency tree of the build tool                                               |
 
 Tool commands in this table are read-only queries of the package manager. Run
 one only when the manager is installed and the repo uses it; otherwise read the

@@ -36,7 +36,7 @@ If any fails, do not open a spec PR — fall back to step 4's inline guidance.
    a **ready spec PR** against the base branch. Because this is a design-only PR,
    its body references the issue with `Refs #{issueId}` (**not** `Closes` —
    merging the spec must not close the still-unimplemented FR), plus `Source
-   doc:`, with docs-only labels; it goes draft only under the skill's
+doc:`, with docs-only labels; it goes draft only under the skill's
    `⚠ NEEDS HUMAN CONFIRMATION` guard. It stops after the spec lands (it never
    implements). When a human is filing the issue and wants to make the design
    calls themselves, run its spec-writing step interactively (the Open Questions

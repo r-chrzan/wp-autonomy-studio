@@ -31,29 +31,29 @@ perform their own claims, so a stopped run leaves no stray lock.
 ## F3. Resolve the spec and implement
 
 a. **Resolve the spec** — follow the spec-resolution procedure in
-   `references/spec-resolution.md` with `{spec}` = the issue
-   id (checks `$SPECS_DIR` links in the issue body, name matches on the issue title,
-   and open spec-PR branches).
+`references/spec-resolution.md` with `{spec}` = the issue
+id (checks `$SPECS_DIR` links in the issue body, name matches on the issue title,
+and open spec-PR branches).
 b. **Spec found** (a path, or the spec-only `SPEC_PR` from F2) → invoke
-   **`om-auto-implement-spec {SPEC_PATH-or-SPEC_PR} [--no-ui] [--loop] [--force]`** verbatim.
-   Include `--loop` **only when the user passed it to `om-auto-fix-issue`** — never
-   add it on your own; without it the plain engines are the default and
-   `om-auto-create-pr` escalates to the loop on its own when the drafted plan
-   exceeds the configured Step threshold (`engine.loopStepThreshold`, default 20).
-   The spec PR stays design-only: it implements on a
-   **separate implementation PR** that references the spec (`Refs #{SPEC_PR}` +
-   `Source doc:`), resuming an existing implementation PR rather than opening a
-   second, runs the review autofix loop and UI verification with screenshots, and
-   leaves a ready PR. Ensure the implementing PR body carries `Closes #{issueId}`
-   so the merge auto-closes the issue.
+**`om-auto-implement-spec {SPEC_PATH-or-SPEC_PR} [--no-ui] [--loop] [--force]`** verbatim.
+Include `--loop` **only when the user passed it to `om-auto-fix-issue`** — never
+add it on your own; without it the plain engines are the default and
+`om-auto-create-pr` escalates to the loop on its own when the drafted plan
+exceeds the configured Step threshold (`engine.loopStepThreshold`, default 20).
+The spec PR stays design-only: it implements on a
+**separate implementation PR** that references the spec (`Refs #{SPEC_PR}` +
+`Source doc:`), resuming an existing implementation PR rather than opening a
+second, runs the review autofix loop and UI verification with screenshots, and
+leaves a ready PR. Ensure the implementing PR body carries `Closes #{issueId}`
+so the merge auto-closes the issue.
 c. **No spec** → invoke **`om-auto-write-spec {issueId} [--slug …] [--force]`**
-   verbatim (run its spec-writing step interactively when `--interactive` was
-   passed). It claims the issue, writes the spec autonomously, attaches
-   mockups/screenshots, opens the spec PR (`Refs #{issueId}`), posts the assumptions
-   comment, and emits the `Spec:` and `PR:` reference lines. Then chain straight into
-   **`om-auto-implement-spec {SPEC_PATH}`**, which opens the **implementation PR**
-   (`Refs` the spec PR, `Closes #{issueId}`) — the spec PR stays design-only. For a
-   spec **without** implementation, users run `om-auto-write-spec` directly.
+verbatim (run its spec-writing step interactively when `--interactive` was
+passed). It claims the issue, writes the spec autonomously, attaches
+mockups/screenshots, opens the spec PR (`Refs #{issueId}`), posts the assumptions
+comment, and emits the `Spec:` and `PR:` reference lines. Then chain straight into
+**`om-auto-implement-spec {SPEC_PATH}`**, which opens the **implementation PR**
+(`Refs` the spec PR, `Closes #{issueId}`) — the spec PR stays design-only. For a
+spec **without** implementation, users run `om-auto-write-spec` directly.
 
 ## F4. Confirm the contract, report
 
@@ -63,7 +63,7 @@ The delegated skills own the machinery; verify the contract held:
   additionally `Refs` it; an existing implementation PR means resume, never a
   duplicate).
 - The implementation PR is **ready** (not draft) unless a `⚠ NEEDS HUMAN
-  CONFIRMATION` assumptions guard applies.
+CONFIRMATION` assumptions guard applies.
 - The **full label set** is present — pipeline `review`/current state, `feature`
   category, QA meta, one priority, one risk — re-run the label normalization in
   `references/pr-finalize.md` (the `om-open-pr` step-6 contract) on anything

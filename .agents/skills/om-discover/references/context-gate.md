@@ -4,15 +4,15 @@ Read before drafting. The goal is to learn what supports the current decision, w
 
 ## 1. Inventory relevant sources
 
-| Source | Where | What it can support | Tag |
-|---|---|---|---|
-| Interview notes and direct accounts | research directory; a participant's account captured during this session | the person's experience or stated preference, within that account's limits | `[INTERVIEW]` |
-| Data extracts | support, analytics, sales or other research exports | measured frequency, cost, baselines and segments, with source, period and filter | `[DATA]` |
-| Workshop and decision records | research directory | choices, constraints and their owners; separate observations from beliefs | `[DOCUMENT]` |
-| Repository | README, specs, design contract, compatibility surfaces, relevant schema and routes | what exists or was specified; never demand by itself | `[PRODUCT]` |
-| Tracker | read-only **search-issues**, **search-prs**, **get-issue**, **list-issue-comments** when configured | existing work, support accounts and recorded decisions | `[DOCUMENT]` |
-| Benchmarks | provided or discovered links checked on a date | reference behaviour relevant to this decision | `[BENCHMARK]` |
-| Synthetic walkthroughs | research walkthrough reports, including nested session directories and older flat reports | hypotheses and missing cases only | `[SYNTHETIC]` |
+| Source                              | Where                                                                                               | What it can support                                                              | Tag           |
+| ----------------------------------- | --------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- | ------------- |
+| Interview notes and direct accounts | research directory; a participant's account captured during this session                            | the person's experience or stated preference, within that account's limits       | `[INTERVIEW]` |
+| Data extracts                       | support, analytics, sales or other research exports                                                 | measured frequency, cost, baselines and segments, with source, period and filter | `[DATA]`      |
+| Workshop and decision records       | research directory                                                                                  | choices, constraints and their owners; separate observations from beliefs        | `[DOCUMENT]`  |
+| Repository                          | README, specs, design contract, compatibility surfaces, relevant schema and routes                  | what exists or was specified; never demand by itself                             | `[PRODUCT]`   |
+| Tracker                             | read-only **search-issues**, **search-prs**, **get-issue**, **list-issue-comments** when configured | existing work, support accounts and recorded decisions                           | `[DOCUMENT]`  |
+| Benchmarks                          | provided or discovered links checked on a date                                                      | reference behaviour relevant to this decision                                    | `[BENCHMARK]` |
+| Synthetic walkthroughs              | research walkthrough reports, including nested session directories and older flat reports           | hypotheses and missing cases only                                                | `[SYNTHETIC]` |
 
 Read enough of each source to assess what it actually supports. A filename or source tag is not proof. Identify copies of the same source and state where provenance or independence is unknown. Follow `references/evidence-tiers.md` for the distinction between observations, decisions and hypotheses.
 
@@ -61,6 +61,7 @@ If the user explicitly chooses to proceed from beliefs, draft those as `[ASSUMPT
 
 ```markdown
 # Interview — {role}, {date}
+
 - Recent situation or task the person described:
 - What they did, step by step:
 - What worked, what did not, and any consequences they described:
@@ -75,6 +76,7 @@ If the user explicitly chooses to proceed from beliefs, draft those as `[ASSUMPT
 
 ```markdown
 # Workshop — {date}, {who was in the room, by role}
+
 - Decision the session had to produce:
 - Decider:
 - Per stakeholder: expectation, definition of success, main worry:
@@ -91,6 +93,7 @@ If the user explicitly chooses to proceed from beliefs, draft those as `[ASSUMPT
 
 ```markdown
 # Data request — {what}, requested {date}
+
 - Question it answers:
 - Source system and owner:
 - Filter and period:
@@ -102,6 +105,7 @@ If the user explicitly chooses to proceed from beliefs, draft those as `[ASSUMPT
 
 ```markdown
 # Benchmark — {reference product}, checked {date} by {role}
+
 - Link:
 - What it does for our users' job, in one paragraph:
 - What it does well:
@@ -114,6 +118,7 @@ If the user explicitly chooses to proceed from beliefs, draft those as `[ASSUMPT
 
 ```markdown
 # D{nn} — {decision in one line}
+
 - Date, owner:
 - Context and the options weighed:
 - Decision and why:

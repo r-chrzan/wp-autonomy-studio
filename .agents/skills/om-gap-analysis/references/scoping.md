@@ -41,6 +41,7 @@ coverage_categories:
   - data-privacy
   - audit-log
 ---
+
 <!-- coverage_categories is the completeness checklist bin/gap-checklist-gate enforces per epic.
      Extend it per domain when a run needs more (e.g. clinical-data-retention).
      Do NOT put inline `#` comments on the list or on coverage lines — the gate parses
@@ -51,12 +52,15 @@ coverage_categories:
 > This file is the source of truth across all three phases.
 
 ## Epic 1: <Epic name>
+
 **Goal**: <one-sentence outcome>
 **Business value**: <why it matters to the client>
 
 #### Coverage
+
 <!-- Populated in Phase 1.5; checked by bin/gap-checklist-gate before Phase 2.
      Each category is EITHER a real story ref (`Story <id>`) OR `out-of-scope: <reason>` — never blank. -->
+
 - negative-path: Story 1.2
 - abuse-case: out-of-scope: <reason the client confirmed>
 - race-condition: Story 1.4
@@ -65,6 +69,7 @@ coverage_categories:
 - audit-log: Story 1.5
 
 ### Story 1.1: <Story title>
+
 - **Description**: <as a [role], I want [capability], so that [outcome]>
 - **Acceptance criteria**:
   - [ ] <criterion>
@@ -74,7 +79,9 @@ coverage_categories:
 - **Status**: pending
 
 #### Gap analysis
+
 <!-- Filled by phase 2 via the gate. Do not edit by hand. -->
+
 - **Verdict**: ⚪ not yet analyzed
 - **Evidence**:
 - **Criteria coverage**:
@@ -89,13 +96,13 @@ coverage_categories:
 
 ## Phase 1.5 — Completeness gate (before `/clear` → Phase 2)
 
-**Why this exists.** Phase 2 verifies *whatever stories the tree contains*. A happy-path-only tree — "user books an appointment", nothing about double-booking, cancellation, permission denial, concurrency, GDPR, audit — yields a confident, complete-*looking* backlog that silently omits the hard 20%. Phase 1 only *mentions* NFRs, and a mention does not bind. So completeness is enforced **structurally**: a deterministic check outside the model loop.
+**Why this exists.** Phase 2 verifies _whatever stories the tree contains_. A happy-path-only tree — "user books an appointment", nothing about double-booking, cancellation, permission denial, concurrency, GDPR, audit — yields a confident, complete-_looking_ backlog that silently omits the hard 20%. Phase 1 only _mentions_ NFRs, and a mention does not bind. So completeness is enforced **structurally**: a deterministic check outside the model loop.
 
 **The check is `bin/gap-checklist-gate`, not a prose reminder.** Every epic must address each category in the MD's `coverage_categories` list, satisfied one of two ways: a real `Story <id>` reference **or** `out-of-scope: <reason>`. Blank, reasonless, or a reference to a story not in the MD all fail.
 
 **Steps:**
 
-1. **Populate the per-epic `#### Coverage` blocks.** For each epic, propose the missing negative-path / NFR stories *or* the explicit `out-of-scope: <reason>` for each unaddressed category, and write them into the block (adding the stories to the tree where needed). Populating is authoring work; it is not what binds.
+1. **Populate the per-epic `#### Coverage` blocks.** For each epic, propose the missing negative-path / NFR stories _or_ the explicit `out-of-scope: <reason>` for each unaddressed category, and write them into the block (adding the stories to the tree where needed). Populating is authoring work; it is not what binds.
    - **Delegate the critique when you can.** When the `om-app-spec-writing` skill is installed, invoke it in story-critique mode on the tree — `om-app-spec-writing --stories .ai/gap-analysis/<project>.md` — and read its findings: each **Proposed story** is tagged with the epic and coverage category it addresses, each **Out-of-scope candidate** names a category that may not apply. It writes nothing; you decide what enters the tree. Add the proposed stories you accept (new stable IDs, `Status: pending`), fold **Missing path** findings into the affected stories' acceptance criteria, and note every rejected proposal in one line.
    - **Not installed** → do the same critique inline: for each epic and each unaddressed category, ask "what goes wrong here — denial, conflict, concurrency, leakage, missing trail?" and write the story or the out-of-scope candidate yourself.
    - **Out-of-scope reasons are the client's.** Every `out-of-scope: <reason>` is confirmed by the user (batch them in one numbered block per run); never write a reason the user did not give or confirm.
@@ -107,4 +114,4 @@ coverage_categories:
    - **exit 1** → at least one epic has a category in neither state (the gate prints which epic + which category). **Do not start Phase 2.** Go back to step 1 for the flagged epics.
 3. **Only on exit 0**, hand off to Phase 2.
 
-**Known limitation (scope it honestly, mirror `gap-validate-finding`).** A green checklist means *these declared dimensions are addressed*, **not** *the tree is complete*. A dimension not on the list (i18n, data-migration, observability) passes untouched — that is the price of decidability. You cannot enumerate every missing story, but you *can* decide "does each epic have a negative-path story or an explicit N/A per fixed category." Extend `coverage_categories` per domain when a run needs more; do not replace the gate with prose.
+**Known limitation (scope it honestly, mirror `gap-validate-finding`).** A green checklist means _these declared dimensions are addressed_, **not** _the tree is complete_. A dimension not on the list (i18n, data-migration, observability) passes untouched — that is the price of decidability. You cannot enumerate every missing story, but you _can_ decide "does each epic have a negative-path story or an explicit N/A per fixed category." Extend `coverage_categories` per domain when a run needs more; do not replace the gate with prose.

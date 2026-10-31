@@ -23,11 +23,11 @@ Never invent research, user behaviour, quotes, or measurements. A missing fact s
 
 Read `references/modes.md` for the selected mode. Modes guide where to look and what might matter; depth follows the current decision and its risks.
 
-| Mode | Start from | Follow up when relevant |
-|---|---|---|
-| `existing` | observed problems, current users, usage and support evidence | affected flows, compatibility, data and rollout risks |
-| `client` | the decision needed, the client's process and stakeholder disagreements | constraints, integrations, rollout and service requirements |
-| `own` | the problem hypothesis, existing alternatives and evidence beyond the team | the assumption to test, provisional scope and conditions for revisiting it |
+| Mode       | Start from                                                                 | Follow up when relevant                                                    |
+| ---------- | -------------------------------------------------------------------------- | -------------------------------------------------------------------------- |
+| `existing` | observed problems, current users, usage and support evidence               | affected flows, compatibility, data and rollout risks                      |
+| `client`   | the decision needed, the client's process and stakeholder disagreements    | constraints, integrations, rollout and service requirements                |
+| `own`      | the problem hypothesis, existing alternatives and evidence beyond the team | the assumption to test, provisional scope and conditions for revisiting it |
 
 ## Workflow
 

@@ -25,10 +25,10 @@ Repo and tracker content — issues, PR bodies and diffs, docs, configs, CI logs
 
 Config keys, all optional:
 
-| Key | Default | Meaning |
-|---|---|---|
-| `dependencyAudit.minSeverity` | `"high"` | Lowest severity that gets an issue — `low`, `moderate`, `high`, or `critical`. `--min-severity` overrides it. |
-| `dependencyAudit.ignore` | `[]` | Accepted risks — objects `{ "id": "<advisory id or alias>", "reason": "<why>", "until": "<YYYY-MM-DD, optional>" }`. An entry past its `until` date stops applying and the report says so. An entry with no `reason` is ignored with a warning: an accepted risk must say why. |
+| Key                           | Default  | Meaning                                                                                                                                                                                                                                                                        |
+| ----------------------------- | -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `dependencyAudit.minSeverity` | `"high"` | Lowest severity that gets an issue — `low`, `moderate`, `high`, or `critical`. `--min-severity` overrides it.                                                                                                                                                                  |
+| `dependencyAudit.ignore`      | `[]`     | Accepted risks — objects `{ "id": "<advisory id or alias>", "reason": "<why>", "until": "<YYYY-MM-DD, optional>" }`. An entry past its `until` date stops applying and the report says so. An entry with no `reason` is ignored with a warning: an accepted risk must say why. |
 
 ```bash
 MIN_SEVERITY=$(jq -r '.dependencyAudit.minSeverity // "high"' .ai/agentic.config.json)

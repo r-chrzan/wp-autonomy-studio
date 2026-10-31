@@ -239,7 +239,7 @@ In PR mode this skill consumes a `{prNumber}` (the `PR:` reference line a PR-pro
     - **PR mode, inherited chain lock** (re-entry — a flow runner such as
       `om-auto-fix-issue` or `om-auto-fix-pr` handed the lock off to this run):
       do not release it. Post the completion notice as `🤖 … completed: {verdict}.
-      Lock retained — chain continues.` and leave the label and assignee in place;
+Lock retained — chain continues.` and leave the label and assignee in place;
       the chain's driving skill releases at the end of its run
       (`references/claim-pr.md`, chained hand-off).
 

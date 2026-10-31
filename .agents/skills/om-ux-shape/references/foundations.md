@@ -40,4 +40,3 @@ Preserve the shared principles, not the branding of any framework:
 - design the whole interaction, including failure;
 - connect user value to business value;
 - make complexity and AI earn their place.
-

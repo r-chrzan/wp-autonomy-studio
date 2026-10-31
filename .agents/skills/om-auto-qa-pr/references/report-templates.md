@@ -14,9 +14,22 @@ in local mode and the source of the PR comment in PR mode.
   "mode": "pr | local",
   "target": { "prNumber": 1234, "title": "…", "branch": "…", "headSha": "…" },
   "verdict": "PASS | FAIL | PARTIAL",
-  "environment": { "baseUrl": "…", "role": "…", "startedByThisRepo": true, "browserProvider": "agent-browser | playwright | custom" },
+  "environment": {
+    "baseUrl": "…",
+    "role": "…",
+    "startedByThisRepo": true,
+    "browserProvider": "agent-browser | playwright | custom"
+  },
   "scenario": [
-    { "step": 1, "priority": "P1", "action": "…", "expected": "…", "observed": "…", "result": "PASS", "screenshot": "step-01-…​.png" }
+    {
+      "step": 1,
+      "priority": "P1",
+      "action": "…",
+      "expected": "…",
+      "observed": "…",
+      "result": "PASS",
+      "screenshot": "step-01-…​.png"
+    }
   ],
   "hasUiTest": false,
   "notes": ["…"]
@@ -34,14 +47,16 @@ proof. Omit empty notes and repeated descriptions of the PR.
 **Verdict:** {✅ PASS | ❌ FAIL | ⚠️ PARTIAL} — {changed behavior exercised and decisive observation or limit}.
 **Verified:** {branch} @ {headSha (short)}; `{baseUrl}`, role `{role}`, browser `{provider}`.
 
-| # / Priority | Route and action | Expected | Observed | Result / Evidence |
-|--------------|------------------|----------|----------|-------------------|
-| 1 / P1 | {route, setup, action} | {expected} | {observed} | {PASS / FAIL / not exercised; screenshot link} |
+| # / Priority | Route and action       | Expected   | Observed   | Result / Evidence                              |
+| ------------ | ---------------------- | ---------- | ---------- | ---------------------------------------------- |
+| 1 / P1       | {route, setup, action} | {expected} | {observed} | {PASS / FAIL / not exercised; screenshot link} |
 
 ### 📸 Screenshots
+
 ![{screen and state; what this image proves}]({path or url})
 
 ### ⚠️ Not exercised
+
 {Only meaningful coverage limits, including missing permissions, empty/error
 states, or environmental blockers; say what remains to be checked.}
 ```

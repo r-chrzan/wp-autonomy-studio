@@ -24,7 +24,7 @@ Only if it is not already covered by an existing entry in
 
 ```markdown
 - **[One-line gotcha title]** — [what breaks, why, and the fix/workaround if
-  known]. *Seen while testing [link] — [one clause of context].*
+  known]. _Seen while testing [link] — [one clause of context]._
 ```
 
 Keep the same terse, evidence-based style as existing entries — this file

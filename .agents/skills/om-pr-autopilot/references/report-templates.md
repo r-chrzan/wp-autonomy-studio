@@ -51,7 +51,7 @@ its own vocabulary:
   with tests → medium; docs, dependencies, test-only, typo, or cosmetic → low.
 
 Keep the full applied set in one marker-idempotent
-`` 🤖 `om-pr-autopilot` — 🏷️ label rationale `` comment, updated through
+``🤖 `om-pr-autopilot` — 🏷️ label rationale`` comment, updated through
 **update-comment**. Use one concise reason per label; link this comment from the
 run summary only when a label issue affects the next action.
 

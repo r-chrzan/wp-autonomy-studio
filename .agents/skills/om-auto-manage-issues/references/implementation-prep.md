@@ -60,7 +60,7 @@ Check: {test or reproduction that could confirm the fix}.
 Next: `om-auto-fix-issue {issueId}`.
 ```
 
-Recognize the legacy `` 🤖 `om-auto-manage-issues` implementation notes — ``
+Recognize the legacy ``🤖 `om-auto-manage-issues` implementation notes —``
 marker, including bare skill names, when checking for existing notes. Keep the
 comment near 40–100 words unless necessary findings require more. Put substantial
 analysis in collapsed detail, and optionally add a one-line area pointer to the

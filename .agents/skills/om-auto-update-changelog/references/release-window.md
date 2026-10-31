@@ -10,7 +10,7 @@ LAST_TAG=$(git describe --tags --abbrev=0 2>/dev/null || true)
 git fetch origin "$RELEASE_REF" --tags --quiet
 ```
 
-In a single-branch repo `RELEASE_REF` equals `BASE_BRANCH` and the two enumeration modes agree. In a repo with an integration branch that runs ahead of the released branch, they do **not**: a `baseRefName` filter on the integration branch lists unshipped work *and* misses the PRs that landed on the released branch with the cut. When `RELEASE_REF` differs from `BASE_BRANCH`, or the repo has any branch that merges into the released branch, use reachability mode.
+In a single-branch repo `RELEASE_REF` equals `BASE_BRANCH` and the two enumeration modes agree. In a repo with an integration branch that runs ahead of the released branch, they do **not**: a `baseRefName` filter on the integration branch lists unshipped work _and_ misses the PRs that landed on the released branch with the cut. When `RELEASE_REF` differs from `BASE_BRANCH`, or the repo has any branch that merges into the released branch, use reachability mode.
 
 ## Reachability mode (default whenever a tag and the release ref are both readable)
 
@@ -26,7 +26,7 @@ Start the calendar window a few days **before** the previous release date. PRs m
 
 ## Pagination — the silent truncation
 
-**list-prs** caps at its `limit` (250 in the shipped descriptors) and an active repo exceeds that in a release window. A truncated list produces an entry that is *plausibly* complete and quietly missing work.
+**list-prs** caps at its `limit` (250 in the shipped descriptors) and an active repo exceeds that in a release window. A truncated list produces an entry that is _plausibly_ complete and quietly missing work.
 
 Detect it: when the returned count equals the requested limit, the window is truncated. Split the window into date chunks (`merged:>=A merged:<B`), run **list-prs** per chunk, and dedupe by PR number until every chunk comes back under the cap. Report the total number of PRs enumerated so a reader can sanity-check it against the entry.
 

@@ -20,10 +20,14 @@ End with the skill body's exact, undecorated Output contract lines.
 **Held back**: {Stories whose only role rests on an assumption, with the A0n id. Omit when empty.}
 
 ### E01: {title} ({priority}, {risk}, the highest risk of its stories)
+
 - E01-S01: {outcome}; {priority}, {risk}; {n} criteria; depends on {ids, if any}; decisions D03, R01.
 - E01-S02: {outcome}; {priority}, {risk}; adopt #45 because {coverage and additions}.
+
 ### E02: …
+
 ### E{nn}: Later (parked, not filed as stories)
+
 - {Deferred item and why it is outside the current slice.}
 
 Reply with edits, or "yes" to file. Nothing has been written.

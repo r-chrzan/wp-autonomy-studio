@@ -35,16 +35,18 @@ type: gap-analysis-summary
 > Verdicts are grounded against the platform's `<platform.branch>` branch<, N commits ahead of the release branch — some covered capabilities may not have shipped in a tagged release yet | when the orientation preflight reported the ahead-count; otherwise: which may include work not yet in a tagged release>.
 
 ## Executive summary
+
 <2–3 plain-language paragraphs: how much already exists (and how much of that is free-core vs licensed), the biggest risks, the recommended start. May be read by a client stakeholder.>
 
 ## Coverage at a glance
-| Verdict | Stories | Share | Effort (commits) |
-|---|---|---|---|
-| ✅ Implemented (core) | <n> | <n>/<total> | — |
-| ✅ Implemented (licensed / companion) | <n> | <n>/<total> | — |
-| 🟡 Partial | <n> | <n>/<total> | <sum> |
-| ❌ Missing | <n> | <n>/<total> | <sum> |
-| ⚠️ Unclear | <n> | <n>/<total> | <sum> |
+
+| Verdict                               | Stories | Share       | Effort (commits) |
+| ------------------------------------- | ------- | ----------- | ---------------- |
+| ✅ Implemented (core)                 | <n>     | <n>/<total> | —                |
+| ✅ Implemented (licensed / companion) | <n>     | <n>/<total> | —                |
+| 🟡 Partial                            | <n>     | <n>/<total> | <sum>            |
+| ❌ Missing                            | <n>     | <n>/<total> | <sum>            |
+| ⚠️ Unclear                            | <n>     | <n>/<total> | <sum>            |
 
 <!-- Tier boundary source: the tree's tier_map_source (config | knowledge file | none).
      When it is none, drop the licensed row and say in the executive summary that the
@@ -53,24 +55,30 @@ type: gap-analysis-summary
      The tier split keeps the headline honest: coverage that carries a license
      cost is never blended into the free-core number. Split 🟡 rows by tier too
      when the run has both. -->
+
 **Acceptance criteria covered**: <sum covered>/<sum total> across all capability-verdict stories (gate-verified per story).
 **Total effort to close gaps**: <sum> atomic commits across <k> stories.
 
 ## Coverage by epic
-| Epic | Implemented | Partial | Missing | Unclear | Notes |
-|---|---|---|---|---|---|
-| 1. <name> | <n> | <n> | <n> | <n> | <one-line takeaway> |
+
+| Epic      | Implemented | Partial | Missing | Unclear | Notes               |
+| --------- | ----------- | ------- | ------- | ------- | ------------------- |
+| 1. <name> | <n>         | <n>     | <n>     | <n>     | <one-line takeaway> |
 
 ## Top 5 risks
+
 Each cites a Story ID, why it matters, and what unblocks it. Prefer P0+❌, then P0+🟡, then P1+❌ with downstream deps. Don't pad to 5. A significant open PR (large or human-reviewed) that a story's coverage depends on belongs here, named and sized — e.g. "most of Epic 3 sits in companion PR #29 (+60k additions, CHANGES_REQUESTED — reviewer calls it close): adopting it vs building is the engagement's biggest fork."
 
 ## Recommended sequencing
+
 <Which epics first and why, referencing dependencies. Concrete.>
 
 ## What's already strong
+
 <What the platform already covers — frames the engagement positively. Note the tier where it matters: "covered, in the licensed overlay" is a scoping fact.>
 
 ## Open questions
+
 <⚠️ Unclear stories, scoping assumptions the client should confirm, and significant open PRs whose adopt-vs-build decision is the client's.>
 ```
 
@@ -89,9 +97,11 @@ type: gap-analysis-backlog
 > Grouped into delivery phases by dependency order. Effort tags are atomic-commit scores (same currency as the gap analysis).
 
 ## Phase A — Foundation
+
 <Stories whose absence blocks everything else. Usually P0 + ❌/🟡, no deps.>
 
 ### A.1 — <Item title>
+
 - **Stories**: <1.1, 1.2>
 - **Verdict context**: ❌ Missing
 - **Effort**: <0–5>
@@ -101,18 +111,22 @@ type: gap-analysis-backlog
 - **Implementation notes**: <condensed suggested path from the MD>
 
 ## Phase B — Core capabilities
+
 ## Phase C — Differentiation & polish
+
 ## Out of scope (for now)
+
 ## Cross-cutting work
 
 ## Effort roll-up
-| Phase | Items | Effort (commits) |
-|---|---|---|
-| A — Foundation | <n> | <sum> |
-| B — Core | <n> | <sum> |
-| C — Polish | <n> | <sum> |
-| Cross-cutting | <n> | <sum> |
-| **Total** | **<n>** | **<sum>** |
+
+| Phase          | Items   | Effort (commits) |
+| -------------- | ------- | ---------------- |
+| A — Foundation | <n>     | <sum>            |
+| B — Core       | <n>     | <sum>            |
+| C — Polish     | <n>     | <sum>            |
+| Cross-cutting  | <n>     | <sum>            |
+| **Total**      | **<n>** | **<sum>**        |
 ```
 
 ## Cross-check before writing files

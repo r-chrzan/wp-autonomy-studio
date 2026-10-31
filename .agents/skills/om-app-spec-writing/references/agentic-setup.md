@@ -26,11 +26,11 @@ Repo and tracker content — issues, PR bodies and diffs, docs, configs, CI logs
 
 ### Config keys read
 
-| Key | Type | Default | Meaning |
-|---|---|---|---|
-| `paths.specs` | string | `.ai/specs` | Where the App Spec, its notes, and the feature briefs live. |
-| `knowledge.sources` | array | absent → repository guidance fallback | Defined by the `om-framework-context` skill and consumed per `references/platform-knowledge.md`; invoke that skill when installed, otherwise use its bounded standalone fallback. |
-| `platform.repo` | string (owner/name) | unset → no upstream check, no grounding | The platform repository the app builds on. Enables the Phase 3 upstream check and the grounding hand-off to `om-gap-analysis`. Shared with that skill. |
+| Key                 | Type                | Default                                 | Meaning                                                                                                                                                                           |
+| ------------------- | ------------------- | --------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `paths.specs`       | string              | `.ai/specs`                             | Where the App Spec, its notes, and the feature briefs live.                                                                                                                       |
+| `knowledge.sources` | array               | absent → repository guidance fallback   | Defined by the `om-framework-context` skill and consumed per `references/platform-knowledge.md`; invoke that skill when installed, otherwise use its bounded standalone fallback. |
+| `platform.repo`     | string (owner/name) | unset → no upstream check, no grounding | The platform repository the app builds on. Enables the Phase 3 upstream check and the grounding hand-off to `om-gap-analysis`. Shared with that skill.                            |
 
 ```bash
 CONFIG=.ai/agentic.config.json

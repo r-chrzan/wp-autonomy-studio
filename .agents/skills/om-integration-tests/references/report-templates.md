@@ -23,8 +23,8 @@ Place immediately after the result sentence, before supporting prose. Keep one
 row per failing test with evidence, diagnosis, and next action:
 
 ```markdown
-| Failing test | Evidence | Cause and confidence | Owner | Next action |
-|---|---|---|---|---|
+| Failing test          | Evidence                               | Cause and confidence                                                                                | Owner                                   | Next action             |
+| --------------------- | -------------------------------------- | --------------------------------------------------------------------------------------------------- | --------------------------------------- | ----------------------- |
 | `<path>::<test name>` | {artifact link + decisive observation} | {product regression / test issue / environment or data; mechanism, or hypothesis and missing proof} | {User/Product team / Agent/QA / Shared} | {specific fix or check} |
 ```
 

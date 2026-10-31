@@ -7,7 +7,7 @@ Each substantive claim has a source tag and a pointer in its canonical section. 
 3. `[DOCUMENT]`: a contract, policy, decision record, tracker item or workshop decision. It supports what was specified or agreed. A document containing a guess remains a guess about users.
 4. `[PRODUCT]`: repository code, design contracts, compatibility surfaces or specs. It supports what exists or was specified, not whether users need it.
 5. `[BENCHMARK]`: a reference product checked at a cited link on a stated date. It supports that product's observed behaviour, not demand for ours.
-6. `[SYNTHETIC]`: simulated interviews or persona walkthroughs. Keep these claims under *Hypotheses to test*, each with a real-world check. They never support a problem, user or success criterion.
+6. `[SYNTHETIC]`: simulated interviews or persona walkthroughs. Keep these claims under _Hypotheses to test_, each with a real-world check. They never support a problem, user or success criterion.
 7. `[ASSUMPTION]`: an unverified belief or prediction. Name its origin when known and link to its test in Riskiest assumptions. Never invent a source to complete the format.
 
 ## Separate observations, decisions and hypotheses

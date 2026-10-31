@@ -12,6 +12,7 @@ The questions step 3 of `om-setup-agent-pipeline` asks the user (skipped with `-
    - a custom provider — scaffold from `TEMPLATE.md`; stop tracker-driven work until every required operation is filled in.
 
    This sets the config's `tracker` field to the selected primary descriptor. Before accepting `gitlab`, run its **auth-check** (`glab` and `jq` installed, `glab` authenticated for the remote's host). Before accepting `forgejo`, run its **auth-check** (`curl` 7.76+, `jq`, the remote's host reachable, and a token in `FORGEJO_TOKEN_<HOST>` or `FORGEJO_TOKEN` with the scopes its Prerequisites list). Before accepting a split provider, confirm its issue CLI and the companion `gh` CLI are installed/authenticated, and explain the provider-specific environment/config prerequisites from its descriptor.
+
 3. Which browser provider to install (default: `agent-browser`; `playwright` is
    the compatibility choice). Explain that the selected descriptor owns
    autonomous CLI/browser provisioning and that repository-native E2E suites

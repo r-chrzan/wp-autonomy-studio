@@ -6,7 +6,7 @@ authors or splits. These are what make a skill "OM-shaped" rather than generic.
 ## The meta-constraint: never reproduce the forbidden literals
 
 `scripts/lint.sh` greps the whole `skills/` tree (recursively, including
-`references/`) for forbidden tokens. A skill that *documents* those tokens would
+`references/`) for forbidden tokens. A skill that _documents_ those tokens would
 match its own rule and fail the lint. Therefore this skill — and every skill it
 generates — describes the constraints **abstractly** and points to
 `scripts/lint.sh` as the source of truth, instead of spelling the literals. This

@@ -36,12 +36,12 @@ Every per-unit next step, deduplicated on exact command equality (the highest-se
 
 ## Risk heatmap
 
-| OWASP category | Blocker | Major | Minor | Notes |
-|---|---|---|---|---|
-| A01 Broken Access Control | {n} | {n} | {n} | {one sentence} |
-| A02 Cryptographic Failures | {n} | {n} | {n} | {one sentence} |
-| … through A10 … | | | | |
-| Out of scope (not OWASP) | — | — | — | {n} findings |
+| OWASP category             | Blocker | Major | Minor | Notes          |
+| -------------------------- | ------- | ----- | ----- | -------------- |
+| A01 Broken Access Control  | {n}     | {n}   | {n}   | {one sentence} |
+| A02 Cryptographic Failures | {n}     | {n}   | {n}   | {one sentence} |
+| … through A10 …            |         |       |       |                |
+| Out of scope (not OWASP)   | —       | —     | —     | {n} findings   |
 
 Withheld findings count in their row; the notes never describe them.
 
@@ -100,9 +100,9 @@ The brief contains nothing that is withheld. When the priority is raised, the PR
 ```markdown
 🔍 `om-auto-sec-report` {window caption}: {units} units ({partial} partial, {failed} failed) — {N blocker, M major, L minor}; top {A01, A10}.
 🎯 Recommended next run: `om-auto-sec-report-pr {target}` — {why}.
-⚠️ NEEDS HUMAN CONFIRMATION: {W} finding(s) withheld across {k} unit(s) — details in `{WITHHELD_DIR}` on this machine; disclose via {SECURITY.md channel | the maintainers' private security channel}.   ← only when W > 0
+⚠️ NEEDS HUMAN CONFIRMATION: {W} finding(s) withheld across {k} unit(s) — details in `{WITHHELD_DIR}` on this machine; disclose via {SECURITY.md channel | the maintainers' private security channel}. ← only when W > 0
 📝 Report: {ANALYSIS_DIR path on the PR | local path in local mode}.
-PR: #<number> (link: <full PR URL>)                                                                ← pr mode only
+PR: #<number> (link: <full PR URL>) ← pr mode only
 ```
 
 A local run emits no `PR:` line; never emit a nonexistent PR. An interrupted run leads with 🔁 and names either the ledger resume (`om-auto-sec-report {windowSpec} --slug {SLUG}`) or `om-auto-create-pr`'s resume line (`om-auto-continue-pr {prNumber}`).

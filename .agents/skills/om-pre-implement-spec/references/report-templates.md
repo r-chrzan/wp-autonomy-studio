@@ -11,46 +11,57 @@ The saved analysis report and the short terminal summary `om-pre-implement-spec`
 Spec: `{spec path}` {· spec PR #{n} · issue #{n}} · audited {YYYY-MM-DD} against {BACKWARD_COMPATIBILITY.md | fallback surface list}, template {path | built-in}.
 
 ## ⛔ Blocking before implementation
+
 {Only when no-go. Numbered, each one line: the Critical finding and the fix, linking to its section below.}
 
 ## ⚠️ Decisions for the spec owner
+
 {Only when present: unconfirmed `⚠ NEEDS HUMAN CONFIRMATION` defaults, scope-split recommendations, direction questions. Each: the question, the recommended answer, the tradeoff.}
 
 ## 📋 Readiness gate
-| # | Item | Result | Evidence / fix |
-|---|------|--------|----------------|
+
+| #     | Item   | Result  | Evidence / fix                      |
+| ----- | ------ | ------- | ----------------------------------- |
 | R1–R6 | {item} | ✅ / ❌ | {spec section or file; what to add} |
 
 ## 💥 Backward compatibility
+
 {"No protected surface touched." in one line, or:}
-| # | Surface | Phase/step | Change | Severity | Migration path |
-|---|---------|------------|--------|----------|----------------|
-{Missing migration section → one line with severity.}
+
+| #                                                     | Surface | Phase/step | Change | Severity | Migration path |
+| ----------------------------------------------------- | ------- | ---------- | ------ | -------- | -------------- |
+| {Missing migration section → one line with severity.} |
 
 ## 📝 Spec completeness
+
 | Section | Missing / incomplete | Impact | What to add |
-|---------|----------------------|--------|-------------|
+| ------- | -------------------- | ------ | ----------- |
 
 ## 🔍 Repo-rule compliance
+
 | Rule (source) | Spec location | Fix | Severity |
-|---------------|---------------|-----|----------|
+| ------------- | ------------- | --- | -------- |
 
 ## ⚠️ Risks
-| Risk | Level | Impact | Mitigation |
-|------|-------|--------|------------|
-{One table, ordered High → Low.}
+
+| Risk                             | Level | Impact | Mitigation |
+| -------------------------------- | ----- | ------ | ---------- |
+| {One table, ordered High → Low.} |
 
 ## 🔍 Gaps
+
 - **Critical** — {gap}: {what is needed, where in the spec}
 - **Important** — …
 - **Nice-to-have** — …
 
 ## 📋 Remediation plan
+
 1. **Before implementation** — {must-do spec edits}
 2. **During implementation (add to the plan)** — {items that make a conditional verdict safe}
 3. **After implementation (follow-up)** — {items that can wait}
 
 ## 🧪 Audit limits
+
 {What was searched and how (surface families, directories, revision); knowledge sources loaded or missing; checks not run; defaults used because config was absent. Never omit this section when any limit exists.}
 ```
 

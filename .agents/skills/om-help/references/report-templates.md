@@ -20,13 +20,14 @@ Use the client's own invocation syntax when showing the command (for example a l
 
 ```markdown
 🎯 {the direct answer in one or two sentences}.
+
 - **Where:** `{file path, import, or command}` — from `{source file}`.
 - **Rule:** {the MUST/NEVER rule that applies} — `{source file}` › {section}.
 - **Pattern:** {a minimal checklist or a short snippet copied from the source}.
-**Read:** `{file}`, `{file}` {the files the answer is grounded in}
-**Route:** `{skill} {args}` {only when a skill should do the work}
-⚠️ {gap — a knowledge source skipped or not installed; the question not covered by any file read}
-Next: {none | skill args}
+  **Read:** `{file}`, `{file}` {the files the answer is grounded in}
+  **Route:** `{skill} {args}` {only when a skill should do the work}
+  ⚠️ {gap — a knowledge source skipped or not installed; the question not covered by any file read}
+  Next: {none | skill args}
 ```
 
 No file covers the question → say where you looked, answer only what the files support, and label anything else as ungrounded.

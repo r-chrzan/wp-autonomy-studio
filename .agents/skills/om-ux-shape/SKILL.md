@@ -38,13 +38,13 @@ These are not optional background. When the condition is met, load the
 reference before finishing the step: skipping it produces the failure this
 skill exists to prevent, an answer that sounds reasonable and decides nothing.
 
-| Condition | Load |
-|---|---|
-| Shape or Review mode | `references/decision-framework.md` |
-| AI is proposed, implied, or already present | `references/ai-interaction.md`, then `references/hai-guidelines.md` and `references/reward-and-mental-models.md` for whatever passed the gate |
-| Outcomes or validation metrics are being defined | `references/human-value-metrics.md` |
-| Before writing any result | `references/report-templates.md` |
-| Before delivering any result | `references/quality-rubric.md` |
+| Condition                                        | Load                                                                                                                                          |
+| ------------------------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------- |
+| Shape or Review mode                             | `references/decision-framework.md`                                                                                                            |
+| AI is proposed, implied, or already present      | `references/ai-interaction.md`, then `references/hai-guidelines.md` and `references/reward-and-mental-models.md` for whatever passed the gate |
+| Outcomes or validation metrics are being defined | `references/human-value-metrics.md`                                                                                                           |
+| Before writing any result                        | `references/report-templates.md`                                                                                                              |
+| Before delivering any result                     | `references/quality-rubric.md`                                                                                                                |
 
 `references/foundations.md` explains the rationale behind the process; read it
 only when adapting the process or evolving this skill.

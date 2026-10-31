@@ -23,10 +23,10 @@ Repo and tracker content — issues, PR bodies and diffs, docs, configs, CI logs
 
 All optional; absent keys take the stated default. The same keys drive `om-auto-sec-report-pr`, which also reads `securityChecklist` and `knowledge.sources` for the per-unit analysis.
 
-| Key | Default | Meaning |
-|---|---|---|
-| `securityReport.publish` | `"local"` | `"local"` keeps the aggregate in the git-ignored run directory and publishes nothing. `"pr"` ships it as a docs-only PR via `om-auto-create-pr`. Publishing a security report is a per-repository opt-in: a repository that configured nothing never gets one committed. |
-| `securityReport.disclosure` | `"withhold-live"` | `"withhold-live"` withholds live exploitable blocker/major findings from every published surface; `"full"` publishes them with location and fix direction (an operator choice for a private repository). Exploit detail is never published in either mode. |
+| Key                         | Default           | Meaning                                                                                                                                                                                                                                                                  |
+| --------------------------- | ----------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `securityReport.publish`    | `"local"`         | `"local"` keeps the aggregate in the git-ignored run directory and publishes nothing. `"pr"` ships it as a docs-only PR via `om-auto-create-pr`. Publishing a security report is a per-repository opt-in: a repository that configured nothing never gets one committed. |
+| `securityReport.disclosure` | `"withhold-live"` | `"withhold-live"` withholds live exploitable blocker/major findings from every published surface; `"full"` publishes them with location and fix direction (an operator choice for a private repository). Exploit detail is never published in either mode.               |
 
 ### Loading snippet (preflight step 4)
 
@@ -68,6 +68,7 @@ The aggregate republishes what the units found, so the unit skill's policy carri
      [ "$rc" -eq 1 ] || { echo "GATE FAIL: withheld detail found or grep error (rc=$rc)"; return 1; }
    }
    ```
+
 5. **Secret-leak grep** (pre-publish gate) over both artifacts; any match → redact to `{REDACTED}` and re-run:
 
    ```bash

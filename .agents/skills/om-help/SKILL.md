@@ -25,7 +25,7 @@ Read-only. Do not edit repository files, commit, mutate the tracker, or invoke t
    - **Navigation** — "what now?", "which skill?", "where do I start?", "what comes after X?";
    - **Knowledge** — "how do I add X?", "where does Y go?", "what is the rule for Z?";
    - **Inventory** — "what skills do I have?".
-   A mixed request can take several routes; routes are not mutually exclusive.
+     A mixed request can take several routes; routes are not mutually exclusive.
 
 2. **Read the context** (navigation; read-only) — current branch, working-tree state, commits ahead of `BASE_BRANCH`, recent files in `SPECS_DIR`, and the user's open PRs when a tracker descriptor exists. Commands and the signal → capability table: `references/context-signals.md`.
 

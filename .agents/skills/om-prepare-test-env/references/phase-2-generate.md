@@ -60,6 +60,7 @@ Platform notes to honor in everything generated:
   are committed. Keep generated `.ps1` content ASCII-only: Windows
   PowerShell 5.x misreads UTF-8 without a BOM, and ASCII sidesteps the whole
   encoding question.
+
 - **Paths** — use forward slashes and relative paths everywhere; they work in
   `sh`, PowerShell, git, and Node alike. Never embed an absolute path or a
   drive letter in a generated script; derive locations from the repo root at

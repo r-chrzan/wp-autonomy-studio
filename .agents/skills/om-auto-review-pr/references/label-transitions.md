@@ -26,16 +26,17 @@ Category labels are what the changelog and generated release notes group a PR by
 
 1. Determine the expected category from the diff and the conventional title, using what the PR changes for users:
 
-   | Change | Category |
-   |---|---|
-   | fixes a vulnerability, an auth or data-scoping flaw, or a vulnerable dependency | `security` |
-   | `feat` — new capability or public API | `feature` |
-   | `fix` — incorrect behavior corrected | `bug` |
-   | `refactor`, `perf`, `test`, `ci`, `build`, `chore` with no user-visible behavior change | `refactor` |
-   | `deps` / `chore(deps)` — dependency bumps | `dependencies` |
-   | `docs` only | `documentation` |
+   | Change                                                                                  | Category        |
+   | --------------------------------------------------------------------------------------- | --------------- |
+   | fixes a vulnerability, an auth or data-scoping flaw, or a vulnerable dependency         | `security`      |
+   | `feat` — new capability or public API                                                   | `feature`       |
+   | `fix` — incorrect behavior corrected                                                    | `bug`           |
+   | `refactor`, `perf`, `test`, `ci`, `build`, `chore` with no user-visible behavior change | `refactor`      |
+   | `deps` / `chore(deps)` — dependency bumps                                               | `dependencies`  |
+   | `docs` only                                                                             | `documentation` |
 
    One category is the norm; `security` goes next to `bug` or `dependencies` when the change closes a vulnerability — keep it whenever it applies.
+
 2. If the expected category is missing, add it through `apply_label`; if a present category is wrong, remove it with **unlabel-pr** (only when `LABELS_ENABLED`). Record the change and its reason as the category line of the label-rationale comment.
 3. A category fix alone is never a finding and never changes the verdict; mention it in the report's material changes.
 4. If the title does not read as a release-note line (a conventional title stating the user-visible effect), report a **nit** with a suggested title — renaming is the author's call.
@@ -54,7 +55,7 @@ Category labels are what the changelog and generated release notes group a PR by
 
 ## The consolidated label-rationale comment
 
-Exactly **one** marker-idempotent comment from this skill per PR describes the whole current label state: **one label per line**, each with its emoji from the map below and a full-sentence reason. On every transition (verdict change, priority/risk adjustment, re-review), find the `` 🤖 `om-auto-review-pr` — 🏷️ label rationale `` marker via **list-issue-comments** and rewrite that comment via **update-comment**; create it when absent. Never post an additional per-change comment (when the descriptor lacks **update-comment**, post a replacement stating it supersedes the previous rationale).
+Exactly **one** marker-idempotent comment from this skill per PR describes the whole current label state: **one label per line**, each with its emoji from the map below and a full-sentence reason. On every transition (verdict change, priority/risk adjustment, re-review), find the ``🤖 `om-auto-review-pr` — 🏷️ label rationale`` marker via **list-issue-comments** and rewrite that comment via **update-comment**; create it when absent. Never post an additional per-change comment (when the descriptor lacks **update-comment**, post a replacement stating it supersedes the previous rationale).
 
 ```markdown
 🤖 `om-auto-review-pr` — 🏷️ label rationale

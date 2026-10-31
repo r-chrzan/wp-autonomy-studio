@@ -238,86 +238,113 @@ linear issue comment update "{commentId}" --body-file <body-file>
 Every operation in this section executes the same-named operation from `.ai/trackers/github.md`, preserving its inputs, outputs, guards, pagination, and cross-repository rules.
 
 #### get-pr
+
 Delegate to GitHub **get-pr**.
 
 #### list-prs
+
 Delegate to GitHub **list-prs**.
 
 #### search-prs
+
 Delegate to GitHub **search-prs**. Search for a Linear key such as `ENG-123` as plain text rather than a GitHub `#123` reference.
 
 #### create-pr
+
 Delegate to GitHub **create-pr**. Reference the Linear key in the body, then use **comment-issue** to attach the resulting PR URL to Linear.
 
 #### update-pr
+
 Delegate to GitHub **update-pr**.
 
 #### comment-pr
+
 Delegate to GitHub **comment-pr**.
 
 #### attach-image-evidence
+
 Delegate to GitHub **attach-image-evidence**.
 
 #### assign-pr / unassign-pr
+
 Delegate both operations to GitHub.
 
 #### label-pr / unlabel-pr
+
 Delegate both operations and all PR label guards to GitHub.
 
 #### get-pr-diff
+
 Delegate to GitHub **get-pr-diff**.
 
 #### get-pr-files
+
 Delegate to GitHub **get-pr-files**.
 
 #### checkout-pr
+
 Delegate to GitHub **checkout-pr**.
 
 #### review-pr
+
 Delegate to GitHub **review-pr**.
 
 #### merge-pr
+
 Delegate to GitHub **merge-pr**. After a successful merge, call Linear **close-issue** explicitly.
 
 #### mark-pr-ready
+
 Delegate to GitHub **mark-pr-ready**.
 
 #### get-pr-checks
+
 Delegate to GitHub **get-pr-checks**.
 
 #### get-required-checks
+
 Delegate to GitHub **get-required-checks**.
 
 #### get-pr-comment / get-review-comment
+
 Delegate both operations to GitHub.
 
 #### list-review-comments
+
 Delegate to GitHub **list-review-comments**.
 
 ### CI runs
 
 #### list-runs
+
 Delegate to GitHub **list-runs**.
 
 #### get-run
+
 Delegate to GitHub **get-run**.
 
 #### get-run-failed-logs
+
 Delegate to GitHub **get-run-failed-logs**.
 
 #### rerun-failed
+
 Delegate to GitHub **rerun-failed**.
 
 #### watch-run
+
 Delegate to GitHub **watch-run**.
 
 ### Labels
 
 #### list-labels
+
 Delegate to GitHub **list-labels**; this is the PR label taxonomy setup inspects.
 
 #### create-label
+
 Delegate to GitHub **create-label**.
 
 #### ensure-label-taxonomy
+
 Delegate to GitHub **ensure-label-taxonomy**. Linear issue-label provisioning remains an explicit team-owned setup step described under Label guards.

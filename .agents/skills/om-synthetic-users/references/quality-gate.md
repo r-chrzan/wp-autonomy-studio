@@ -4,7 +4,7 @@ Apply to the drafted report before it is written, and once more to the written f
 
 ## Personas and panel
 
-1. Every persona line carries a tag and a source that exists; assumed lines are listed under *No basis for*.
+1. Every persona line carries a tag and a source that exists; assumed lines are listed under _No basis for_.
 2. No name, age, city, photo, biography, or trait profile without a source anywhere.
 3. Every persona comes from a segment the brief's Target group names or the data shows; the panel's composition follows the data or is declared assumed; at least one persona barely cares.
 4. The panel is not homogeneous: personas differ in objections, tools, and vocabulary; no single modern tool, workaround, or opinion is proposed by everyone.
@@ -18,7 +18,7 @@ Apply to the drafted report before it is written, and once more to the written f
 
 ## Findings
 
-9. Every finding survived every run and carries its weight and spread; findings inside each other's spread are reported as tied; single-run items sit under *Seen once*.
+9. Every finding survived every run and carries its weight and spread; findings inside each other's spread are reported as tied; single-run items sit under _Seen once_.
 10. Every finding carries `[SYNTHETIC]` on its own line, names the persona ids and runs behind it, and is paired with a real-user check: who to recruit (role), what to ask or measure, and which brief assumption (`A0n`) it settles when one applies.
 11. No number from a persona leaves the report as a share of users or a prediction; a quantity a persona states is either quoted from a cited passage or flagged as invented and dropped.
 12. The report uses "would", never "validated", "confirmed", "users said", or "users want".

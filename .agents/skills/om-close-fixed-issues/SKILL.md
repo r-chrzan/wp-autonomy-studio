@@ -5,7 +5,7 @@ description: Close the tracker issues that recently merged PRs authoritatively f
 
 # Close Fixed Issues (reconcile merged PRs ↔ tracker)
 
-Maintenance skill. Walk a window of recent pull requests; where a PR authoritatively closes an issue, close the issue with a linked comment; where a PR *was closed without merge* and claimed to fix an issue, leave an informational comment on the issue instead of closing it. Never act on bare `#N` mentions — only on authoritative close links.
+Maintenance skill. Walk a window of recent pull requests; where a PR authoritatively closes an issue, close the issue with a linked comment; where a PR _was closed without merge_ and claimed to fix an issue, leave an informational comment on the issue instead of closing it. Never act on bare `#N` mentions — only on authoritative close links.
 
 ## When to use
 
@@ -56,7 +56,7 @@ Maintenance skill. Walk a window of recent pull requests; where a PR authoritati
 
    **4c. Closed without merge.** Post the closed-without-merge informational comment from `references/report-templates.md` via **comment-issue**; do **not** close. When a different merged PR in the same window declares `Supersedes #{prNumber}`, link it via the template's `supersededBySuffix`.
 
-5. **Honor `--dry-run`.** When set: do **not** post comments, close issues, or add/remove labels or assignees. Print every mutation the real run *would* have made, one per line, prefixed with `DRY-RUN:`. The unmatched-mentions section from step 3 is diagnosis rather than a mutation, so it is printed unchanged and without the prefix — a dry run is exactly when a team checks whether its `closeKeywords` are complete.
+5. **Honor `--dry-run`.** When set: do **not** post comments, close issues, or add/remove labels or assignees. Print every mutation the real run _would_ have made, one per line, prefixed with `DRY-RUN:`. The unmatched-mentions section from step 3 is diagnosis rather than a mutation, so it is printed unchanged and without the prefix — a dry run is exactly when a team checks whether its `closeKeywords` are complete.
 
 6. **Release the claim.** Always remove `in-progress` (via the guarded helper) from issues the run added it to, even on error. Wrap the mutation block in a `trap`/finally so a crash or early stop still clears the lock. Full procedure: `references/claim-pr.md`.
 

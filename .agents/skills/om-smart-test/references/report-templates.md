@@ -7,8 +7,8 @@ plus the suite table. This skill emits no chaining lines.
 🧪 `om-smart-test`: {✅ all selected tests passed / ❌ N failed in <suite>} — {classification: unit-scoped | test-only | wide | ignored-only}{, [cache hit: <short-sha>]}.
 Base: `{base ref}` ({N} changed files{, local changes only — no base resolved}). Affected units: {list, or "all (wide: <file>)"}.
 
-| Suite | Mode | Why | Result | Ran / total |
-|---|---|---|---|---|
+| Suite  | Mode                                              | Why                                                           | Result                        | Ran / total              |
+| ------ | ------------------------------------------------- | ------------------------------------------------------------- | ----------------------------- | ------------------------ |
 | {name} | {related / direct / unit / full / skip / not run} | {changed unit, dependency, wide file, layer, fallback reason} | {✅ passed / ❌ N failed / —} | {ran} / {total} ({pct}%) |
 
 {Only when relevant: environment — reused test env at <baseUrl> / provisioned via `om-prepare-test-env` / not available (suites marked not run).}

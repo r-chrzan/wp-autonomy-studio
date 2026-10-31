@@ -31,10 +31,10 @@ content in kebab-case.
 ## 3. Leave a one-liner + pointer
 
 In the body, at the exact spot the text left, leave a short one-liner that keeps
-pointing to *the same moment in the flow*, plus a sentence saying *when and why*
+pointing to _the same moment in the flow_, plus a sentence saying _when and why_
 to open the reference. The workflow step must still read as the same step.
 
-Only the section's *intro sentence* may be condensed into the pointer; the
+Only the section's _intro sentence_ may be condensed into the pointer; the
 instruction content itself lives verbatim in the reference.
 
 ## 4. Preserve the description exactly

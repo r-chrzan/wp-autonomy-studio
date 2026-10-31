@@ -25,6 +25,7 @@ merge.
 
    **Do not proceed to stage 2 while the branch is conflicted or actionable findings
    remain.** CI stabilization is reached only once both are clear.
+
 2. **Stabilize CI — the CI procedure below.** Pull check status through the
    tracker, classify each failure (real bug / test bug / flake / infra), fix the
    real ones with tests, push, re-check. Never go green by weakening a test or
@@ -43,7 +44,7 @@ merge.
 Given the PR (or, in `--ci-only` branch mode, a branch) this drives CI green:
 read the failing checks, diagnose from the actual failure logs, apply minimal fixes
 with regression coverage, push, wait for the re-run, repeat. The one thing it never
-does is *fake* green — deleting tests, loosening assertions, skipping steps, or
+does is _fake_ green — deleting tests, loosening assertions, skipping steps, or
 disabling checks to pass is forbidden, and a repo-local override cannot relax that.
 
 ### Baseline: what is failing?
@@ -56,10 +57,10 @@ disabling checks to pass is forbidden, and a repo-local override cannot relax th
   newest run per workflow; **get-run** for the per-job breakdown.
 
 **The completeness guard — a short check list is not a green one.** The check-run
-surface reports *jobs*, and a workflow run the tracker has already created
+surface reports _jobs_, and a workflow run the tracker has already created
 contributes **no rows at all** until its jobs register. On a head pushed seconds
 ago — which is exactly when this loop looks — the list is legitimately partial, and
-the jobs still to appear are neither passing nor pending but simply *absent*, so the
+the jobs still to appear are neither passing nor pending but simply _absent_, so the
 "nothing failing and nothing pending" test passes vacuously and the loop reports
 green off a run that has not started. Before classifying anything, run **list-runs**
 on the PR head branch, keep the runs whose `headSha` is the PR head SHA, and count
@@ -88,7 +89,7 @@ Per iteration:
    - **Real code bug** — the change (or branch state) genuinely breaks behavior.
      Fix the code, add or extend a regression test.
    - **Test bug** — stale locator/fixture, wrong assumption, nondeterminism in the
-     test itself. Fix the *test's correctness*; never weaken what it proves.
+     test itself. Fix the _test's correctness_; never weaken what it proves.
    - **Flake** — suspected when the failure is unrelated to the diff,
      timing-dependent, or historically intermittent. Before touching code,
      **rerun-failed** once. If it passes on rerun, record it as a flake — do not

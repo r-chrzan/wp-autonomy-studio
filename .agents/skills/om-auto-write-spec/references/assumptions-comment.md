@@ -11,9 +11,9 @@ needs more space. Link the spec for design detail.
 
 Applied these defaults in [the spec]({SPEC_PATH}); correct any answer before merge.
 
-| # | Question | Applied default | Why | Confirm? |
-|---|----------|-----------------|-----|----------|
-| Q1 | {question} | {default} | {concrete reason} | {reversible / ⚠ NEEDS HUMAN CONFIRMATION} |
+| #   | Question   | Applied default | Why               | Confirm?                                  |
+| --- | ---------- | --------------- | ----------------- | ----------------------------------------- |
+| Q1  | {question} | {default}       | {concrete reason} | {reversible / ⚠ NEEDS HUMAN CONFIRMATION} |
 
 {Only for gated rows: the PR remains draft until these assumptions are confirmed.}
 To change a default, edit the spec or reply here before rerunning

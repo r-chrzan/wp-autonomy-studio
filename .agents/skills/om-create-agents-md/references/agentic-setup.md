@@ -39,11 +39,11 @@ injection — it is never executed.
 
 Config keys this skill reads (all optional):
 
-| Key | Default when absent | Used for |
-|---|---|---|
-| `validation.commands` | discovered from the target's manifest (`references/codebase-discovery.md`) | the root file's `Validation Commands`; scoped files prefer scoped commands |
-| `agentsMd.template` | `.ai/agents-md-template.md` when it exists, else the built-in `references/default-template.md` | the repo template (`references/template-contract.md`) |
-| `knowledge.sources` | repository guidance fallback | slot defined by the `om-framework-context` skill; dependency and repo knowledge to cross-reference, never copy |
+| Key                   | Default when absent                                                                            | Used for                                                                                                       |
+| --------------------- | ---------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------- |
+| `validation.commands` | discovered from the target's manifest (`references/codebase-discovery.md`)                     | the root file's `Validation Commands`; scoped files prefer scoped commands                                     |
+| `agentsMd.template`   | `.ai/agents-md-template.md` when it exists, else the built-in `references/default-template.md` | the repo template (`references/template-contract.md`)                                                          |
+| `knowledge.sources`   | repository guidance fallback                                                                   | slot defined by the `om-framework-context` skill; dependency and repo knowledge to cross-reference, never copy |
 
 - **`agentsMd.template`** is a new optional key owned by this skill: a
   repo-relative path to a markdown template. Validate it like any path

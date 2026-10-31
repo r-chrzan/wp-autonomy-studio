@@ -15,13 +15,13 @@ Each run samples new personas from the same segment definitions — the same rol
 
 ## Runs
 
-`--runs` defaults to two; three when the decision is consequential. One run is exploration: it may go into the report only under *Seen once, not reported as a finding*. Cost is panel × runs subagent runs; the defaults (three personas, two runs) take twenty to thirty minutes on a narrative subject and longer on a prototype or the app, and the report records the elapsed time per phase so the next run can be sized.
+`--runs` defaults to two; three when the decision is consequential. One run is exploration: it may go into the report only under _Seen once, not reported as a finding_. Cost is panel × runs subagent runs; the defaults (three personas, two runs) take twenty to thirty minutes on a narrative subject and longer on a prototype or the app, and the report records the elapsed time per phase so the next run can be sized.
 
 ## Consolidation across runs
 
 - A finding — barrier, missing case, contradiction — is reported only when it appeared in **every** run. Its **weight** is the count of personas across runs that hit it; its **spread** is how much that count varied between runs.
 - Two findings are ranked apart only when the gap between their weights is larger than the larger of their two spreads; otherwise they are reported as tied. A ranking is a chain of comparisons, and a comparison inside the error bar is noise.
-- What appeared in one run only goes to *Seen once*, with the persona and the run, so a human can decide whether to chase it.
+- What appeared in one run only goes to _Seen once_, with the persona and the run, so a human can decide whether to chase it.
 - The outlier paragraph: the one persona in fifteen who refused, quit, or misread the product is reported on its own, with the reason, because averages hide exactly the case that changes a decision.
 
 ## Saturation

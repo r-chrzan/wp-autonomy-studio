@@ -5,6 +5,7 @@
 Requires `gh` (authenticated via **auth-check**), `jq`, and `base64`.
 
 #### publish-session-share
+
 `{owner}/{repo}`, `{branch}`, `{shareName}`, and a local `{bundleDir}` → atomically publish the four reviewed session-share artifacts on a new public branch and return repository, branch, commit, branch URL, and raw artifact URLs as JSON.
 
 This operation is intentionally strict: the repository must already be public; the branch must be a new slash-free `session-share-…` ref; and the bundle directory must contain regular, non-symlinked `session.json`, `generated-files.zip`, `manifest.json`, and `privacy-report.json` files within the documented size cap. Git blobs, a tree, and a commit are created first; the public ref is created last, so a preparation failure does not expose a partial branch.
@@ -68,6 +69,7 @@ jq -n \
 ```
 
 #### delete-session-share
+
 `{owner}/{repo}`, `{branch}`, and `{shareName}` → remove only the exact derived session-share ref after a failed issue creation or an explicit retention cleanup request. Deleting a public ref cannot guarantee erasure from clones, forks, caches, logs, or archives.
 
 ```bash

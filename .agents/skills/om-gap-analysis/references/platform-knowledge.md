@@ -18,28 +18,28 @@ Two knowledge shapes carry the profile. Look for them, as markdown sections, in 
 ```markdown
 ## Platform facts
 
-| Fact | Value |
-|---|---|
-| repo | <owner/name> |
-| integration-branch | <branch> |
-| companion-repo | <owner/name> |
-| specs-path | <path>[:<path>…] |
+| Fact               | Value            |
+| ------------------ | ---------------- |
+| repo               | <owner/name>     |
+| integration-branch | <branch>         |
+| companion-repo     | <owner/name>     |
+| specs-path         | <path>[:<path>…] |
 
 ## License tiers
 
-| Path prefix | Tier |
-|---|---|
+| Path prefix    | Tier                       |
+| -------------- | -------------------------- |
 | <path-prefix>/ | <tier name, e.g. licensed> |
 ```
 
 Rows are optional; a missing row simply leaves that fact to the next source. Resolve each fact with this precedence — the first source that has it wins, and every disagreement between two sources is listed in the run report:
 
-| Fact | Precedence |
-|---|---|
-| repo, companion repo | config `platform.*` → repo-owned knowledge (sources 1–3) → dependency knowledge (3) → ask the user |
-| integration branch | config → repo-owned → dependency → the validated checkout's own `Platform facts` (a mismatch there is reported) → **default-branch** of the platform repo |
-| specs path(s) | config → repo-owned → the validated checkout → dependency → `.ai/specs` |
-| license tiers | config `platform.tierMap` → repo-owned → the validated checkout → dependency → none |
+| Fact                 | Precedence                                                                                                                                                |
+| -------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| repo, companion repo | config `platform.*` → repo-owned knowledge (sources 1–3) → dependency knowledge (3) → ask the user                                                        |
+| integration branch   | config → repo-owned → dependency → the validated checkout's own `Platform facts` (a mismatch there is reported) → **default-branch** of the platform repo |
+| specs path(s)        | config → repo-owned → the validated checkout → dependency → `.ai/specs`                                                                                   |
+| license tiers        | config `platform.tierMap` → repo-owned → the validated checkout → dependency → none                                                                       |
 
 - **Confirm what did not come from config.** A repo, branch, or companion value taken from knowledge or from **default-branch** is shown to the user before Phase 2 with its source file, and the skill offers to write it into the config's `platform` section. Never write it unasked.
 - **Tier map materialization.** Write the winning map as `<path-prefix> <tier>` lines to `.ai/tmp/om-gap-analysis/tier-map-<project>.txt` and pass it with `--tier-map`. Record where it came from in the tree frontmatter (`tier_map_source: config | <knowledge file path> | none`), so the summary's tier split is auditable. With no map, every platform-checkout verdict is tier `core` and the summary says no tier boundary was declared.

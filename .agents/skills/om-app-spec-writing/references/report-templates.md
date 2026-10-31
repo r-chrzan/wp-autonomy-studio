@@ -7,9 +7,9 @@ The user-facing shapes `om-app-spec-writing` produces: the Phase 5 handoff summa
 ```markdown
 📝 App Spec `{app name}` is ready for confirmation: {one sentence — who it serves and the measurable goal}.
 
-| Phase | Workflows | Stories | Atomic commits | Blocks ROI? |
-|---|---|---|---|---|
-| 1 — {name} | WF1, WF2 | {n} | {n} | {no / what} |
+| Phase      | Workflows | Stories | Atomic commits | Blocks ROI? |
+| ---------- | --------- | ------- | -------------- | ----------- |
+| 1 — {name} | WF1, WF2  | {n}     | {n}            | {no / what} |
 
 - ✅ Challenger gates: {n}/{n} sections passed{; open WARNINGs logged in §10: n}
 - ✅ Architect checkpoints: {#1, #2 status}
@@ -30,9 +30,9 @@ Three to six lines, then the decomposition table when briefs were written:
 {Decisive open risk or blocker, when one remains.}
 {Next action — the next feature to spec, or what the user must answer.}
 
-| Feature | Phase | Brief | Spec status |
-|---|---|---|---|
-| {goal} | {n} | {path} | {written: <spec path> / next / waiting} |
+| Feature | Phase | Brief  | Spec status                             |
+| ------- | ----- | ------ | --------------------------------------- |
+| {goal}  | {n}   | {path} | {written: <spec path> / next / waiting} |
 ```
 
 ## Review report (`--review`)
@@ -45,17 +45,21 @@ Same shape `om-spec-writing` uses for architectural reviews, applied to the busi
 {Verdict and reason in 1–2 sentences: proceed to hand-off, revise, or resolve a direction call first.}
 
 ## ⚠️ Decision needed
+
 {Only for an unresolved business or scope choice: the question, recommended answer, trade-off, and evidence still needed.}
 
 ## 🔍 Findings
+
 - **{Critical|High|Medium|Low}: {specific problem}.** {Section and checklist item → consequence → recommended correction.}
 
 ## 🧪 Checklist appendix
-| Section | Checklist | Result |
-|---|---|---|
+
+| Section           | Checklist             | Result                         |
+| ----------------- | --------------------- | ------------------------------ |
 | §1.4 Domain Model | entity fields precise | ❌ `case_study` fields untyped |
 
 ## Review limits
+
 {What was not checked — e.g. mappings left docs-only, knowledge sources not installed.}
 ```
 
@@ -69,6 +73,7 @@ Returned to the calling skill, which decides what enters its own file. Keep the 
 ## Story critique — {input file}
 
 ### Epic {id}: {name}
+
 - **Proposed story**: {title} — {as a [role], I want [capability], so that [outcome]}
   - **Addresses**: {coverage category, e.g. negative-path | race-condition | tenant-isolation | …}
   - **Acceptance criteria**: {1–3 criteria}

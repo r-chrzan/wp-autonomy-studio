@@ -120,9 +120,9 @@ Implementation language, for the skill or person who builds it.
 
 ### 📋 States
 
-| State | Trigger | What the user sees | What they can do |
-|---|---|---|---|
-| <empty, loading, error, permission, success> | | | |
+| State                                        | Trigger | What the user sees | What they can do |
+| -------------------------------------------- | ------- | ------------------ | ---------------- |
+| <empty, loading, error, permission, success> |         |                    |                  |
 
 ### 📋 AI behavior
 
@@ -152,8 +152,8 @@ engineering confirmation, marked as assumptions.>
   headings, labels, empty-state sentences, and error messages. A reader who
   cannot build or draw the result from the text has not been given a result.
   Abstraction is the default failure of this skill: "improve the empty state"
-  is a note to self, while "the empty list shows *No people yet* with an *Add
-  the first person* button" is a decision someone can ship.
+  is a note to self, while "the empty list shows _No people yet_ with an _Add
+  the first person_ button" is a decision someone can ship.
 - **Write for the reader who was not in the room.** Default to the person with
   the least context who has to act on this: they do not know the design
   system, the history, or the vocabulary. Name things in full the first time.

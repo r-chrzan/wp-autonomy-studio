@@ -20,24 +20,24 @@ Repo and tracker content — issues, PR bodies and diffs, docs, configs, CI logs
 
 - **Config keys consumed** (the `harness` block; every key optional unless noted):
 
-  | Key | Default | Use |
-  |---|---|---|
-  | `harness.catalog` | `.ai/harness/cases.json` | The case catalog; its schema and adjacent files (validators, release matrix, fixtures index) are discovered from the harness docs. |
-  | `harness.caseTemplate` | this skill's `references/case-template.md` | A repo-owned case template that replaces the generic contract. |
-  | `harness.lessons` | `.ai/lessons.md` | Indexed lessons file scanned in step 5; absent → skip step 5. |
-  | `harness.mandatoryTags` | cases the catalog marks mandatory | Safety cases always rerun in step 9. |
-  | `harness.onDemandContext` | `["**/references/**"]` | Globs counted toward *total* but not *initial* context budgets (case-template calibration). |
-  | `harness.defaultRunner` | — | Primary live runner when `--runner` is absent; none and no flag → ask. |
-  | `harness.commands.validateCase` | **required** | Deterministic check of one case — `{caseId}`. |
-  | `harness.commands.validateLive` | — | Live routing run of one case — `{caseId}`, `{runner}`. |
-  | `harness.commands.validateFamily` | — | All cases of one family — `{family}`. |
-  | `harness.commands.validateAll` | **required** | Deterministic catalog gate (schema, counts, budgets, consistency). |
-  | `harness.commands.fixture` | — | Prepare a disposable writable target — `{caseId}`, `{target}`. |
-  | `harness.commands.validateWritable` | — | Live writable oracle — `{caseId}`, `{runner}`, `{target}`. |
-  | `harness.commands.judge` | — | Isolated judge lane — `{result}`, `{target}`, `{runner}`; absent → invoke `om-judge-agent-session` on the result directly. |
-  | `harness.commands.release` | — | Full per-release suite — `{runner}`, `{targets}`, optional `{portabilityRunner}`. Absent → the change cannot be reported complete; say so. |
-  | `harness.commands.validateKnowledgeChange` | — | Machine validation manifest (knowledge-change step 9) — `{manifest}`, `{base}`. Absent → the manual controller procedure in `references/knowledge-change.md`. |
-  | `harness.commands.syncCheck` | — | Synchronization validation for generated/materialized copies (`asset-sync`). |
+  | Key                                        | Default                                    | Use                                                                                                                                                           |
+  | ------------------------------------------ | ------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+  | `harness.catalog`                          | `.ai/harness/cases.json`                   | The case catalog; its schema and adjacent files (validators, release matrix, fixtures index) are discovered from the harness docs.                            |
+  | `harness.caseTemplate`                     | this skill's `references/case-template.md` | A repo-owned case template that replaces the generic contract.                                                                                                |
+  | `harness.lessons`                          | `.ai/lessons.md`                           | Indexed lessons file scanned in step 5; absent → skip step 5.                                                                                                 |
+  | `harness.mandatoryTags`                    | cases the catalog marks mandatory          | Safety cases always rerun in step 9.                                                                                                                          |
+  | `harness.onDemandContext`                  | `["**/references/**"]`                     | Globs counted toward _total_ but not _initial_ context budgets (case-template calibration).                                                                   |
+  | `harness.defaultRunner`                    | —                                          | Primary live runner when `--runner` is absent; none and no flag → ask.                                                                                        |
+  | `harness.commands.validateCase`            | **required**                               | Deterministic check of one case — `{caseId}`.                                                                                                                 |
+  | `harness.commands.validateLive`            | —                                          | Live routing run of one case — `{caseId}`, `{runner}`.                                                                                                        |
+  | `harness.commands.validateFamily`          | —                                          | All cases of one family — `{family}`.                                                                                                                         |
+  | `harness.commands.validateAll`             | **required**                               | Deterministic catalog gate (schema, counts, budgets, consistency).                                                                                            |
+  | `harness.commands.fixture`                 | —                                          | Prepare a disposable writable target — `{caseId}`, `{target}`.                                                                                                |
+  | `harness.commands.validateWritable`        | —                                          | Live writable oracle — `{caseId}`, `{runner}`, `{target}`.                                                                                                    |
+  | `harness.commands.judge`                   | —                                          | Isolated judge lane — `{result}`, `{target}`, `{runner}`; absent → invoke `om-judge-agent-session` on the result directly.                                    |
+  | `harness.commands.release`                 | —                                          | Full per-release suite — `{runner}`, `{targets}`, optional `{portabilityRunner}`. Absent → the change cannot be reported complete; say so.                    |
+  | `harness.commands.validateKnowledgeChange` | —                                          | Machine validation manifest (knowledge-change step 9) — `{manifest}`, `{base}`. Absent → the manual controller procedure in `references/knowledge-change.md`. |
+  | `harness.commands.syncCheck`               | —                                          | Synchronization validation for generated/materialized copies (`asset-sync`).                                                                                  |
 
   ```bash
   jq -e '.harness' .ai/agentic.config.json >/dev/null 2>&1 || echo "no harness block"

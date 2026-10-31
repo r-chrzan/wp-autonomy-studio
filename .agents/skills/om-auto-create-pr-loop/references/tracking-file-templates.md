@@ -16,20 +16,25 @@ create the directory if it does not exist.
 **Last commit:** <sha> — <short subject>
 
 ## What just happened
+
 - <one or two bullets>
 
 ## Next concrete action
+
 - <one bullet: the exact next Step to start on>
 
 ## Blockers / open questions
+
 - <or "none">
 
 ## Environment caveats
+
 - Dev runtime runnable: <yes|no|unknown>
 - Browser / UI checks: <enabled|skipped because ...>
 - Database/migration state: <clean|dirty — describe>
 
 ## Worktree
+
 - Path: <worktree path>
 - Created this run: <yes|no>
 ```
@@ -42,6 +47,7 @@ create the directory if it does not exist.
 > Append-only log. Every entry is UTC-timestamped. Never rewrite prior entries.
 
 ## <UTC ISO-8601 timestamp> — run started
+
 - Brief: <one-line task summary>
 - External skill URLs: <list or "none">
 ```

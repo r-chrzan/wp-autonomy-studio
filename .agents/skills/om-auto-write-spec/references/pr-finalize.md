@@ -39,23 +39,28 @@ Source doc: ${SPEC_PATH}
 Status: complete
 
 ## 🎯 What changes
+
 {Who would gain what capability, what happens today, and why the change is needed.
 State that this PR delivers the design; implementation follows separately.}
 
 ## 📋 Scope
+
 {Where the proposal lands and how it affects shared systems or current consumers.
 Name dependencies on future work when they determine whether the design pays off.}
 
 ## ⚠️ Decision needed
+
 {Only if relevant: the direction call or assumption to confirm, the recommended
 choice and its tradeoff. Link the defaults comment for the full resolved table.
 Include every `⚠ NEEDS HUMAN CONFIRMATION` merge gate here.}
 
 ## 💥 Compatibility
+
 {Only when proposed contracts, schema, defaults or dependencies will be costly
 to reverse: who would be affected and the migration/rollback limits.}
 
 ## 🧪 Validation
+
 {Design checks actually completed and remaining uncertainties. Link current-app
 screenshots and proposed-UI mockups, clearly distinguished; if expected visuals
 could not be produced, state why. Do not imply mockups prove working behavior.}

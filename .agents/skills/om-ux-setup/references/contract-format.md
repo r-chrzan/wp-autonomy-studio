@@ -9,7 +9,10 @@ generates. Shapes below are the minimum; extra fields are allowed.
 {
   "version": 1,
   "framework": "next | react | vite-react | unknown",
-  "styling": { "system": "tailwind | css | css-in-js", "tokenSources": [{ "file": "src/app/globals.css", "tokenCount": 42 }] },
+  "styling": {
+    "system": "tailwind | css | css-in-js",
+    "tokenSources": [{ "file": "src/app/globals.css", "tokenCount": 42 }]
+  },
   "componentRoots": [{ "dir": "src/components", "fileCount": 12 }],
   "nativeEquivalents": [{ "element": "button", "component": "Button" }],
   "archetypes": [{ "kind": "list", "count": 8, "examples": ["src/app/orders/page.tsx"] }],
@@ -32,6 +35,7 @@ screen shapes) and a fenced manual section:
 
 ```markdown
 <!-- uxproof:manual-start -->
+
 The team's judgment calls live here and survive regeneration.
 <!-- uxproof:manual-end -->
 ```
@@ -62,6 +66,7 @@ an existing field.
 
   `version` is the stamp consumers compare with the installed dependency: a
   mismatch means the imported facts describe another release.
+
 - `contract.json` → `archetypes[]` may carry `anatomy` (a string naming the
   screen's regions in order and the components that fill them), `requiredStates`
   (state names every screen of that shape must cover, for example
@@ -81,24 +86,27 @@ The extractor never writes or reads this file, so a refresh cannot drop it.
 {
   "version": 1,
   "exemptMarker": "design-skip",
-  "rules": [{
-    "id": "no-raw-status-color",
-    "severity": "critical | warning | info",
-    "files": ["**/*.tsx"],
-    "forbid": "<extended regex matched per line>",
-    "unless": "<optional regex; a match on the same line exempts it>",
-    "fix": "<the token, component, or pattern to use instead>",
-    "why": "<one line: the user-visible consequence>",
-    "origin": "<layer name; absent for team-authored rules>"
-  }, {
-    "id": "list-needs-empty-state",
-    "severity": "critical",
-    "files": ["**/page.tsx"],
-    "when": "<regex: the file is of this shape>",
-    "require": "<regex the same file must also match>",
-    "fix": "<...>",
-    "why": "<...>"
-  }]
+  "rules": [
+    {
+      "id": "no-raw-status-color",
+      "severity": "critical | warning | info",
+      "files": ["**/*.tsx"],
+      "forbid": "<extended regex matched per line>",
+      "unless": "<optional regex; a match on the same line exempts it>",
+      "fix": "<the token, component, or pattern to use instead>",
+      "why": "<one line: the user-visible consequence>",
+      "origin": "<layer name; absent for team-authored rules>"
+    },
+    {
+      "id": "list-needs-empty-state",
+      "severity": "critical",
+      "files": ["**/page.tsx"],
+      "when": "<regex: the file is of this shape>",
+      "require": "<regex the same file must also match>",
+      "fix": "<...>",
+      "why": "<...>"
+    }
+  ]
 }
 ```
 
