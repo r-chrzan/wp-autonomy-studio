@@ -93,3 +93,13 @@ Removed: `packages/app/e2e/`, `packages/app/playwright.config.ts`, `packages/db/
   `!github.event.repository.private` guard now passes) and branch protection is available.
 - Plan: green run on PR #1 with all checks, then protect `main` (required checks, PR required),
   squash-merge PR #1, sync local `main`.
+- PR #1 had already been merged by the user (2026-10-21, `35bbe43`); CI on `main` passed then.
+  The closing-notes commit was cherry-picked onto `docs/close-phase-1` → PR #2.
+- First run on the public repo: everything passed except dependency review ("Dependency graph is
+  not enabled"). Enabled Dependabot alerts (turns on the dependency graph), secret scanning and
+  push protection; reran the job: all 8 checks green, CodeQL included.
+- `main` protected: the 7 checks required (strict), PR required (0 approvals, solo
+  repo), admins included, linear history, no force-push or deletion, conversations resolved.
+  Repo merges: squash only, branch deleted on merge.
+- Merging PR #2 was blocked by the agent's permission policy (merge without review); left for
+  the user.
