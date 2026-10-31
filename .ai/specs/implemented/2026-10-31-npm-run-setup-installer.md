@@ -1,6 +1,6 @@
 # Idempotent `npm run setup` installer
 
-- **Status:** draft
+- **Status:** implemented
 - **Created:** 2026-10-31
 - **Issue:** #5
 

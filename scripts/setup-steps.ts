@@ -1,7 +1,7 @@
 import { parseEnv } from "node:util";
 
 /**
- * The installer behind `npm run setup` (spec: .ai/specs/2026-10-31-npm-run-setup-installer.md).
+ * The installer behind `npm run setup` (spec: .ai/specs/implemented/2026-10-31-npm-run-setup-installer.md).
  * It runs before `npm install`, so it may only use Node built-ins. Everything that touches the
  * system arrives through `SetupDeps`, which keeps every step unit-testable.
  */
