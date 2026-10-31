@@ -74,6 +74,19 @@ describe("setup entry", () => {
     vi.unstubAllEnvs();
   });
 
+  it("spawns plain npm when npm_execpath belongs to another runner", () => {
+    vi.stubEnv("npm_execpath", "/usr/local/bin/pnpm");
+    mocks.spawnSync.mockReturnValueOnce({ status: 0, stdout: "" });
+
+    deps.exec("npm", ["install"]);
+
+    expect(mocks.spawnSync).toHaveBeenLastCalledWith("npm", ["install"], {
+      stdio: "inherit",
+      encoding: "utf8",
+    });
+    vi.unstubAllEnvs();
+  });
+
   it("reports a command that could not be started", () => {
     mocks.spawnSync.mockReturnValueOnce({ status: null, stdout: null, error: new Error("ENOENT") });
 

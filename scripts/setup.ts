@@ -12,9 +12,12 @@ export function createRealDeps(): SetupDeps {
     exec: (command, args, options) => {
       // On Windows `npm` is a .cmd shim that spawnSync can't start without a shell, so run npm's
       // own CLI script with the current node instead; npm sets npm_execpath under `npm run`.
+      // Other runners (pnpm, bun) set it to their own binary, so only trust npm's script.
       const npmCli = process.env.npm_execpath;
       const [file, fileArgs] =
-        command === "npm" && npmCli ? [process.execPath, [npmCli, ...args]] : [command, args];
+        command === "npm" && npmCli?.endsWith("npm-cli.js")
+          ? [process.execPath, [npmCli, ...args]]
+          : [command, args];
       // Node's types omit that `stdout` is null when stdio is inherited.
       const result: { status: number | null; stdout: string | null; error?: Error } = spawnSync(
         file,
