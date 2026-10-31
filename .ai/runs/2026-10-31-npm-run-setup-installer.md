@@ -65,7 +65,20 @@ no split).
 - Not exercised for real: starting the database with Docker from scratch. Stopping the user's
   running database was out of scope. The unit tests cover it.
 
+## Review
+
+- `om-auto-review-pr` (fresh-context reviewer) found 1 major and 3 minor issues:
+  - Windows `npm.cmd` spawn;
+  - IPv6 brackets;
+  - swallowed spawn errors;
+  - untested DATABASE_URL edge cases.
+- Fixed in 88bb48b.
+- A pnpm/bun `npm_execpath` nit was fixed in 5acceb8.
+- Re-review: approve. The spec's Q3 rationale was corrected on #6 (ca61153).
+
 ## Progress
+
+PR: #7
 
 > Convention: `- [ ]` pending, `- [x]` done. Append ` — <commit sha>` when a step lands. Do not rename step titles.
 
