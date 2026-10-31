@@ -159,9 +159,9 @@ One phase. The installer and README change ship together on one PR.
 
 ## 📝 Resolved assumptions (autonomous defaults)
 
-| #   | Question                                       | Default                                    | Rationale                                                                                  |
-| --- | ---------------------------------------------- | ------------------------------------------ | ------------------------------------------------------------------------------------------ |
-| Q1  | Should `setup` start `npm run dev` at the end? | No: print the command                      | Keeps the script terminating and usable unattended; starting the server is one command.    |
-| Q2  | A `--force` flag to recreate `.env` files?     | No flag                                    | Least new surface; deleting the file and rerunning does the same thing.                    |
-| Q3  | Platform support                               | macOS/Linux supported; Windows best-effort | Matches the README; `spawnSync` without a shell is not POSIX-specific, but it is untested. |
-| Q4  | Split into separate specs?                     | No                                         | The installer and its README section don't work independently of each other.               |
+| #   | Question                                       | Default                                    | Rationale                                                                                                                                       |
+| --- | ---------------------------------------------- | ------------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------- |
+| Q1  | Should `setup` start `npm run dev` at the end? | No: print the command                      | Keeps the script terminating and usable unattended; starting the server is one command.                                                         |
+| Q2  | A `--force` flag to recreate `.env` files?     | No flag                                    | Least new surface; deleting the file and rerunning does the same thing.                                                                         |
+| Q3  | Platform support                               | macOS/Linux supported; Windows best-effort | Matches the README. npm is spawned as `node $npm_execpath` because Windows `npm.cmd` can't be spawned without a shell, but Windows is untested. |
+| Q4  | Split into separate specs?                     | No                                         | The installer and its README section don't work independently of each other.                                                                    |
