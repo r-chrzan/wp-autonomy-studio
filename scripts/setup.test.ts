@@ -60,7 +60,32 @@ describe("setup entry", () => {
     expect(deps.nodeVersion).toBe(process.version);
   });
 
+  it("runs npm through npm's own CLI script with the current node", () => {
+    vi.stubEnv("npm_execpath", "/npm/bin/npm-cli.js");
+    mocks.spawnSync.mockReturnValueOnce({ status: 0, stdout: "" });
+
+    deps.exec("npm", ["run", "db:migration:up"]);
+
+    expect(mocks.spawnSync).toHaveBeenLastCalledWith(
+      process.execPath,
+      ["/npm/bin/npm-cli.js", "run", "db:migration:up"],
+      { stdio: "inherit", encoding: "utf8" },
+    );
+    vi.unstubAllEnvs();
+  });
+
+  it("reports a command that could not be started", () => {
+    mocks.spawnSync.mockReturnValueOnce({ status: null, stdout: null, error: new Error("ENOENT") });
+
+    expect(deps.exec("docker", ["info"], { capture: true })).toEqual({
+      status: 1,
+      stdout: "",
+      error: "ENOENT",
+    });
+  });
+
   it("execs without a shell, inheriting or capturing output", () => {
+    vi.stubEnv("npm_execpath", "");
     mocks.spawnSync.mockReturnValueOnce({ status: 0, stdout: null });
     expect(deps.exec("npm", ["install"])).toEqual({ status: 0, stdout: "" });
     expect(mocks.spawnSync).toHaveBeenLastCalledWith("npm", ["install"], {
@@ -74,6 +99,7 @@ describe("setup entry", () => {
       stdio: ["ignore", "pipe", "pipe"],
       encoding: "utf8",
     });
+    vi.unstubAllEnvs();
   });
 
   it("maps the filesystem helpers onto node:fs", () => {

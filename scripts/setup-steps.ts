@@ -6,7 +6,8 @@ import { parseEnv } from "node:util";
  * system arrives through `SetupDeps`, which keeps every step unit-testable.
  */
 
-export type ExecResult = { status: number; stdout: string };
+/** `error` is set when the command could not be started at all (e.g. not on PATH). */
+export type ExecResult = { status: number; stdout: string; error?: string };
 
 export type SetupDeps = {
   /** Runs a command without a shell. `capture` collects stdout; otherwise output is inherited. */
@@ -37,9 +38,14 @@ const NO_PENDING_MIGRATIONS = "No pending migrations";
 
 class SetupError extends Error {}
 
+function failure(result: ExecResult, hint: string): SetupError {
+  return new SetupError(result.error ? `${hint} (${result.error})` : hint);
+}
+
 function runOrFail(deps: SetupDeps, command: string, args: readonly string[], hint: string): void {
-  if (deps.exec(command, args).status !== 0) {
-    throw new SetupError(hint);
+  const result = deps.exec(command, args);
+  if (result.status !== 0) {
+    throw failure(result, hint);
   }
 }
 
@@ -65,16 +71,25 @@ function databaseAddress(deps: SetupDeps): { host: string; port: number } {
   if (!url) {
     throw new SetupError("DATABASE_URL is not set in .env (see .env.example).");
   }
-  const { hostname, port } = new URL(url);
-  return { host: hostname, port: port ? Number(port) : DEFAULT_PG_PORT };
+  let parsed: URL;
+  try {
+    parsed = new URL(url);
+  } catch {
+    throw new SetupError("DATABASE_URL in .env is not a valid URL (see .env.example).");
+  }
+  // URL keeps IPv6 hosts bracketed ("[::1]"); net.createConnection wants them bare.
+  const host = parsed.hostname.replace(/^\[(.*)\]$/, "$1");
+  return { host, port: parsed.port ? Number(parsed.port) : DEFAULT_PG_PORT };
 }
 
 function startDatabase(deps: SetupDeps): void {
-  if (deps.exec("docker", ["info"], { capture: true }).status !== 0) {
-    throw new SetupError("Docker is not running. Start Docker Desktop (or the daemon) and rerun.");
+  const info = deps.exec("docker", ["info"], { capture: true });
+  if (info.status !== 0) {
+    throw failure(info, "Docker is not running. Start Docker Desktop (or the daemon) and rerun.");
   }
-  if (deps.exec("docker", ["compose", "version"], { capture: true }).status !== 0) {
-    throw new SetupError("Docker Compose v2 is required (`docker compose version` failed).");
+  const compose = deps.exec("docker", ["compose", "version"], { capture: true });
+  if (compose.status !== 0) {
+    throw failure(compose, "Docker Compose v2 is required (`docker compose version` failed).");
   }
   runOrFail(
     deps,

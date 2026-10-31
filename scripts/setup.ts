@@ -10,13 +10,23 @@ const CONNECT_TIMEOUT_MS = 1000;
 export function createRealDeps(): SetupDeps {
   return {
     exec: (command, args, options) => {
+      // On Windows `npm` is a .cmd shim that spawnSync can't start without a shell, so run npm's
+      // own CLI script with the current node instead; npm sets npm_execpath under `npm run`.
+      const npmCli = process.env.npm_execpath;
+      const [file, fileArgs] =
+        command === "npm" && npmCli ? [process.execPath, [npmCli, ...args]] : [command, args];
       // Node's types omit that `stdout` is null when stdio is inherited.
-      const result: { status: number | null; stdout: string | null } = spawnSync(command, args, {
-        stdio: options?.capture ? ["ignore", "pipe", "pipe"] : "inherit",
-        encoding: "utf8",
-      });
+      const result: { status: number | null; stdout: string | null; error?: Error } = spawnSync(
+        file,
+        fileArgs,
+        { stdio: options?.capture ? ["ignore", "pipe", "pipe"] : "inherit", encoding: "utf8" },
+      );
       // `status` is null when the command is missing or killed by a signal.
-      return { status: result.status ?? 1, stdout: result.stdout ?? "" };
+      return {
+        status: result.status ?? 1,
+        stdout: result.stdout ?? "",
+        ...(result.error ? { error: result.error.message } : {}),
+      };
     },
     exists: (path) => existsSync(path),
     mtimeMs: (path) => statSync(path).mtimeMs,

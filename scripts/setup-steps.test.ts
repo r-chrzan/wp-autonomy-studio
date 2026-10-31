@@ -174,6 +174,42 @@ describe("runSetup", () => {
     expect(env.connections).toEqual(["localhost:5432"]);
   });
 
+  it.each([
+    ["an IPv6 host without brackets", "DATABASE_URL=postgresql://u:p@[::1]:5433/db", "::1:5433"],
+    ["a quoted value", 'DATABASE_URL="postgresql://u:p@db.local:5434/db"', "db.local:5434"],
+    ["an export prefix", "export DATABASE_URL=postgresql://u:p@db.local/db", "db.local:5432"],
+  ])("reads DATABASE_URL with %s", async (_name, envFile, address) => {
+    const env = fakeEnv({
+      files: { ...doneCheckout, ".env": `${envFile}\n` },
+      exec: noPending,
+      dbUp: true,
+    });
+
+    await runSetup(env.deps);
+
+    expect(env.connections).toEqual([address]);
+  });
+
+  it("stops with a hint when DATABASE_URL is not a valid URL", async () => {
+    const env = fakeEnv({ files: { ...doneCheckout, ".env": "DATABASE_URL=not a url\n" } });
+
+    await expect(runSetup(env.deps)).resolves.toBe(1);
+
+    expect(env.lines.at(-1)).toBe(
+      "✖ Start the database: DATABASE_URL in .env is not a valid URL (see .env.example).",
+    );
+  });
+
+  it("includes the spawn error when a command cannot start", async () => {
+    const env = fakeEnv({ exec: { "docker info": { status: 1, error: "spawn docker ENOENT" } } });
+
+    await expect(runSetup(env.deps)).resolves.toBe(1);
+
+    expect(env.lines.at(-1)).toBe(
+      "✖ Start the database: Docker is not running. Start Docker Desktop (or the daemon) and rerun. (spawn docker ENOENT)",
+    );
+  });
+
   it("applies migrations when the pending check fails or lists migrations", async () => {
     for (const pending of [{ status: 1 }, { stdout: "│ Migration20261020 │" }]) {
       const env = fakeEnv({
